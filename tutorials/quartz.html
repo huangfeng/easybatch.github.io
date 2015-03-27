@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Easy Batch &bull; Job scheduling with Quartz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Mahmoud Ben Hassine">
+    <meta name="description" content="open source lightweight batch processing framework for Java">
+    <meta name="keyword" content="java, batch, batch processing, open source">
+
+    <!-- Bootstrap CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Plugins -->
+    <link href="../css/highlight/default.css" media="screen" rel="stylesheet" />
+    <link href="../css/clingify/clingify.css" rel="stylesheet">
+
+    <!-- Theme style -->
+    <link href="../css/theme-style.min.css" rel="stylesheet">
+
+    <!--Your custom colour override-->
+    <link href="../css/colour-blue.css" id="colour-scheme" rel="stylesheet">
+
+    <!-- Your custom override -->
+    <link href="../css/custom-style.css" rel="stylesheet">
+
+    <!-- HTML5 shiv & respond.js for IE6-8 support of HTML5 elements & media queries -->
+    <!--[if lt IE 9]>
+    <script src="../js/plugins/html5shiv/html5shiv.js"></script>
+    <script src="../js/plugins/respond/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="shortcut icon" href="../img/misc/gear.ico">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300|Rambla|Calligraffitti' rel='stylesheet' type='text/css'>
+
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-35599235-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+
+</head>
+<body class="page page-index-static">
+
+<a href="#content" class="sr-only">Skip to content</a>
+<div id="navigation" class="wrapper">
+    <div class="navbar-static-top">
+
+        <!--Header & Branding region-->
+        <div class="header">
+            <div class="header-inner container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <!--branding/logo-->
+                        <a class="navbar-brand" href="../index.html" title="Home">
+                            <h1><span>Easy</span>Batch</h1>
+                        </a>
+                        <div class="slogan">Batch processing with Java made easy</div>
+                    </div>
+                    <div class="col-md-4">
+                        <!--social media icons-->
+                        <div class="social-media">
+                            <a href="https://github.com/benas/easy-batch" title="View on GitHub" target="_blank"><i class="fa fa-github"></i></a>
+                            <a href="https://twitter.com/intent/tweet?url=http://www.easybatch.org/&text=Easy%20Batch:%20batch%20processing%20with%20Java%20made%20easy&via=md_benhassine" title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="https://plus.google.com/share?url=http://www.easybatch.org&text=Easy%20Batch:%20batch%20processing%20with%20Java%20made%20easy" title="Share on Google+" target="_blank"><i class="fa fa-google-plus"></i></a>
+                            <a href="https://gitter.im/benas/easy-batch" title="Chat on Gitter" target="_blank"><i class="fa fa-comment"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container" data-toggle="clingify">
+            <div class="navbar">
+                <!--
+              mobile collapse menu button
+              - data-toggle="toggle" = default BS menu
+              - data-toggle="jpanel-menu" = jPanel Menu
+              -->
+                <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
+
+                <!--user menu-->
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.0</a> </div>
+
+                <!--everything within this div is collapsed on mobile-->
+                <div class="navbar-collapse collapse">
+
+                    <!--main navigation-->
+                    <ul class="nav navbar-nav">
+                        <li><a href="../index.html"><i class="fa fa-home fa-lg"></i> Home</a></li>
+                        <li class="dropdown"> <a href="#" class="dropdown-toggle menu-item" id="features-drop" data-toggle="dropdown"><i class="fa fa-book fa-lg" ></i> Documentation +</a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="about-drop">
+                                <li role="presentation"><a role="menuitem" href="../documentation/getting-started.html" class="menu-item"><i class="fa fa-play fa-lg"></i> Getting started</a></li>
+                                <li role="presentation"><a role="menuitem" href="../documentation/architecture.html" tabindex="-1" class="menu-item"><i class="fa fa-flask fa-lg"></i> Architecture</a></li>
+                                <li role="presentation"><a role="menuitem" href="../documentation/user-guide.html" tabindex="-1" class="menu-item"><i class="fa fa-book fa-lg"></i> User guide</a></li>
+                                <li role="presentation"><a role="menuitem" href="../api/index.html" tabindex="-1" class="menu-item" target="_blank"><i class="fa fa-folder-open fa-lg"></i> API docs</a></li>
+                                <li role="presentation"><a role="menuitem" href="../documentation/faq.html" tabindex="-1" class="menu-item"><i class="fa fa-question-circle fa-lg"></i> FAQs</a></li>
+                                <li role="presentation"><a role="menuitem" href="https://speakerdeck.com/benas/easy-batch" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-video-camera fa-lg"></i> Presentation slides</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="../tutorials/index.html" class="menu-item"><i class="fa fa-code fa-lg"></i> Tutorials</a></li>
+                        <li class="dropdown"> <a href="" class="dropdown-toggle" id="about-drop" data-toggle="dropdown"><i class="fa fa-thumbs-o-up fa-lg"></i> Get involved +</a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="about-drop">
+                                <li role="presentation"><a role="menuitem" href="https://github.com/benas/easy-batch" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-github fa-lg"></i> Source repository</a></li>
+                                <li role="presentation"><a role="menuitem" href="https://github.com/benas/easy-batch/issues" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-bug fa-lg"></i> Issue tracker</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+                <!--/.navbar-collapse -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="content">
+    <div class="container">
+
+        <!-- breadcrumb -->
+<ul class="breadcrumb">
+    <li><a href="../index.html">Home</a></li>
+    
+    <li><a href="../tutorials/index.html">Tutorials</a></li>
+    
+    
+    <li class="active">Job scheduling with Quartz</li>
+</ul>
+
+        <div class="row">
+            <div class="col-md-9">
+
+                <h1 class="title-divider"><span>Job scheduling with Quartz</span></h1>
+
+                              <h2>1. Introduction</h2>
+
+              <p>Easy Batch engine implements the <code><em>java.util.concurrent.Callable</em></code> interface so it can be easily scheduled
+                  using the <code><em>java.util.concurrent.ScheduledExecutorService</em></code> API. Here is a quick example:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Engine engine = new EngineBuilder().build();
+ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(5);
+ScheduledFuture scheduledFuture = scheduledExecutorService.schedule(engine, 5, TimeUnit.SECONDS);</code></pre>
+</div>
+
+              <p>The <code><em>java.util.concurrent.ScheduledExecutorService</em></code> is limited in terms of scheduling features, that's why Easy Batch provides an integration module with the popular Java scheduler <a href="http://quartz-scheduler.org/" target="_blank">Quartz</a>.</p>
+
+              <p>In this tutorial, you will learn how to schedule an Easy Batch instance using the built-in <code><em>EasyBatchScheduler</em></code> API.</p>
+             <p>This API acts as a bridge so that you do not need to deal with Quartz low level APIs.</p>
+
+<h2>2. What you’ll need</h2>
+
+<ul>
+    <li>JDK 1.6+</li>
+    <li>Maven</li>
+    <li>Git (Optional)</li>
+    <li>Your favorite IDE (Optional)</li>
+</ul>
+
+              <h2 id="quartzTutorial">3. Try it out</h2>
+
+              <p>First, you need to add the <code>easybatch-quartz</code> module to your project dependencies:</p>
+
+        <div class="bs-callout bs-callout-code">
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
+    &lt;artifactId&gt;easybatch-quartz&lt;/artifactId&gt;
+    &lt;version&gt;3.0.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+        </div>
+              <p>Then you can use the <code><em>EasyBatchScheduler</em></code> API to schedule Easy Batch executions:</p>
+              <ul>
+                  <li>At a fixed point of time using <code><em>scheduleAt(Date when)</em></code></li>
+                  <li>Repeatedly with predefined interval using <code><em>scheduleAtWithInterval(Date when, int interval)</em></code></li>
+                  <li>Using unix cron-like expression with <code><em>scheduleCron(String cronExpression)</em></code></li>
+              </ul>
+
+              <p>For all details about these APIs, please refer to the Javadoc of the <code>org.easybatch.tools.scheduling</code> package.</p>
+
+              <p>The listing below shows how to schedule the <a href="./helloworld.html" target="_blank">Hello World tutorial</a> to run every minute:</p>
+
+        <div class="bs-callout bs-callout-code">
+<pre><code class="java">public class Launcher {
+
+    public static void main(String[] args) throws Exception {
+
+        // Create the data source
+        String dataSource =
+            "1,foo,easy batch rocks! #EasyBatch\n" +
+            "2,bar,@foo I do confirm :-)";
+
+        // Build a batch engine
+        Engine engine = new EngineBuilder()
+            .reader(new StringRecordReader(dataSource))
+            .processor(new TweetProcessor())
+            .build();
+
+        <strong>// Schedule the engine to start now and run every minute
+        BatchScheduler scheduler = new BatchScheduler(engine);
+        scheduler.scheduleAtWithInterval(new Date(), 1);
+        scheduler.start();</strong>
+    }
+}</code></pre>
+        </div>
+
+<h2>4. Run the tutorial</h2>
+
+<h3>4.1 From the command line</h3>
+
+<p>To run the tutorial from scratch, follow these steps:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code>$>git clone https://github.com/benas/easy-batch.git
+$>cd easy-batch
+$>mvn install
+$>cd easybatch-tutorials
+$>mvn exec:java -PrunQuartzTutorial
+</code></pre>
+</div>
+
+<p>If everything is ok, you will see in the console that Easy Batch engine will run every minute.</p>
+
+<h3>4.2 From your IDE</h3>
+
+<p>First, you need to checkout the source code of the tutorial available <a href="https://github.com/benas/easy-batch/tree/master/easybatch-tutorials/src/main/java/org/easybatch/tutorials/advanced/quartz" target="_blank">here</a>:</p>
+
+<div class="bs-callout bs-callout-code">
+    <pre><code>$>git clone https://github.com/benas/easy-batch.git</code></pre>
+</div>
+
+<p>If you do not have git installed, you can download a zip file containing the project's source code from GitHub
+    <a href="https://github.com/benas/easy-batch/archive/easybatch-3.0.0.zip">here</a>.</p>
+
+<p>Then, import the <code><em>easybatch-tutorials</em></code> module in you favorite IDE and resolve maven dependencies.</p>
+
+<p>Finally, run the <code><em>org.easybatch.tutorials.advanced.quartz.Launcher</em></code> class without any argument.</p>
+
+<h2>5. Summary</h2>
+
+<p>In this tutorial, you have learned how to schedule job executions using the Quartz integration module provided by Easy Batch.
+    Thanks to this module, you can configure job scheduling without the need to deal with Quartz's low level API.</p>
+
+<h2>6. What's next?</h2>
+
+<p>If you are a <a href="http://spring.io" target="_blank">Spring</a> fan, the next tutorial is for you! You will learn how to configure Easy Batch as a Spring bean.</p>
+
+<nav>
+    <ul class="pager">
+        <li class="previous"><a href="./jmx.html"><span aria-hidden="true">&larr;</span> Job monitoring with JMX</a></li>
+        <li class="next"><a href="./spring.html">Job configuration with Spring <span aria-hidden="true">&rarr;</span></a></li>
+    </ul>
+</nav>
+
+
+            </div>
+
+            <div class="col-md-3 sidebar-right">
+                <!-- <div class="inner" data-spy="affix" data-offset-top="40" data-offset-bottom="300"> -->
+<div class="inner">
+<ul class="list-lg">
+    <li class="sidebar-separator">About Easy Batch</li>
+    <li >
+        <a href="../index.html">Overview</a>
+    </li>
+    <li >
+        <a href="../release-notes.html">Release notes</a>
+    </li>
+    <li class="sidebar-separator">Documentation</li>
+    <li >
+        <a href="../documentation/getting-started.html">Getting started</a>
+    </li>
+    <li >
+        <a href="../documentation/architecture.html">Architecture</a>
+    </li>
+    <li >
+        <a href="../documentation/user-guide.html">User guide</a>
+    </li>
+    <li  class="active" >
+        <a href="../tutorials/index.html">Tutorials</a>
+    </li>
+    <li>
+        <a href="../api/index.html" target="_blank">API docs</a>
+    </li>
+    <li >
+        <a href="../documentation/faq.html">FAQs</a>
+    </li>
+    <li>
+        <a href="https://speakerdeck.com/benas/easy-batch" target="_blank">Presentation slides</a>
+    </li>
+    <li class="sidebar-separator">Get involved</li>
+    <li>
+        <a href="https://github.com/benas/easy-batch" target="_blank">Source repository</a>
+    </li>
+    <li>
+        <a href="https://github.com/benas/easy-batch/issues" target="_blank">Issue tracker</a>
+    </li>
+</ul>
+</div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<!-- FOOTER -->
+<footer id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col">
+                <div class="block contact-block">
+                    <h3>Documentation</h3>
+                    <ul class="fa-ul">
+                        <li><a href="../documentation/getting-started.html"><i class="fa fa-li fa-play"></i> Getting started</a></li>
+                        <li><a href="../documentation/architecture.html"><i class="fa fa-li fa-flask"></i> Architecture</a></li>
+                        <li><a href="../documentation/user-guide.html"><i class="fa fa-li fa-book"></i> User guide</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 col">
+                <div class="block contact-block">
+                    <h3>Tutorials</h3>
+                    <ul class="fa-ul">
+                    <li><a href="../tutorials/index.html#basic"><i class="fa fa-li fa-star-o"></i> Basic tutorials</a></li>
+                        <li><a href="../tutorials/index.html#intermediate"><i class="fa fa-li fa-star-half-o"></i> Intermediate tutorials</a></li>
+                        <li><a href="../tutorials/index.html#advanced"><i class="fa fa-li fa-star"></i> Advanced Tutorials</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 col">
+                <div class="block contact-block">
+                    <h3>Get involved</h3>
+                    <ul class="fa-ul">
+                        <li><a href="https://github.com/benas/easy-batch" target="_blank"><i class="fa fa-li fa-github"></i> Source repository</a></a></li>
+                        <li><a href="https://github.com/benas/easy-batch/issues" target="_blank"><i class="fa fa-li fa-bug"></i> Issue tracker</a></li>
+                        <li><a href="../documentation/faq.html"><i class="fa fa-li fa-question"></i> FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 col">
+                <div class="block contact-block">
+                    <h3>Become a friend</h3>
+                    <ul class="fa-ul">
+                        <li><a href="https://twitter.com/intent/tweet?url=http://www.easybatch.org/&text=Easy%20Batch:%20batch%20processing%20with%20Java%20made%20easy&via=md_benhassine" target="_blank"><i class="fa fa-li fa-twitter"></i> Share it on Twitter</a></a></li>
+                        <li><a href="https://plus.google.com/share?url=http://www.easybatch.org&text=Easy%20Batch:%20batch%20processing%20with%20Java%20made%20easy" target="_blank"><i class="fa fa-li fa-google-plus"></i> Share it on Google+</a></a></li>
+                        <li><a href="https://github.com/benas/easy-batch" target="_blank"><i class="fa fa-li fa-heart"></i> Star it on GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <br>
+        <p class="back-top floatright" style="display: none;">
+            <a href="#top"><span></span></a>
+        </p>
+
+        <div class="row">
+            <div id="toplink"><a href="#top" class="top-link" title="Back to top">Back To Top <i class="fa fa-chevron-up"></i></a></div>
+
+            <div class="subfooter">
+                <br>
+                <div class="col-md-4">
+                    <p>&copy; Easy Batch is created by <a href="http://www.mahmoud-benhassine.fr" target="_blank">Mahmoud Ben Hassine</a> <br>
+                    and the <a href="https://github.com/benas/easy-batch#awesome-contributors" target="_blank">awesome contributors</a></p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <iframe src="http://ghbtns.com/github-btn.html?user=benas&repo=easy-batch&type=watch&count=true"
+                            allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+                    <iframe src="http://ghbtns.com/github-btn.html?user=benas&repo=easy-batch&type=fork&count=true"
+                            allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
+                </div>
+                <div class="col-md-4">
+                    <p class="footer-menu">Easy Batch is open source and is released <br> under the terms of the <a href="http://opensource.org/licenses/mit-license.php/" target="_blank">MIT license</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!--Scripts -->
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery-migrate-1.2.1.min.js"></script> <!--Legacy jQuery support for quicksand plugin-->
+
+<!-- Bootstrap JS -->
+<script src="../js/bootstrap.min.js"></script>
+
+<!--JS plugins-->
+<script src="../js/plugins/clingify/jquery.clingify.min.js"></script>
+<script src="../js/plugins/jRespond/jRespond.js"></script>
+
+<!--Custom scripts mainly used to trigger libraries -->
+<script src="../js/script.min.js"></script>
+<script src="../js/scrolltotop.js"></script>
+<script src="../js/homeScroll.js"></script>
+<script src="../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

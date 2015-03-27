@@ -1,0 +1,12 @@
+org.easybatch.core.api
+org.easybatch.core.api.event.batch
+org.easybatch.core.api.event.step
+org.easybatch.core.dispatcher
+org.easybatch.core.filter
+org.easybatch.core.impl
+org.easybatch.core.jmx
+org.easybatch.core.mapper
+org.easybatch.core.mapper.converter
+org.easybatch.core.reader
+org.easybatch.core.record
+org.easybatch.core.util
