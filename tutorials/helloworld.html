@@ -212,7 +212,7 @@ Engine engine = new EngineBuilder()
         <div class="bs-callout bs-callout-warning">
             <h5><i class="fa fa-info-circle"></i> Heads up!</h5>
             <p>The record processor returns the record at the end of <code><em>processRecord()</em></code> method. This allows the record to be piped out to the next processor in the pipeline if any.
-                We have only one processor in this tutorial, you will see how to build a data processing pipeline later on in <a href="./pipeline.html">this tutorial</a>.</p>
+                We have only one processor in this tutorial, you will see how to build a data processing pipeline later on in <a href="./pipeline.html" target="_blank">this tutorial</a>.</p>
         </div>
 
         <h2>5. Putting it all together</h2>
@@ -261,11 +261,12 @@ Engine engine = new EngineBuilder()
         <div class="col-md-6">
             <p>To run the tutorial from scratch, you can follow these instructions:</p>
             <div class="bs-callout bs-callout-code">
-<pre><code>$>git clone https://github.com/EasyBatch/easybatch-framework.git
-$>cd easy-batch
-$>mvn install
+<pre><code>$>git clone https://github.com/EasyBatch/easybatch-tutorials.git
 $>cd easybatch-tutorials
+$>mvn install
 $>mvn exec:java -PrunHelloWorldTutorial
+
+
 
 
 </code></pre>
@@ -289,14 +290,14 @@ INFO: Shutting down easy batch engine</code></pre>
 
         <h3>6.2 From your IDE</h3>
 
-        <p>First, you need to checkout the source code of the tutorial available <a href="https://github.com/EasyBatch/easybatch-framework/tree/master/easybatch-tutorials/src/main/java/org/easybatch/tutorials/basic/helloworld" target="_blank">here</a>:</p>
+        <p>First, you need to checkout the source code of the tutorial available <a href="https://github.com/EasyBatch/easybatch-tutorials/tree/master/src/main/java/org/easybatch/tutorials/basic/helloworld" target="_blank">here</a>:</p>
 
 <div class="bs-callout bs-callout-code">
-<pre><code>$>git clone https://github.com/EasyBatch/easybatch-framework.git</code></pre>
+<pre><code>$>git clone https://github.com/EasyBatch/easybatch-tutorials.git</code></pre>
 </div>
 
         <p>If you do not have git installed, you can download a zip file containing the project's source code from GitHub
-            <a href="https://github.com/EasyBatch/easybatch-framework/archive/easybatch-3.0.0.zip">here</a>.</p>
+            <a href="https://github.com/EasyBatch/easybatch-tutorials/archive/master.zip">here</a>.</p>
 
         <p>Then, import the <code><em>easybatch-tutorials</em></code> module in you favorite IDE and resolve maven dependencies.</p>
 
