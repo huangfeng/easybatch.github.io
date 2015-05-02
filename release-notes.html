@@ -93,7 +93,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.0</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.1</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -108,7 +108,7 @@
                                 <li role="presentation"><a role="menuitem" href="../documentation/user-guide.html" tabindex="-1" class="menu-item"><i class="fa fa-book fa-lg"></i> User guide</a></li>
                                 <li role="presentation"><a role="menuitem" href="../api/index.html" tabindex="-1" class="menu-item" target="_blank"><i class="fa fa-folder-open fa-lg"></i> API docs</a></li>
                                 <li role="presentation"><a role="menuitem" href="../documentation/faq.html" tabindex="-1" class="menu-item"><i class="fa fa-question-circle fa-lg"></i> FAQs</a></li>
-                                <li role="presentation"><a role="menuitem" href="https://speakerdeck.com/benas/easy-batch" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-video-camera fa-lg"></i> Presentation slides</a></li>
+                                <li role="presentation"><a role="menuitem" href="https://speakerdeck.com/EasyBatch/easybatch-framework" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-video-camera fa-lg"></i> Presentation slides</a></li>
                             </ul>
                         </li>
                         <li><a href="../tutorials/index.html" class="menu-item"><i class="fa fa-code fa-lg"></i> Tutorials</a></li>
@@ -145,12 +145,31 @@
 
                 <h1 class="title-divider"><span>Release notes</span></h1>
 
-                              <h2><i class="fa fa-tag"></i> Current version : 3.0.0 (2015-03-01)</h2>
+                              <h2 id="3.0.1"><i class="fa fa-tag"></i> Current version : 3.0.1 (2015-05-03)</h2>
 
-              <p>This is the best release of Easy Batch framework so far.
-                  This major release has added/removed/renamed many classes and interfaces to provide a more flexible and consistent API.</p>
+                <p>This is a bug fix release that addresses the following issues:</p>
 
-              <p>The main features of this new release are:</p>
+                    <ul>
+                        <li>Issue <a href="https://github.com/EasyBatch/easybatch-framework/issues/46" target="_blank">#46</a>: Unable to run multiple BatchSchedulers</li>
+                        <li>Issue <a href="https://github.com/EasyBatch/easybatch-framework/issues/47" target="_blank">#47</a>: Error reading XML File</li>
+                        <li>Issue <a href="https://github.com/EasyBatch/easybatch-framework/issues/48" target="_blank">#48</a>: Error reading Json data source</li>
+                        <li>Issue <a href="https://github.com/EasyBatch/easybatch-framework/issues/50" target="_blank">#50</a>: Error in mapping a delimited record</li>
+                        <li>Issue <a href="https://github.com/EasyBatch/easybatch-framework/issues/51" target="_blank">#51</a>: Error while parsing embedded object/array in a Json stream</li>
+                        <li>Issue <a href="https://github.com/EasyBatch/easybatch-framework/issues/52" target="_blank">#52</a>: Unable to register a custom type converter</li>
+                    </ul>
+
+                    <p>This release has also added a <a href="https://github.com/EasyBatch/easybatch-framework/issues/49" target="_blank">minor API change</a> that allows you to provide a custom mapping strategy with the <code>JdbcRecordMapper</code>.</p>
+
+                    <p>Please check the <a href="https://github.com/EasyBatch/easybatch-framework/blob/master/CHANGELOG.txt" target="_blank">change log</a> for all details about changes.</p>
+
+              <h2>Prior versions</h2>
+
+                <h3 id="3.0.0"><i class="fa fa-tag"></i> Version : 3.0.0 (2015-03-01)</h3>
+
+                <p>This is the best release of Easy Batch framework so far.
+                    This major release has added/removed/renamed many classes and interfaces to provide a more flexible and consistent API.</p>
+
+                <p>The main features of this new release are:</p>
 
                 <ul>
                     <li>Introduction of the processing pipeline in the framework's core. This is the most important feature of this version</li>
@@ -178,9 +197,8 @@
 
                 <p>This release has also fixed many bugs and significantly improved tutorials and documentation.</p>
 
-              <p>Please check the <a href="https://github.com/EasyBatch/easybatch-framework/blob/master/CHANGELOG.txt" target="_blank">change log</a> for all details about changes.</p>
+                <p>Please check the <a href="https://github.com/EasyBatch/easybatch-framework/blob/master/CHANGELOG.txt" target="_blank">change log</a> for all details about changes.</p>
 
-              <h2>Prior versions</h2>
 
                 <h3><i class="fa fa-tag"></i> Version : 2.2.0 (2014-06-08)</h3>
 
@@ -366,7 +384,7 @@
         <a href="../documentation/faq.html">FAQs</a>
     </li>
     <li>
-        <a href="https://speakerdeck.com/benas/easy-batch" target="_blank">Presentation slides</a>
+        <a href="https://speakerdeck.com/EasyBatch/easybatch-framework" target="_blank">Presentation slides</a>
     </li>
     <li class="sidebar-separator">Get involved</li>
     <li>
