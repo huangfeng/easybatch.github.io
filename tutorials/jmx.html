@@ -93,7 +93,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.1</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.2</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -148,7 +148,7 @@
                               <h2>1. Introduction</h2>
 
               <p>Easy Batch allows you to monitor job execution and progress at runtime using JMX.
-                 The JMX MBean named <code><em>org.easybatch.core.jmx:type=EasyBatchMonitorMBean</em></code>
+                 The JMX MBean named <code><em>org.easybatch.core.jmx:name=YourEngineName</em></code>
                   exposes the following attributes:</p>
 
               <ul>
@@ -173,9 +173,8 @@
               <p>The screenshot below shows an example of Easy Batch monitoring using VisualVM:</p>
 
               <p class="pull-center">
-                  <img src="../img/eb/jmx.png"/>
+                  <img src="../img/eb/jmx.png" width="90%"/>
               </p>
-              <br/>
 
 <h2>2. What you’ll need</h2>
 
@@ -198,13 +197,15 @@
     public class TweetSlowProcessor implements RecordProcessor&lt;StringRecord, StringRecord&gt; {
 
     @Override
-    public StringRecord processRecord(StringRecord record) throws Exception {
-
+    public StringRecord processRecord(StringRecord record) throws RecordProcessingException {
         //slow down the processor for demonstration purpose
-        Thread.sleep(3000);
-
-        System.out.println(record.getPayload());
-        return record;
+        try {
+            Thread.sleep(5000);
+            System.out.println(record.getPayload());
+            return record;
+        } catch (InterruptedException e) {
+            throw new RecordProcessingException("Unable to process record " + record, e);
+        }
     }
 }</code></pre>
       </div>
@@ -221,7 +222,7 @@
 <pre><code>$>git clone https://github.com/EasyBatch/easybatch-tutorials.git
 $>cd easybatch-tutorials
 $>mvn install
-$>mvn exec:java -PrunJmxTutorial
+$>mvn exec:java -PrunSingleEngineJmxTutorial
 </code></pre>
 </div>
 
@@ -230,7 +231,7 @@ $>mvn exec:java -PrunJmxTutorial
               <p>Once you have launched the tutorial, open VisualVM, connect to the jvm process running your batch and navigate to the MBeans tab
                   (if you don't see the MBeans tab, <a href="http://visualvm.java.net/mbeans_tab.html" target="_blank">here</a> is how to install the plugin).</p>
 
-              <p>As described in the screen shot above, navigate to the <code>org.easybatch.core.jmx:type=EasyBatchMonitorMBean</code> MBean and you will be able to monitor the execution progress of the slow Hello World tutorial in real time.</p>
+              <p>As described in the screen shot above, navigate to the <code>org.easybatch.core.jmx:name=engine</code> MBean and you will be able to monitor the execution progress of the slow Hello World tutorial in real time.</p>
 
 <h3>4.2 From your IDE</h3>
 
@@ -245,7 +246,7 @@ $>mvn exec:java -PrunJmxTutorial
 
 <p>Then, import the <code><em>easybatch-tutorials</em></code> module in you favorite IDE and resolve maven dependencies.</p>
 
-<p>Finally, run the <code><em>org.easybatch.tutorials.advanced.jmx.Launcher</em></code> class without any argument.</p>
+<p>Finally, run the <code><em>org.easybatch.tutorials.advanced.jmx.SingleEngineJmxTutorial</em></code> class without any argument.</p>
 
 <h2>5. Summary</h2>
 
@@ -297,7 +298,7 @@ Easy Batch provides integration with <a href="http://www.quartz-scheduler.org" t
         <a href="../documentation/faq.html">FAQs</a>
     </li>
     <li>
-        <a href="https://speakerdeck.com/EasyBatch/easybatch-framework" target="_blank">Presentation slides</a>
+        <a href="https://speakerdeck.com/benas/easy-batch" target="_blank">Presentation slides</a>
     </li>
     <li class="sidebar-separator">Get involved</li>
     <li>

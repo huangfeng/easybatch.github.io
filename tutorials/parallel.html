@@ -93,7 +93,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.1</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.2</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -225,14 +225,15 @@
         // Build a master engine that will read records from the data source
         // and dispatch them to worker engines
         Engine masterEngine = aNewEngine()
+            .named("master-engine")
             .reader(new FlatFileRecordReader(tweets))
             .processor(roundRobinRecordDispatcher)
-            .batchProcessEventListener(new PoisonRecordBroadcaster(roundRobinRecordDispatcher))
+            .jobEventListener(new PoisonRecordBroadcaster(roundRobinRecordDispatcher))
             .build();
 
         // Build worker engines
-        Engine workerEngine1 = buildWorkerEngine(queue1);
-        Engine workerEngine2 = buildWorkerEngine(queue2);
+        Engine workerEngine1 = buildWorkerEngine(queue1, "worker-engine1");
+        Engine workerEngine2 = buildWorkerEngine(queue2, "worker-engine2");
 
         // Create a thread pool to call master and worker engines in parallel
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
@@ -245,8 +246,9 @@
 
     }
 
-    public static Engine buildWorkerEngine(BlockingQueue&lt;Record&gt; queue) {
+    public static Engine buildWorkerEngine(BlockingQueue&lt;Record&gt; queue, String engineName) {
         return aNewEngine()
+            .named(engineName)
             .reader(new QueueRecordReader(queue))
             .filter(new PoisonRecordFilter())
             .processor(new TweetProcessor())
@@ -289,8 +291,8 @@
         File tweetsPart2 = new File(args[1]);
 
         // Build worker engines
-        Engine engine1 = buildEngine(tweetsPart1);
-        Engine engine2 = buildEngine(tweetsPart2);
+        Engine engine1 = buildEngine(tweetsPart1, "worker-engine1");
+        Engine engine2 = buildEngine(tweetsPart2, "worker-engine2");
 
         //create a 2 threads pool to call worker engines in parallel
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
@@ -309,8 +311,9 @@
         executorService.shutdown();
     }
 
-    private static Engine buildEngine(File file) throws Exception{
-        return new EngineBuilder()
+    private static Engine buildEngine(File file, String engineName) throws FileNotFoundException {
+        return EngineBuilder.aNewEngine()
+            .named(engineName)
             .reader(new FlatFileRecordReader(file))
             .processor(new TweetProcessor())
             .build();
@@ -372,10 +375,10 @@
         File tweets = new File(args[0]);
 
         <strong>// worker engine 1: process data from tweets.csv, filter records 3-4
-        Engine engine1 = buildEngine(tweets, new RecordNumberGreaterThanFilter(2));
+        Engine engine1 = buildEngine(tweets, new RecordNumberGreaterThanFilter(2), "worker-engine1");
 
         // worker engine 2: process data from tweets.csv, filter records 1-2
-        Engine engine2 = buildEngine(tweets, new RecordNumberLowerThanFilter(3));</strong>
+        Engine engine2 = buildEngine(tweets, new RecordNumberLowerThanFilter(3), "worker-engine2");</strong>
 
         //create a 2 threads pool to call worker engines in parallel
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
@@ -394,8 +397,10 @@
         executorService.shutdown();
     }
 
-    private static Engine buildEngine(File file, RecordFilter recordFilter) throws Exception{
+    private static Engine buildEngine(File file, RecordFilter recordFilter, String engineName)
+        throws FileNotFoundException {
         return new EngineBuilder()
+            .named(engineName)
             .reader(new FlatFileRecordReader(file))
             .filter(recordFilter)
             .processor(new TweetProcessor())
@@ -523,7 +528,7 @@ $>mvn exec:java -PrunParallelTutorialWithDataFiltering
         <a href="../documentation/faq.html">FAQs</a>
     </li>
     <li>
-        <a href="https://speakerdeck.com/EasyBatch/easybatch-framework" target="_blank">Presentation slides</a>
+        <a href="https://speakerdeck.com/benas/easy-batch" target="_blank">Presentation slides</a>
     </li>
     <li class="sidebar-separator">Get involved</li>
     <li>

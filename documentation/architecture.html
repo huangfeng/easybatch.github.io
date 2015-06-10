@@ -93,7 +93,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.1</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.2</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -173,7 +173,7 @@
     </div>
 </div>
 
-        <p>Data read from the data source is first submitted to a pre-processing phase. Here, data is:</p>
+        <p>Data read from the data source is first submitted to a pre-processing phase. In this phase, data is:</p>
         <ul>
             <li>Filtered to keep only relevant parts to be processed</li>
             <li>Parsed to a specific format if necessary</li>
@@ -200,8 +200,8 @@
                   <li>Record reader: reads records <em>sequentially one by one</em> from the data source</li>
                   <li>Record filter chain: a chain of filters to skip undesired records from being processed</li>
                   <li>Record mapper: maps records to domain objects</li>
-                  <li>Record validator: applies declared validation constraints on records</li>
-                  <li>Processing pipeline: applies business processing logic for each record</li>
+                  <li>Record validation pipeline: applies declared validation constraints on records</li>
+                  <li>Record processing pipeline: applies business processing logic for each record</li>
               </ul>
 
             <p>All these components are optional. Easy Batch provides a No Operation implementation for each component.
@@ -280,7 +280,7 @@
         <a href="../documentation/faq.html">FAQs</a>
     </li>
     <li>
-        <a href="https://speakerdeck.com/EasyBatch/easybatch-framework" target="_blank">Presentation slides</a>
+        <a href="https://speakerdeck.com/benas/easy-batch" target="_blank">Presentation slides</a>
     </li>
     <li class="sidebar-separator">Get involved</li>
     <li>

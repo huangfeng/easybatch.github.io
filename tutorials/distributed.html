@@ -93,7 +93,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.1</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.2</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -187,8 +187,13 @@
     private long recordNumber;
 
     @Override
-    public void dispatchRecord(Record record) throws Exception {
-        JMSUtil.sendStringRecord((StringRecord)record);
+    public void dispatchRecord(Record record) throws RecordDispatchingException {
+        try {
+            JMSUtil.sendStringRecord((StringRecord)record);
+        } catch (JMSException e) {
+            String message = format("Unable to dispatch record %s", record);
+            throw new RecordDispatchingException(message);
+        }
     }
 
     @Override
@@ -199,8 +204,11 @@
         try {
             Header header = new Header(++recordNumber, "REST API: /api/orders", new Date());
             dispatchRecord(new StringRecord(header, payload));
+            httpExchange.sendResponseHeaders(200, 0);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            httpExchange.sendResponseHeaders(500, 0);
+        } finally {
+            httpExchange.close();
         }
     }
 }</code></pre>
@@ -345,7 +353,7 @@ Hit enter to stop the application...</code></pre>
         <a href="../documentation/faq.html">FAQs</a>
     </li>
     <li>
-        <a href="https://speakerdeck.com/EasyBatch/easybatch-framework" target="_blank">Presentation slides</a>
+        <a href="https://speakerdeck.com/benas/easy-batch" target="_blank">Presentation slides</a>
     </li>
     <li class="sidebar-separator">Get involved</li>
     <li>

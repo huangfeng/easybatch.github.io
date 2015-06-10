@@ -93,7 +93,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.1</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.2</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -219,7 +219,6 @@ This tutorial is divided into 5 parts. Each part will introduce a new API and gi
     private String message;
 
     // Getters, Setters and toString omitted
-
 }</code></pre>
 
         </div>
@@ -316,7 +315,7 @@ This tutorial is divided into 5 parts. Each part will introduce a new API and gi
     private int count;
 
     @Override
-    public Tweet processRecord(Tweet tweet) throws Exception {
+    public Tweet processRecord(Tweet tweet) {
         if (tweet.getMessage().contains("#EasyBatch")) {
             count++;
         }
@@ -387,7 +386,6 @@ $>mvn exec:java -PrunKeyAPIsTutorial
 
 
 
-
 </code></pre>
                 </div>
             </div>
@@ -395,16 +393,15 @@ $>mvn exec:java -PrunKeyAPIsTutorial
             <div class="col-md-6">
                 <p>You should see the following output:</p>
                 <div class="bs-callout bs-callout-code">
-<pre><code>INFO: Initializing easy batch engine
+<pre><code>INFO: Initializing the engine
 INFO: Data source: tweets.csv
 INFO: Strict mode: false
-INFO: Total records = 3
-INFO: easy batch engine is running...
+INFO: The engine is running
 INFO: Record #1
   [Record{number=1, payload='id,user,message'}]
   has been filtered.
 Total tweets containing #EasyBatch: 1
-INFO: Shutting down easy batch engine</code></pre>
+INFO: Shutting down the engine</code></pre>
                 </div>
             </div>
         </div>
@@ -552,7 +549,7 @@ You have seen how to filter, map and validate tweets before processing them.</p>
         <a href="../documentation/faq.html">FAQs</a>
     </li>
     <li>
-        <a href="https://speakerdeck.com/EasyBatch/easybatch-framework" target="_blank">Presentation slides</a>
+        <a href="https://speakerdeck.com/benas/easy-batch" target="_blank">Presentation slides</a>
     </li>
     <li class="sidebar-separator">Get involved</li>
     <li>

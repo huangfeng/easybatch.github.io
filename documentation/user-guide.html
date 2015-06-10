@@ -93,7 +93,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.1</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.2</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -170,6 +170,16 @@
 <pre><code class="java">Engine engine = new EngineBuilder().build();</code></pre>
 </div>
 
+<p>You can also use the static factory method <code><em>aNewEngine</em></code> and give the engine a name:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Engine engine = EngineBuilder.aNewEngine()
+    .named("mySuperEngine")
+    .build();</code></pre>
+</div>
+
+<p>By default, the engine name is "engine".</p>
+
 <p>The engine builder API is the main entry point to configure and create batch engine instances.</p>
 
 <h3 id="1.2">1.2 Running the batch engine</h3>
@@ -177,12 +187,14 @@
 <p>Once you have created a batch engine instance, you can run it simply as follows:</p>
 
 <div class="bs-callout bs-callout-code">
-    <pre><code class="java">engine.call();</code></pre>
+    <pre><code class="java">Report report = engine.call();</code></pre>
 </div>
+
+<p>You get an execution report with several statistics and metrics about the engine run.</p>
 
 <h3 id="1.3">1.3 Enabling strict mode</h3>
 
-<p>Easy Batch strict mode is a parameter that allows you to abort execution on first error (mapping, validating or processing exception).
+<p>The strict mode parameter allows you to abort execution on first error (mapping, validating or processing exception).
     To enable strict mode, you can use the following snippet:</p>
 
 <div class="bs-callout bs-callout-code">
@@ -195,7 +207,7 @@
 
 <h3 id="1.4">1.4 Enabling silent mode</h3>
 
-<p>Easy Batch silent mode is a parameter that allows you to mute all loggers.
+<p>The silent mode parameter allows you to mute all loggers.
     To enable silent mode, you can use the following snippet:</p>
 
 <div class="bs-callout bs-callout-code">
@@ -209,7 +221,7 @@
 <h3 id="1.5">1.5 Enabling JMX monitoring</h3>
 
 <p>Easy Batch allows you to monitor job execution and progress at runtime using JMX.
-    The JMX MBean named <code><em>org.easybatch.core.jmx:type=EasyBatchMonitorMBean</em></code>
+    The JMX MBean named <code><em>org.easybatch.core.jmx:name=YourEngineName</em></code>
     exposes the following attributes:</p>
 
 <ul>
@@ -292,7 +304,7 @@
     .build();</code></pre>
 </div>
 
-<p>Easy Batch comes with built-in record readers that allow you to read records from a variety of data sources:</p>
+<p>Easy Batch comes with built-in record readers that allow you to read data from a variety of sources:</p>
 
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
@@ -321,7 +333,7 @@
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-flatfile&lt;/artifactId&gt;
-    &lt;version&gt;3.0.1&lt;/version&gt;
+    &lt;version&gt;3.0.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -393,7 +405,7 @@
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-xml&lt;/artifactId&gt;
-    &lt;version&gt;3.0.1&lt;/version&gt;
+    &lt;version&gt;3.0.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -476,7 +488,7 @@
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-json&lt;/artifactId&gt;
-    &lt;version&gt;3.0.1&lt;/version&gt;
+    &lt;version&gt;3.0.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -517,7 +529,7 @@
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-jdbc&lt;/artifactId&gt;
-    &lt;version&gt;3.0.1&lt;/version&gt;
+    &lt;version&gt;3.0.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -529,15 +541,18 @@
     .build();</code></pre>
 </div>
 
-<p> When you create a <code>JdbcRecordReader</code>, you should specify the JDBC database connection and the sql query to use to fetch data.</p>
+<p> When you create a <code>JdbcRecordReader</code>, you should specify the JDBC connection and the sql query to use to fetch data.</p>
 
 <div class="bs-callout bs-callout-warning">
-    <p><strong>Heads up!:</strong> The <code>JdbcRecordReader</code> loads all data fetched by the sql query into a <code>java.sql.ResultSet</code> object.
-        You should pay attention to large data sets with the sql query you specify to the <code>JdbcRecordReader</code>. You can specify the maximum number of rows
-    to fetch using the <code><em>maxRows</em></code> parameter of the <code><em>JdbcRecordReader</em></code>.</p>
-
-    <p>Easy Batch does not provide a "PagingJdbcRecordReader" because the JDBC API does not provide a vendor-neutral way of doing pagination.
-        The SQL syntax differs from one RDBMS to another..</p>
+    <p><strong>Heads up!:</strong> Depending on your JDBC driver configuration, The <code>JdbcRecordReader</code> can (and should) stream records in chunks.
+        You can set the <code><em>maxRows</em></code> and <code><em>fetchSize</em></code> parameters of the <code><em>JdbcRecordReader</em></code>
+        to make sure large data sets are not loaded entirely in memory:</p>
+    <ul>
+        <li><a href="http://docs.oracle.com/cd/E11882_01/java.112/e16548/resltset.htm#JJDBC28622" target="_blank">Oracle driver</a> streams data by default (with a fetch size of 10 by default)</li>
+        <li><a href="http://dev.mysql.com/doc/connector-j/en/connector-j-reference-implementation-notes.html" target="_blank">MySql driver</a> does not stream records by default, you need to set the fetch size to <code>Integer.MIN_VALUE</code> in order to make it stream records.</li>
+        <li><a href="https://jdbc.postgresql.org/documentation/83/query.html#query-with-cursor" target="_blank">Postgresql</a> driver does not stream records by default, you need to set auto commit to false and set the fetch size according to your needs.</li>
+        <li>For other databases, please refer to the documentation of the JDBC driver you use.</li>
+    </ul>
 </div>
 
 <h4>2.4.2. Reading data using the Java Persistence API</h4>
@@ -551,7 +566,7 @@
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-jpa&lt;/artifactId&gt;
-    &lt;version&gt;3.0.1&lt;/version&gt;
+    &lt;version&gt;3.0.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -574,7 +589,7 @@
 
 <h4>2.4.3. Reading data from Mongo DB</h4>
 
-<p>Easy Batch provides the <code><em>MongoDBRecordReader</em></code> that allows you to read data from a
+<p>The <code><em>MongoDBRecordReader</em></code> allows you to read data from a
     <a href="http://www.mongodb.org" target="_blank">Mongo DB</a> instance.</p>
 
 <p>First, add the following maven dependency to your project:</p>
@@ -583,7 +598,7 @@
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-mongodb&lt;/artifactId&gt;
-    &lt;version&gt;3.0.1&lt;/version&gt;
+    &lt;version&gt;3.0.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -607,7 +622,7 @@
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-jms&lt;/artifactId&gt;
-    &lt;version&gt;3.0.1&lt;/version&gt;
+    &lt;version&gt;3.0.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -620,12 +635,12 @@
 </code></pre>
 </div>
 
-<p>When you create a <code><em>JmsQueueRecordReader</em></code>, you need to be provide the JMS queue connection factory and the queue to read data from.
+<p>When you create a <code><em>JmsQueueRecordReader</em></code>, you need to provide the JMS queue connection factory and the queue to read data from.
 The <code><em>JmsQueueRecordReader</em></code> will produce <code><em>JmsRecord</em></code> instances with a <code><em>javax.jms.Message</em></code> as payload.</p>
 
 <h3>2.6 Other data source type readers</h3>
 
-<p>You have seen common data sources types and how you can read them using readers provided by Easy Batch.</p>
+<p>You have seen common data sources readers and how to use them.</p>
 <p>Easy Batch provides other readers that are summarized in the following table:</p>
 <table class="table table-bordered table-condensed table-striped">
     <thead>
@@ -670,8 +685,12 @@ The <code><em>JmsQueueRecordReader</em></code> will produce <code><em>JmsRecord<
 
 <p>You can filter records through the <code><em>RecordFilter</em></code> API. This interface allows you to skip records from being processed if they satisfy a given predicate.</p>
 
-<p>A typical example is to filter comment records (those beginning with #) in a flat file. Another example is to filter
-log files (with extension <em>.log</em>) when processing a set of files in a directory.</p>
+<p>Typical examples are:</p>
+<ul>
+    <li>filter comment records (those beginning with #) in a flat file</li>
+    <li>filter log files (with extension <em>.log</em>) when processing a set of files in a directory</li>
+    <li>etc</li>
+</ul>
 
 <p>To register a record filter, you can use the <code><em>EngineBuilder</em></code> API as follow:</p>
 
@@ -682,7 +701,7 @@ log files (with extension <em>.log</em>) when processing a set of files in a dir
 </div>
 
 <p>Easy Batch applies a filter chain on each record, so you can register as many filters as you want. They will be applied
-on the same order in which you register them. the engine will stop the chain on first applied filter.</p>
+in the same order in which you register them. The engine will stop the chain on first applied filter.</p>
 
 <p>There are several built-in implementations for commonly used filters:</p>
 
@@ -716,7 +735,7 @@ on the same order in which you register them. the engine will stop the chain on 
             <h2 id="4">4. Mapping records to domain objects</h2>
 
 <p>Easy Batch development is POJO-centric and has been designed with the idea that input records
-    should be projected in the object oriented world of Java and not used in their original format.</p>
+    should be projected in the object oriented world of Java and not used in their original raw format.</p>
 
     <p>It is the <code><em>RecordMapper</em></code> that lets you map input records to your domain objects.
     You can register an implementation of the <code><em>RecordMapper</em></code> interface as follows:</p>
@@ -760,7 +779,7 @@ on the same order in which you register them. the engine will stop the chain on 
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-flatfile&lt;/artifactId&gt;
-    &lt;version&gt;3.0.1&lt;/version&gt;
+    &lt;version&gt;3.0.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -901,7 +920,7 @@ on the same order in which you register them. the engine will stop the chain on 
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-apache-commons-csv&lt;/artifactId&gt;
-    &lt;version&gt;3.0.1&lt;/version&gt;
+    &lt;version&gt;3.0.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -909,7 +928,7 @@ on the same order in which you register them. the engine will stop the chain on 
 
 <div class="bs-callout bs-callout-code">
 <pre><code class="java">Engine engine = new EngineBuilder()
-    .mapper(new ApacheCommonCsvRecordReader())
+    <strong>.mapper(new ApacheCommonCsvRecordMapper())</strong>
     .build();</code></pre>
 </div>
 
@@ -923,7 +942,7 @@ on the same order in which you register them. the engine will stop the chain on 
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-opencsv&lt;/artifactId&gt;
-    &lt;version&gt;3.0.1&lt;/version&gt;
+    &lt;version&gt;3.0.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -976,7 +995,7 @@ on the same order in which you register them. the engine will stop the chain on 
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-xml&lt;/artifactId&gt;
-    &lt;version&gt;3.0.1&lt;/version&gt;
+    &lt;version&gt;3.0.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -984,17 +1003,23 @@ on the same order in which you register them. the engine will stop the chain on 
 
 <div class="bs-callout bs-callout-code">
 <pre><code class="java">Engine engine = new EngineBuilder()
+    <strong>.mapper(new XmlRecordMapper(MyPojoType.class))</strong>
+    .build();</code></pre>
+</div>
+
+<p>When you create an <code>XmlRecordMapper</code>, you should specify your target domain object type.
+    If you need to validate Xml records against a xsd schema, you can specify the schema at creation time as follows:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Engine engine = new EngineBuilder()
     <strong>.mapper(new XmlRecordMapper(MyPojoType.class, myXsdFile))</strong>
     .build();</code></pre>
 </div>
 
-<p>When you create an <code>XmlRecordMapper</code>, you should specify your domain object type and
-    a XSD file against which the XML record should be validated (if no XSD is specified, no validation will be applied).</p>
-
 <div class="bs-callout bs-callout-warning">
     <h5><i class="fa fa-info-circle"></i> Heads up!</h5>
     <p>The <code>XmlRecordMapper</code> should be used in conjunction with the <code>XmlRecordReader</code>.</p>
-    <p>If you want to register a custom JAXB adapter, or listener, etc you can create an instance of the <code>javax.xml.bind.Unmarshaller</code>,
+    <p>If you want to register a custom JAXB adapter or listener, you can create an instance of the <code>javax.xml.bind.Unmarshaller</code>,
         register your custom components and then use the constructor <code><em>org.easybatch.xml.XmlRecordMapper(javax.xml.bind.Unmarshaller unmarshaller)</em></code>.
 </div>
 
@@ -1008,7 +1033,7 @@ on the same order in which you register them. the engine will stop the chain on 
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-xstream&lt;/artifactId&gt;
-    &lt;version&gt;3.0.1&lt;/version&gt;
+    &lt;version&gt;3.0.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -1026,12 +1051,12 @@ on the same order in which you register them. the engine will stop the chain on 
 
 <p>Easy Batch does not provide a built-in JSON record mapper yet.
     The goal of Easy Batch is to use the reference implementation of <a href="https://jcp.org/en/jsr/detail?id=367" target="_blank">JSON-B</a>.
-    As of version 3.0.1 of Easy Batch, the reference implementation of JSON-B is not available yet.
+    As of version 3.0.2 of Easy Batch, the reference implementation of JSON-B is not available yet.
     Built-in support for JSON mapping will be provided as soon as the reference implementation of JSON-B will become available.
 </p>
 
 <p>That said, Easy Batch provides integration modules with third party JSON mappers like
-    <a href="http://jackson.codehaus.org/" target="_blank">Jackson</a> or <a href="https://code.google.com/p/google-gson/" target="_blank">Gson</a>.</p>
+    <a href="http://jackson.codehaus.org/" target="_blank">Jackson</a> and <a href="https://code.google.com/p/google-gson/" target="_blank">Gson</a>.</p>
 
 <h4>4.3.1 Mapping JSON records with Jackson</h4>
 
@@ -1041,7 +1066,7 @@ on the same order in which you register them. the engine will stop the chain on 
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-jackson&lt;/artifactId&gt;
-    &lt;version&gt;3.0.1&lt;/version&gt;
+    &lt;version&gt;3.0.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -1063,7 +1088,7 @@ on the same order in which you register them. the engine will stop the chain on 
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-gson&lt;/artifactId&gt;
-    &lt;version&gt;3.0.1&lt;/version&gt;
+    &lt;version&gt;3.0.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -1091,7 +1116,7 @@ you can use the <code><em>JdbcRecordMapper</em></code>.</p>
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-jdbc&lt;/artifactId&gt;
-    &lt;version&gt;3.0.1&lt;/version&gt;
+    &lt;version&gt;3.0.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
         </div>
 
@@ -1138,8 +1163,8 @@ Note that to use this mapper, you should add the following maven dependency to y
 <div class="bs-callout bs-callout-code">
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
-    &lt;artifactId&gt;easybatch-spring-jdbc&lt;/artifactId&gt;
-    &lt;version&gt;3.0.1&lt;/version&gt;
+    &lt;artifactId&gt;easybatch-spring&lt;/artifactId&gt;
+    &lt;version&gt;3.0.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -1163,7 +1188,7 @@ This mapper simply returns the payload of the <code><em>GenericRecord</em></code
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-mongodb&lt;/artifactId&gt;
-    &lt;version&gt;3.0.1&lt;/version&gt;
+    &lt;version&gt;3.0.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -1183,18 +1208,20 @@ This mapper simply returns the payload of the <code><em>GenericRecord</em></code
             <h2 id="5">5. Validating records</h2>
 
 <p>Validating input data is an essential step in every batch application.
-    With Easy Batch, you can validate records by registering a <code><em>RecordValidator</em></code> implementation as follows:</p>
+    With Easy Batch, you can validate records by registering one or more <code><em>RecordValidator</em></code> implementation as follows:</p>
 
 <div class="bs-callout bs-callout-code">
 <pre><code class="java">Engine engine = new EngineBuilder()
-    <strong>.validator(new MyRecordValidator())</strong>
+    <strong>.validator(new MyFirstRecordValidator())</strong>
+    <strong>.validator(new MySecondRecordValidator())</strong>
     .build();</code></pre>
 </div>
 
-<p>Easy Batch comes with a built-in implementation of the <code><em>RecordValidator</em></code> interface
-    using the <a href="http://jcp.org/en/jsr/detail?id=303" target="_blank">Bean Validation API</a> reference implementation which is <a href="http://hibernate.org/validator/" target="_blank">Hibernate validator</a>.</p>
+<p>The engine will reject the record on first validation error.</p>
 
-<p>In order to use the built-in <code><em>BeanValidationRecordValidator</em></code>, you should proceed as follows:
+<p>Easy Batch comes with a built-in implementation of the <code><em>RecordValidator</em></code> interface
+    using the <a href="http://jcp.org/en/jsr/detail?id=303" target="_blank">Bean Validation API</a> reference implementation which is <a href="http://hibernate.org/validator/" target="_blank">Hibernate validator</a>.
+    In order to use the built-in <code><em>BeanValidationRecordValidator</em></code>, you should proceed as follows:
 
         <h4>5.1 Add maven dependency</h4>
 
@@ -1204,7 +1231,7 @@ This mapper simply returns the payload of the <code><em>GenericRecord</em></code
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-validation&lt;/artifactId&gt;
-    &lt;version&gt;3.0.1&lt;/version&gt;
+    &lt;version&gt;3.0.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -1258,7 +1285,7 @@ This mapper simply returns the payload of the <code><em>GenericRecord</em></code
 <p>Easy Batch will call these processors in the order in which they are registered.</p>
 
         <p>You can also do some computation on input records that will be returned at the end of execution.
-        This is the role of <code><em>ComputationalRecordProcessor</em></code> API, that is, do some computation on inputs records.</p>
+        This is the role of the <code><em>ComputationalRecordProcessor</em></code> API, that is, do some computation on inputs records.</p>
 
         <p>Unlike <code><em>RecordProcessor</em></code>s that are used for <strong>intermediate</strong> operations,
             a <code><em>ComputationalRecordProcessor</em></code> is used for <strong>terminal</strong> operations, like aggregating results for instance.
@@ -1323,7 +1350,7 @@ Report report = engine.call();
 
 <div class="pull-center">
     <a href="../documentation/htmlReport.html" target="_blank">
-        <img src="../img/eb/report-thumbnail.jpg" alt="htmlReport" style="width: 80%"/>
+        <img src="../img/eb/report-thumbnail.png" alt="htmlReport" style="width: 80%"/>
     </a>
 </div>
 <br/>
@@ -1334,7 +1361,7 @@ Report report = engine.call();
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-tools&lt;/artifactId&gt;
-    &lt;version&gt;3.0.1&lt;/version&gt;
+    &lt;version&gt;3.0.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -1372,7 +1399,7 @@ Report report = engine.call();
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-tools&lt;/artifactId&gt;
-    &lt;version&gt;3.0.1&lt;/version&gt;
+    &lt;version&gt;3.0.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -1402,7 +1429,7 @@ Report report = engine.call();
     </div>
 </div>
 
-        <p>A record dispatcher is a regular <code><em>RecordProcessor</em></code> and can be used like any other processor in the pipeline.</p>
+        <p>A record dispatcher is a regular <code><em>RecordProcessor</em></code> and can be used like any other processor in the processing pipeline.</p>
 
         <h3>8.1 The RoundRobinRecordDispatcher</h3>
         <p>The <code><em>RoundRobinRecordDispatcher</em></code> dispatches input records to several <code><em>java.util.concurrent.BlockingQueue</em></code> queues in a round robin fashion:</p>
@@ -1447,7 +1474,6 @@ BlockingQueue&lt;Record&gt; queue2 = new LinkedBlockingQueue&lt;Record&gt;();
 BlockingQueue&lt;Record&gt; queue1 = new LinkedBlockingQueue&lt;Record&gt;();
 BlockingQueue&lt;Record&gt; queue2 = new LinkedBlockingQueue&lt;Record&gt;();
 BlockingQueue&lt;Record&gt; defaultQueue = new LinkedBlockingQueue&lt;Record&gt;();
-
 
 //create a content based record dispatcher to dispatch records to previously created queues
 <strong>ContentBasedRecordDispatcher recordDispatcher = new ContentBasedRecordDispatcherBuilder()
@@ -1515,6 +1541,16 @@ BlockingQueue&lt;Record&gt; queue2 = new LinkedBlockingQueue&lt;Record&gt;();
 <strong>RandomRecordDispatcher recordDispatcher = new RandomRecordDispatcher(Arrays.asList(queue1, queue2));</strong></code></pre>
 </div>
 
+<h3>8.5 Record dispatching considerations</h3>
+
+<p>You can dispatch almost every type of record with Easy Batch except JDBC records. A <code><em>JdbcRecord</em></code> has a <code><em>java.sql.ResultSet</em></code> as payload.
+In a scenario where you have a master engine that reads data from a relational database and dispatch them to worker engines,
+the master engine could have finished reading the data source and dispatched all records to worker queues, while workers are still processing
+those records. Hence, the master engine will close the database connection and the dispatched JDBC records are no more usable since their payload
+depend on the connection that has been closed by the master engine!</p>
+
+<p>A solution to this problem is to make the master engine map JDBC records to domain objects which can be dispatched without any issue to worker engines.</p>
+
 <h2>9. Extension points</h2>
 
         <h3>9.1 Workflow extension points</h3>
@@ -1522,7 +1558,7 @@ BlockingQueue&lt;Record&gt; queue2 = new LinkedBlockingQueue&lt;Record&gt;();
         <p>Easy Batch's workflow is extensible. You can register listeners to do pre/post processing before and after each step.</p>
         <p>There are two types of listeners:</p>
         <ul>
-            <li><strong>Batch job listener</strong>: This is a listener for global batch events (start, end, exception). Several use cases can be implemented using this listener:
+            <li><strong>Batch job listener</strong>: This is a listener for global batch job events (start, end, exception). Several use cases can be implemented using this listener:
                 <ul>
                     <li>Lock/Unlock working directory at job start/stop</li>
                     <li>Archive log files at the end of Job</li>
@@ -1559,25 +1595,25 @@ BlockingQueue&lt;Record&gt; queue2 = new LinkedBlockingQueue&lt;Record&gt;();
 
         <h4>9.1.1 Batch job listener</h4>
 
-        <p>The batch job listener is defined in the <code><em>BatchProcessEventListener</em></code> interface:</p>
+        <p>The batch job listener is defined in the <code><em>JobEventListener</em></code> interface:</p>
 
         <div class="bs-callout bs-callout-code">
-<pre><code class="java">public interface BatchProcessEventListener {
+<pre><code class="java">public interface JobEventListener {
 
-    public void beforeBatchStart();
+    public void beforeJobStart();
 
-    public void afterBatchEnd();
+    public void afterJobEnd();
 
-    public void onException(Throwable throwable);
+    public void onJobException(Throwable throwable);
 
 }</code></pre>
         </div>
 
-        <p>The next figure shows when each method (in orange) of the <code><em>BatchProcessEventListener</em></code> is called in the processing workflow:</p>
+        <p>The next figure shows when each method (in orange) of the <code><em>JobEventListener</em></code> is called in the processing workflow:</p>
 
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
-        <p class="pull-center"><img class="ebi" src="../img/eb/batch-listener.jpg"/></p>
+        <p class="pull-center"><img class="ebi" src="../img/eb/batch-listener.png"/></p>
     </div>
 </div>
 
@@ -1585,13 +1621,13 @@ BlockingQueue&lt;Record&gt; queue2 = new LinkedBlockingQueue&lt;Record&gt;();
 
         <div class="bs-callout bs-callout-code">
 <pre><code class="java">Engine engine = new EngineBuilder()
-    <strong>.addBatchProcessEventListener(new MyBatchProcessEventListener())</strong>
+    <strong>.jobEventListener(new MyJobEventListener())</strong>
     .build();</code></pre>
         </div>
 
         <h4>9.1.2 Batch step listeners</h4>
 
-        <p>Step listeners work the same as the global batch job event listener:</P>
+        <p>Step listeners work the same as the global batch job event listener. The next figure shows an example of events of a custom <code><em>RecordMapperEventListener</em></code>:</P>
 
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
@@ -1614,27 +1650,27 @@ BlockingQueue&lt;Record&gt; queue2 = new LinkedBlockingQueue&lt;Record&gt;();
     <tr>
         <td>Record reading</td>
         <td><code><em>RecordReaderEventListener</em></code></td>
-        <td>Register your custom implementation with <code><em>EngineBuilder.addRecordReaderEventListener</em></code> method</td>
+        <td>Register your custom implementation with <code><em>EngineBuilder.recordReaderEventListener</em></code> method</td>
     </tr>
     <tr>
         <td>Record filtering</td>
         <td><code><em>RecordFilterEventListener</em></code></td>
-        <td>Register your custom implementation with <code><em>EngineBuilder.addRecordFilterEventListener</em></code> method</td>
+        <td>Register your custom implementation with <code><em>EngineBuilder.recordFilterEventListener</em></code> method</td>
     </tr>
     <tr>
         <td>Record mapping</td>
         <td><code><em>RecordMapperEventListener</em></code></td>
-        <td>Register your custom implementation with <code><em>EngineBuilder.addRecordMapperEventListener</em></code> method</td>
+        <td>Register your custom implementation with <code><em>EngineBuilder.recordMapperEventListener</em></code> method</td>
     </tr>
     <tr>
         <td>Record validation</td>
         <td><code><em>RecordValidatorEventListener</em></code></td>
-        <td>Register your custom implementation with <code><em>EngineBuilder.addRecordValidatorEventListener</em></code> method</td>
+        <td>Register your custom implementation with <code><em>EngineBuilder.recordValidatorEventListener</em></code> method</td>
     </tr>
     <tr>
         <td>Record processing</td>
         <td><code><em>RecordProcessorEventListener</em></code></td>
-        <td>Register your custom implementation with <code><em>EngineBuilder.addRecordProcessorEventListener</em></code> method</td>
+        <td>Register your custom implementation with <code><em>EngineBuilder.recordProcessorEventListener</em></code> method</td>
     </tr>
     </tbody>
 </table>
@@ -1716,7 +1752,7 @@ BlockingQueue&lt;Record&gt; queue2 = new LinkedBlockingQueue&lt;Record&gt;();
         <a href="../documentation/faq.html">FAQs</a>
     </li>
     <li>
-        <a href="https://speakerdeck.com/EasyBatch/easybatch-framework" target="_blank">Presentation slides</a>
+        <a href="https://speakerdeck.com/benas/easy-batch" target="_blank">Presentation slides</a>
     </li>
     <li class="sidebar-separator">Get involved</li>
     <li>

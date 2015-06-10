@@ -93,7 +93,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.1</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.2</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -259,8 +259,12 @@ END</code></pre>
     }
 
     @Override
-    public void open() throws Exception {
-        scanner = new Scanner(file);
+    public void open() throws RecordReaderOpeningException {
+        try {
+            scanner = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            throw new RecordReaderOpeningException("Unable to open record reader", e);
+        }
     }
 
     @Override
@@ -269,7 +273,7 @@ END</code></pre>
     }
 
     <strong>@Override
-    public Record readNextRecord() throws Exception {
+    public Record readNextRecord() {
         currentRecordNumber++;
         Recipe recipe = new Recipe();
         while (scanner.hasNext()) {
@@ -304,7 +308,9 @@ END</code></pre>
 
     @Override
     public void close() throws Exception {
-        scanner.close();
+        if (scanner != null) {
+            scanner.close();
+        }
     }
 }</code></pre>
         </div>
@@ -330,7 +336,7 @@ END</code></pre>
 <pre><code class="java">public class RecipeProcessor implements RecordProcessor&lt;Recipe, Recipe&gt;  {
 
     @Override
-    public void processRecord(Recipe recipe) throws Exception {
+    public void processRecord(Recipe recipe) {
         System.out.println(recipe);
         return recipe;
     }
@@ -387,11 +393,10 @@ $>mvn exec:java -PrunRecipesTutorial
 
 <p>You should see the following output:</p>
 <div class="bs-callout bs-callout-code">
-<pre><code>INFO: Initializing easy batch engine
+<pre><code>INFO: Initializing the engine
 INFO: Data source: recipes.txt
 INFO: Strict mode: false
-INFO: Total records = N/A
-INFO: easy batch engine is running...
+INFO: The engine is running
 Recipe {name='Easy chocolate cake', ingredients=[
     Ingredient{name='chocolate', quantity=500},
     Ingredient{name='sugar', quantity=100},
@@ -401,7 +406,7 @@ Recipe {name='Ice cream', ingredients=[
     Ingredient{name='ice', quantity=100},
     Ingredient{name='cream', quantity=50}
     ]}
-INFO: Shutting down easy batch engine</code></pre>
+INFO: Shutting down the engine</code></pre>
 </div>
 
 <h3>7.2 From your IDE</h3>
@@ -469,7 +474,7 @@ INFO: Shutting down easy batch engine</code></pre>
         <a href="../documentation/faq.html">FAQs</a>
     </li>
     <li>
-        <a href="https://speakerdeck.com/EasyBatch/easybatch-framework" target="_blank">Presentation slides</a>
+        <a href="https://speakerdeck.com/benas/easy-batch" target="_blank">Presentation slides</a>
     </li>
     <li class="sidebar-separator">Get involved</li>
     <li>

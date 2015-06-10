@@ -93,7 +93,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.1</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.2</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -148,7 +148,7 @@
                           <h2>1. Introduction</h2>
 
           <p>You may want to use Spring dependency injection to configure Easy Batch components like record mapper or processor and declare Easy Batch engine as a Spring bean.
-              This can be done using the provided <code><em>EasyBatchFactoryBean</em></code>.</p>
+              This can be done using the provided <code><em>EngineFactoryBean</em></code>.</p>
            <p>In this tutorial, you will learn how to use this custom factory bean.</p>
 
 <h2>2. What you’ll need</h2>
@@ -169,7 +169,7 @@
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-spring&lt;/artifactId&gt;
-    &lt;version&gt;3.0.1&lt;/version&gt;
+    &lt;version&gt;3.0.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
         </div>
 
@@ -195,7 +195,7 @@
 
         &lt;/bean&gt;
         &lt;!-- configure record mapper --&gt;
-        &lt;bean id="tweetMapper" class="org.easybatch.flatfile.dsv.DelimitedRecordMapper"&gt;
+        &lt;bean id="tweetMapper" class="org.easybatch.flatfile.DelimitedRecordMapper"&gt;
             &lt;constructor-arg&gt;
                 &lt;value type="java.lang.Class"&gt;org.easybatch.tutorials.common.Tweet&lt;/value&gt;
             &lt;/constructor-arg&gt;
@@ -212,9 +212,13 @@
         &lt;bean id="tweetProcessor" class="org.easybatch.tutorials.basic.helloworld.TweetProcessor"/&gt;
 
         &lt;!-- configure Easy Batch engine --&gt;
-        &lt;bean id="engine" class="org.easybatch.integration.spring.BatchFactoryBean"&gt;
+        &lt;bean id="engine" class="org.easybatch.integration.spring.EngineFactoryBean"&gt;
             &lt;property name="recordReader" ref="tweetReader"/&gt;
-            &lt;property name="recordFilter" ref="headerRecordFilter"/&gt;
+            &lt;property name="filterChain"&gt;
+                &lt;list&gt;
+                    &lt;ref bean="headerRecordFilter"/&gt;
+                &lt;/list&gt;
+            &lt;/property&gt;
             &lt;property name="recordMapper" ref="tweetMapper"/&gt;
             &lt;property name="processingPipeline"&gt;
                 &lt;list&gt;
@@ -333,7 +337,7 @@ Note that you can change the processing pipeline by adding/removing processors w
         <a href="../documentation/faq.html">FAQs</a>
     </li>
     <li>
-        <a href="https://speakerdeck.com/EasyBatch/easybatch-framework" target="_blank">Presentation slides</a>
+        <a href="https://speakerdeck.com/benas/easy-batch" target="_blank">Presentation slides</a>
     </li>
     <li class="sidebar-separator">Get involved</li>
     <li>
