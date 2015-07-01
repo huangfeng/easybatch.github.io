@@ -93,7 +93,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.2</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.3</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -256,8 +256,9 @@
     private static final Logger LOGGER = Logger.getLogger(TweetLoader.class.getName());
 
     @Override
-    public void beforeRecordProcessing(Object record) {
+    public Object beforeRecordProcessing(Object record) {
         DatabaseUtil.getCurrentSession().beginTransaction();
+        return record;
     }
 
     @Override
@@ -274,8 +275,7 @@
         </div>
 
         <p>This listener will start, commit and rollback the transaction when needed.
-        This is a kind of aspect-oriented programming that allows you to benefit from separating business logic from
-        cross cutting concerns.</p>
+        This is a kind of aspect-oriented programming that allows you to separate business logic from cross-cutting concerns.</p>
 
 <div class="bs-callout bs-callout-danger">
     <h5><i class="fa fa-exclamation-triangle"></i> Heads up!</h5>

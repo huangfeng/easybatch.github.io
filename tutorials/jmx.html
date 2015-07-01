@@ -93,7 +93,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.2</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.3</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -160,7 +160,7 @@
                   <li>And the execution progress</li>
               </ul>
 
-                <p>In order to register this JMX MBean at application's startup, you should enable it using the following API:</p>
+                <p>In order to register this JMX MBean, you should enable it at application's startup:</p>
 
 <div class="bs-callout bs-callout-code">
 <pre><code class="java">Engine engine = new EngineBuilder()
@@ -251,12 +251,12 @@ $>mvn exec:java -PrunSingleEngineJmxTutorial
 <h2>5. Summary</h2>
 
         <p>In this tutorial, you have learned how to monitor job execution at runtime. Real time monitoring is an
-        essential requirement for every production application and Easy Batch provides you this feature with no cost.</p>
+        essential requirement for every production application and Easy Batch provides this feature for free.</p>
 
 <h2>6. What's next?</h2>
 
-<p>In the next tutorial, you will tackle another production requirement which is scheduling job executions.
-Easy Batch provides integration with <a href="http://www.quartz-scheduler.org" target="_blank">Quartz</a> to schedule job execution.</p>
+<p>In the next tutorial, you will tackle another production requirement which is job execution scheduling.
+Easy Batch provides an integration module with <a href="http://www.quartz-scheduler.org" target="_blank">Quartz</a> to schedule job executions.</p>
 
 <nav>
     <ul class="pager">

@@ -93,7 +93,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.2</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.3</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -325,7 +325,7 @@ END</code></pre>
               <p>We could have implemented the record reader to only read data and create a <code><em>RecipeRecord</em></code> with a String containing physical records to be mapped by a <code><em>RecipeRecordMapper</em></code>,
                   but in this case, we would iterate twice on physical records: a first time to read data and a second time to map data. That's why we have implemented the recipe reader to read and map data at the same time, since it is more efficient approach.</p>
 
-                <p>Easy Batch provides the <code><em>GenericRecordMapper</em></code> that returns the record payload object as is. We can use this mapper to return recipes from the <code><em>RecipeRecord</em></code>.</p>
+                <p>The <code><em>GenericRecordMapper</em></code> returns the record payload object as is. We can use this mapper to return recipes from the <code><em>RecipeRecord</em></code>.</p>
 
 <h2>5. Processing recipes</h2>
 

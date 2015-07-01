@@ -93,7 +93,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.2</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.3</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -156,7 +156,7 @@
             <div class="panel-body">
                 <p>Easy Batch <strong>streams</strong> data record by record from the data source. Depending on the data source type, a record can be a line in a flat file, an tag in an Xml file, a record in a database table, etc.</p>
                 <p>The <code>RecordReader</code> abstraction is intended to be implemented with a <strong>Streaming API</strong> so that the data source is not entirely loaded in memory (which is the main cause of <code>java.lang.OutOfMemoryError</code> of many batch applications).</p>
-                <p>Easy Batch comes with several built-in implementations of the <code>RecordReader</code> interface to read data from a variety of data sources.
+                <p>There are several implementations of the <code>RecordReader</code> interface to read data from a variety of data sources.
                     Please refer to the <a href="./user-guide.html">user guide</a> for all details about available record readers.</p>
             </div>
         </div>
@@ -193,7 +193,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#faq4"> 4. Does Easy Batch implement the Batch Processing API for Java Platform (JSR 352)?</a>
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#faq4"> 4. Does Easy Batch implement the "Batch Applications for the Java Platform" API (JSR 352)?</a>
             </h4>
         </div>
         <div id="faq4" class="panel-collapse collapse">
@@ -219,12 +219,12 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#faq6"> 6. Can I use Easy Batch with Spring ?</a>
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#faq6"> 6. Can I use Easy Batch with Spring?</a>
             </h4>
         </div>
         <div id="faq6" class="panel-collapse collapse">
             <div class="panel-body">
-                <p>Yes. Easy Batch provides a Spring factory bean that allows you to configure and declare Easy Batch engine as a Spring bean.
+                <p>Yes. the <code>EngineFactoryBean</code> can be used to configure and declare Easy Batch engine as a Spring bean.
                     You can find a complete example of using Easy Batch with Spring <a href="../tutorials/spring.html" target="_blank">here</a>.</p>
             </div>
         </div>

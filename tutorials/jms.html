@@ -93,7 +93,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.2</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.3</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -157,7 +157,7 @@
     </div>
 </div>
 
-        <p>Easy Batch provides the <code><em>JmsQueueRecordReader</em></code> that is able to read data from a JMS queue.</p>
+        <p>The <code><em>JmsQueueRecordReader</em></code> is used to read data from a JMS queue.</p>
 
         <p>Let's get started.</p>
 
@@ -273,8 +273,8 @@
 <div class="bs-callout bs-callout-warning">
     <h5><i class="fa fa-info-circle"></i> Heads up!</h5>
     <p>Poison records serve as End-Of-Stream messages, they are used to stop the engine (gracefully).
-        Easy Batch provides the <code><em>JmsPoisonMessage</em></code> to stop the engine whenever it receives a message of this type.
-        Poison records have no business value,  filter them using the built-in <code><em>JmsPoisonRecordFilter</em></code>.</p>
+        The <code><em>JmsPoisonMessage</em></code> is used to stop the engine whenever it receives a message of this type.
+        Poison records have no business value, filter them using the <code><em>JmsPoisonRecordFilter</em></code>.</p>
 </div>
 
               <p>That's all, you can now run the tutorial and see the results.</p>

@@ -93,7 +93,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.2</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.3</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -173,7 +173,7 @@ This tutorial is divided into 5 parts. Each part will introduce a new API and gi
         <h2>3. Reading records</h2>
 
         <p>Unlike the hello world tutorial where tweets were read from a in-memory string, in this tutorial we will read data from a CSV flat file.
-            Easy Batch provides the <code><em>FlatFileRecordReader</em></code> to read records from a flat file. So let's use this reader:</p>
+            The <code><em>FlatFileRecordReader</em></code> is used to read records from a flat file. So let's use this reader:</p>
 
 <div class="bs-callout bs-callout-code">
 <pre><code>Engine engine = new EngineBuilder()
@@ -182,10 +182,9 @@ This tutorial is divided into 5 parts. Each part will introduce a new API and gi
 </div>
 
         <h2>4. Filtering records</h2>
-        <p>The <code><em>RecordFilter</em></code> allows you to filter records from being processed.
+        <p>The <code><em>RecordFilter</em></code> is used to filter records from being processed.
             In this tutorial, you would like to filter the header record containing field names.</p>
-        <p>Easy Batch comes with several built-in filters for common use cases and you can implement your own filter as well.
-        To filter the header record, you can use the built-in <code><em>HeaderRecordFilter</em></code> designed specifically for that:</p>
+        <p>The <code><em>HeaderRecordFilter</em></code> is designed specifically for that. So let's use it:</p>
 
 <div class="bs-callout bs-callout-code"><pre><code>Engine engine = new EngineBuilder()
     .reader(new FlatFileRecordReader(new File("tweets.csv")))
@@ -202,9 +201,8 @@ This tutorial is divided into 5 parts. Each part will introduce a new API and gi
         <div class="col-md-6">
             <p>Easy Batch development is POJO-centric, you would like to map each tweet to an instance of the <code><em>Tweet</em></code> bean.</p>
             <p>Each field in the text record should be mapped to the corresponding field in the <code>Tweet</code> bean.</p>
-            <p>You can provide object mapping logic by implementing the <code><em>RecordMapper</em></code> interface.</p>
-            <p>Easy Batch comes with a built-in <code><em>DelimitedRecordMapper</em></code> which is able to map delimited values to a java bean.
-                It sounds like this is exactly what you want since you will be reading data from a CSV file.</p>
+            <p>You can provide object mapping logic by implementing the <code><em>RecordMapper</em></code> interface or use one of the built-in mappers.</p>
+            <p>The <code><em>DelimitedRecordMapper</em></code> is able to map delimited values to a java bean. It sounds like this is exactly what you want since you will be reading data from a CSV file.</p>
         </div>
 
         <div class="col-md-6">
@@ -293,7 +291,7 @@ This tutorial is divided into 5 parts. Each part will introduce a new API and gi
     .build();</code></pre>
 </div>
 
-        <p>The <code><em>BeanValidationRecordValidator</em></code> is provided by Easy Batch and is responsible of validating records.
+        <p>The <code><em>BeanValidationRecordValidator</em></code> is responsible of validating records.
         When a record is not valid, the engine will reject it and move to the next one.</p>
 
 
