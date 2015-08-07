@@ -93,7 +93,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.3</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.1.0</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -180,7 +180,7 @@
           <div class="row">
               <div class="feature col-sm-6 col-md-4">
                   <h3 class="title"><i class="fa fa-leaf fa-lg"></i> Lightweight framework</h3>
-                  <p class="text-justify">The framework's core has <strong>no dependencies</strong> and hence a small memory footprint: a 80Ko jar file with a lot of features.</p>
+                  <p class="text-justify">The framework's core has <strong>no dependencies</strong> and hence a small memory footprint: a 100Ko jar file with a lot of features.</p>
               </div>
               <div class="feature col-sm-6 col-md-4">
                   <h3 class="title"><i class="fa fa-coffee fa-lg"></i> POJO-centric development</h3>
@@ -221,10 +221,11 @@
 
         // Build a batch engine
         Engine engine = new EngineBuilder()
-            .reader(new FlatFileRecordReader(new File("data.csv")))
+            .reader(new FlatFileRecordReader("data.csv"))
             .filter(new HeaderRecordFilter())
             .mapper(new DelimitedRecordMapper(Data.class))
             .processor(new DataProcessor())
+            .writer(new FileRecordWriter("output.xml")
             .build();
 
         // Run the batch engine and get execution report
@@ -234,12 +235,14 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                    <p>You write your business logic in the <code><em>DataProcessor</em></code> and Easy Batch will:</p>
+                    <p>In this example, you write your business logic in the <code><em>DataProcessor</em></code> and Easy Batch will:</p>
                 <ul>
                     <li>Read data from your data source</li>
                     <li>Filter data based on your business rules</li>
                     <li>Parse data according to the specified format</li>
                     <li>Map data to your domain object <code><em>Data.class</em></code></li>
+                    <li>Apply the business logic that you wrote in the <code><em>DataProcessor</em></code></li>
+                    <li>Write data to the output sink if any</li>
                     <li>Give you a nice report at the end of execution</li>
                     <li>And much more!</li>
                 </ul>
@@ -258,14 +261,14 @@
     <h2 class="title-divider"><span><i class="fa fa-rss"></i> Latest news</span></h2>
     <div class="row">
         <div class=" col-sm-6 col-md-8">
-            <h4>01/07/2015 - Release: Version 3.0.3 is out!</h4>
-            <p class="text-justify">A third bug-fix release for version 3.0 is out. Many thanks to all contributors! See the complete change log <a href="release-notes.html#3.0.3">here</a>.</p>
+            <h4>09/08/2015 - Release: Version 3.1.0 is out!</h4>
+            <p class="text-justify">This version adds support for chunk processing, record writers and marshallers. All changes in detail <a href="release-notes.html#3.1.0">here</a>.</p>
 
-            <h4>21/06/2015 - Presentation: JavaZone 2015</h4>
+            <h4>10/07/2015 - Presentation: JavaZone 2015</h4>
             <p class="text-justify">Easy Batch will be presented in <a href="http://2015.javazone.no/" target="_blank">JavaZone</a> this year. See you in Oslo in September 9th–10th 2015.</p>
 
-            <h4>10/06/2015 - Release: Version 3.0.2 is out!</h4>
-            <p class="text-justify">A second bug-fix release for the 3.x branch is out. See the <a href="release-notes.html#3.0.2">release notes</a> for a complete change log.</p>
+            <h4>01/07/2015 - Release: Version 3.0.3 is out!</h4>
+            <p class="text-justify">A third bug-fix release for version 3.0 is out. Many thanks to all contributors! See the complete change log <a href="release-notes.html#3.0.3">here</a>.</p>
 
             <h4>15/02/2015 - Blog post: Spring Batch Vs Easy Batch: Round 2 - Performance</h4>
             <p class="text-justify">A <a href="http://blog.mahmoud-benhassine.fr/2015/02/15/spring-batch-vs-easy-batch:-a-performance-comparison.html" target="_blank">new benchmark</a> has been published to compare Easy Batch and Spring Batch in terms of performance.</p>

@@ -93,7 +93,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.3</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.1.0</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -147,7 +147,7 @@
 
                               <h2 id="1">1. Introduction</h2>
 
-        <p>You have seen in the <a href="./key-apis.html">previous tutorial</a> how to process tweets form a CSV file to compute some statistics.
+        <p>You have seen in a <a href="./key-apis.html">previous tutorial</a> how to process tweets form a CSV file to compute some statistics.
             You have filtered undesired data, mapped tweets to the <code><em>Tweet</em></code> bean, and validated them using the
             <a href="http://www.beanvalidation.org" target="_blank">Bean Validation API</a>.</p>
 
@@ -163,9 +163,9 @@
     <li>Your favorite IDE (Optional)</li>
 </ul>
 
-<h2>3. Implementing the <em>TweetLoader</em> processor</h2>
+<h2>3. Writing tweets to the database</h2>
 
-        <p>Here is a quick refresh of what you have seen in the previous tutorial:</p>
+    <p>Here is a quick look of what you have seen in the previous tutorial:</p>
 
 <div class="bs-callout bs-callout-code">
 <pre><code class="java">public class Launcher {
@@ -193,11 +193,9 @@
         <div class="row">
 
             <div class="col-md-8">
-                <p>We will change the <code><em>TweetCountProcessor</em></code> by another implementation to store tweets in a database instead of counting them.</p>
+                <p>We will change the <code><em>TweetCountProcessor</em></code> by a <code>RecordWriter</code> to store tweets in a database instead of counting them.</p>
                 <p>To keep the tutorial simple, a in-memory database will be used.</p>
                 <p>Tweets will be inserted in the <code><em>tweet</em></code> table.</p>
-                <p>The following implementation of the <code>RecordProcessor</code>
-                    interface uses <a href="http://hibernate.org/orm/" target="_blank">Hibernate</a> APIs to save tweets in the database:</p>
             </div>
             <div class="col-md-4">
                 <table class="table table-bordered table-condensed table-striped">
@@ -227,96 +225,95 @@
         </div>
 
 
+<p>There are 3 record writers to load data in a relational database:</p>
+<ul>
+    <li>The <code>JdbcRecordWriter</code>: writes records in a database using the JDBC API.</li>
+    <li>The <code>JpaRecordWriter</code>: writes records in a database using the Java Persistence API.</li>
+    <li>The <code>HibernateRecordWriter</code>: writes records in a database using <a href="http://hibernate.org/orm/" target="_blank">Hibernate</a>.</li>
+</ul>
+
+<p>In this tutorial, we will use the <code>JdbcRecordWriter</code>. To use this writer, we need to supply 3 artifacts:</p>
+<ul>
+    <li>a JDBC connection</li>
+    <li>the SQL query to insert data</li>
+    <li>and a <code>PreparedStatementProvider</code></li>
+</ul>
+
+<p>First things first, let's create a JDBC connection:</p>
+
 <div class="bs-callout bs-callout-code">
-    <h5>TweetLoader.java</h5>
-<pre><code class="java">public class TweetLoader implements RecordProcessor&lt;Tweet, Tweet&gt; {
-
-    public Tweet processRecord(Tweet tweet) {
-
-        DatabaseUtil.getCurrentSession().saveOrUpdate(tweet);
-        return tweet;
-    }
-}</code></pre>
-    </div>
-
-        <p>The <code><em>DatabaseUtil</em></code> class provides some utilities to facilitate the usage of hibernate APIs.
-            It is not shown here for simplicity's sake.</p>
-
-        <p>Now, we would like to start a transaction before processing the record, commit it if everything is ok and roll it back when an exception occurs.
-        You could write this transaction handling code directly in the <code><em>TweetLoader</em></code> above, but this would
-        pollute your business logic with technical code to handle transactions.</p>
-        <p>In order to introduce cross cutting behavior into the processing workflow, Easy Batch provides listeners that
-        are fired before and after each step. In this case, we need a listener bound to the record processing step.
-        We can implement the <code><em>RecordProcessorEventListener</em></code> interface:</p>
-
-        <div class="bs-callout bs-callout-code">
-            <h5>TransactionProcessingEventListener.java</h5>
-<pre><code class="java">public class TransactionProcessingEventListener implements RecordProcessorEventListener {
-
-    private static final Logger LOGGER = Logger.getLogger(TweetLoader.class.getName());
-
-    @Override
-    public Object beforeRecordProcessing(Object record) {
-        DatabaseUtil.getCurrentSession().beginTransaction();
-        return record;
-    }
-
-    @Override
-    public void afterRecordProcessing(Object record, final Object processingResult) {
-        DatabaseUtil.getCurrentSession().getTransaction().commit();
-        LOGGER.log(Level.INFO, "Tweet {0} successfully persisted in the database", record);
-    }
-
-    @Override
-    public void onRecordProcessingException(Object record, Throwable throwable) {
-        DatabaseUtil.getCurrentSession().getTransaction().rollback();
-    }
-}</code></pre>
-        </div>
-
-        <p>This listener will start, commit and rollback the transaction when needed.
-        This is a kind of aspect-oriented programming that allows you to separate business logic from cross-cutting concerns.</p>
-
-<div class="bs-callout bs-callout-danger">
-    <h5><i class="fa fa-exclamation-triangle"></i> Heads up!</h5>
-    <p>The implementation of <code><em>TransactionProcessingEventListener</em></code> is kept simple for demonstration purpose. In production use case, you should define a
-        commit interval to avoid performance issues of committing the transaction after each record insertion.</p>
+    <pre><code class="java">Connection connection = DatabaseUtil.getConnection()</code></pre>
 </div>
 
-        <p>You should now register the new record processor and the transaction listener as follows:</p>
+<p>The <code>DatabaseUtil</code> class provides static helper methods to work with the embedded database (not shown here for simplicity's sake).</p>
 
-        <div class="bs-callout bs-callout-code">
+<p>Next, we need to provide the SQL query to insert tweets in the <code>Tweet</code> table:</p>
+
+<div class="bs-callout bs-callout-code">
+    <pre><code class="sql">String query = "INSERT INTO TWEET values (?, ?, ?)"</code></pre>
+</div>
+
+<p>Finally, we must implement the <code>PreparedStatementProvider</code> to provide values to the SQL query:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Connection connection = DatabaseUtil.getConnection();
+    String query = "INSERT INTO tweet VALUES (?,?,?);";
+    JdbcRecordWriter jdbcRecordWriter =
+        new JdbcRecordWriter(connection, query, new PreparedStatementProvider() {
+            @Override
+            public void prepareStatement(PreparedStatement preparedStatement, Object record) {
+                Tweet tweet = (Tweet) record;
+                preparedStatement.setInt(1, tweet.getId());
+                preparedStatement.setString(2, tweet.getUser());
+                preparedStatement.setString(3, tweet.getMessage());
+            }
+});</code></pre>
+</div>
+
+<p>That's all for the record writer, let put all components together:</p>
+
+<div class="bs-callout bs-callout-code">
 <pre><code class="java">public class Launcher {
 
     public static void main(String[] args) throws Exception {
 
-    //load tweets from tweets.csv
-    File tweets = new File(args[0]);
-
-    //Start embedded database server
-    DatabaseUtil.startEmbeddedDatabase();
-    DatabaseUtil.initializeSessionFactory();
-
-    // Build a batch engine
-    Engine engine = new EngineBuilder()
-        .reader(new FlatFileRecordReader(tweets))
-        .filter(new HeaderRecordFilter())
-        .mapper(new DelimitedRecordMapper(Tweet.class, new String[]{"id", "user", "message"}))
-        .validator(new BeanValidationRecordValidator&lt;Tweet&gt;())
-        <strong>.processor(new TweetLoader())
-        .recordProcessorEventListener(new TransactionProcessingEventListener())</strong>
-        .build();
-
-    // Run easy batch engine
-    engine.call();
-
-    //Dump tweet table to check inserted data
-    DatabaseUtil.closeSessionFactory();
-    DatabaseUtil.dumpTweetTable();
-
+        //load tweets from tweets.csv
+        File tweets = new File("tweets.csv").toURI());
+    
+        //Start embedded database server
+        DatabaseUtil.startEmbeddedDatabase();
+    
+        //Setup the JDBC writer
+        Connection connection = DatabaseUtil.getConnection();
+        String query = "INSERT INTO tweet VALUES (?,?,?);";
+        JdbcRecordWriter jdbcRecordWriter =
+            new JdbcRecordWriter(connection, query, new PreparedStatementProvider() {
+                @Override
+                public void prepareStatement(PreparedStatement preparedStatement, Object record) {
+                        Tweet tweet = (Tweet) record;
+                        preparedStatement.setInt(1, tweet.getId());
+                        preparedStatement.setString(2, tweet.getUser());
+                        preparedStatement.setString(3, tweet.getMessage());
+                    }
+        });
+    
+        // Build and run a batch engine
+        EngineBuilder.aNewEngine()
+            .reader(new FlatFileRecordReader(tweets))
+            .filter(new HeaderRecordFilter())
+            .mapper(new DelimitedRecordMapper(Tweet.class, new String[]{"id", "user", "message"}))
+            .writer(jdbcRecordWriter)
+            .build().call();
+    
+        // Dump tweet table to check inserted data
+        DatabaseUtil.dumpTweetTable();
+    
+        // Shutdown embedded database server and delete temporary files
+        DatabaseUtil.cleanUpWorkingDirectory();
     }
+
 }</code></pre>
-        </div>
+</div>
 
                 <h2>4. Running the tutorial</h2>
 
@@ -327,7 +324,7 @@
 <pre><code>$>git clone https://github.com/EasyBatch/easybatch-tutorials.git
 $>cd easybatch-tutorials
 $>mvn install
-$>mvn exec:java -PrunLoadDataTutorial
+$>mvn exec:java -PrunJdbcTutorial
 </code></pre>
     </div>
 
@@ -348,7 +345,7 @@ INFO: Shutting down the engine</code></pre>
 
 <h3>4.2 From your IDE</h3>
 
-<p>First, you need to checkout the source code of the tutorial available <a href="https://github.com/EasyBatch/easybatch-tutorials/tree/master/src/main/java/org/easybatch/tutorials/intermediate/load" target="_blank">here</a>:</p>
+<p>First, you need to checkout the source code of the tutorial available <a href="https://github.com/EasyBatch/easybatch-tutorials/tree/master/src/main/java/org/easybatch/tutorials/intermediate/jdbc" target="_blank">here</a>:</p>
 
 <div class="bs-callout bs-callout-code">
     <pre><code>$>git clone https://github.com/EasyBatch/easybatch-tutorials.git</code></pre>
@@ -359,16 +356,68 @@ INFO: Shutting down the engine</code></pre>
 
 <p>Then, import the <code><em>easybatch-tutorials</em></code> module in you favorite IDE and resolve maven dependencies.</p>
 
-<p>Finally, run the <code><em>org.easybatch.tutorials.intermediate.load.Launcher</em></code> class without any argument.</p>
+<p>Finally, run the <code><em>org.easybatch.tutorials.intermediate.jdbc.Launcher</em></code> class without any argument.</p>
 
-<h2>5. Summary</h2>
+<h2>5. Performance considerations</h2>
+
+<p>By default, the JDBC connection is in <code>autocommit</code> mode. This will make the <code>JdbcRecordWriter</code> commit a transaction after each record insertion.</p>
+
+<p>For performance sensitive applications, this may not be the wanted behavior. You may want to commit a transaction after the insertion of a chunk of records.
+This is possible through the <code>JdbcTransactionStepListener</code>. You need to disable the <code>autocommit</code> in the JDBC connection and configure the listener with a commit-interval value:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">connection.setAutoCommit(false);
+int commitInterval = 10;
+
+EngineBuilder.aNewEngine()
+    .reader(new FlatFileRecordReader(tweets))
+    .filter(new HeaderRecordFilter())
+    .mapper(new DelimitedRecordMapper(Tweet.class, new String[]{"id", "user", "message"}))
+    .writer(jdbcRecordWriter)
+    <strong>.recordProcessorEventListener(new JdbcTransactionStepListener(connection, commitInterval))</strong>
+    .build().call();
+</code></pre>
+</div>
+
+<p>In this example, the <code>JdbcTransactionStepListener</code> will commit a transaction after each 10 records.</p>
+
+<p>But there still a last point to take into account. What if we have 25 input records? The <code>JdbcTransactionStepListener</code> will:
+<ul>
+    <li>start and commit a transaction for the first 10 records</li>
+    <li>start and commit a transaction for the next 10 records</li>
+    <li>start a transaction for the remaining 5 records, but since this listener is bound to the record processing step, it will never commit the transaction for the last records (if any)</li>
+</ul>
+
+<p>This is where the <code>JdbcTransactionJobListener</code> comes to play, to commit the last transaction (if any). This is a job listener that will check at the end of the job if there is an active
+transaction and will commit it. This what will make the last records to be committed to the database:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">connection.setAutoCommit(false);
+int commitInterval = 10;
+
+EngineBuilder.aNewEngine()
+        .reader(new FlatFileRecordReader(tweets))
+        .filter(new HeaderRecordFilter())
+        .mapper(new DelimitedRecordMapper(Tweet.class, new String[]{"id", "user", "message"}))
+        .writer(jdbcRecordWriter)
+        <strong>.recordProcessorEventListener(new JdbcTransactionStepListener(connection, commitInterval))
+        .jobEventListener(new JdbcTransactionJobListener(connection, true))</strong>
+        .build().call();
+</code></pre>
+</div>
+
+<p>That's all, we have improved the performance of our application with bulk-writes. Easy Batch provide transaction management support through the <code>JdbcTransactionStepListener</code> and <code>JdbcTransactionJobListener</code> APIs.</p>
+
+<h2>6. Summary</h2>
 
 <p>In this tutorial, you have learned how to use Easy Batch in a typical enterprise requirement to persist data into a database.
-    Note that you have only wrote the <code><em>TweetLoader</em></code> and <code><em>TransactionProcessingEventListener</em></code>
-    which represent your application's logic and have reused exactly the same components that served for another application.
+    Note that you have only provided configuration meta-data and have reused exactly the same components that served for another application.
     This is how flexible Easy Batch's API is to enforce reuse.</p>
 
-<h2>6. What's next?</h2>
+<p>In this tutorial, we have used the <code>JdbcRecordWriter</code> to inserts tweets in the database, but you can find <a href="https://github.com/EasyBatch/easybatch-tutorials/tree/master/src/main/java/org/easybatch/tutorials/intermediate/hibernate" target="_blank">here</a> the same example using the <code>HibernateRecordWriter</code>.
+There is also another tutorial to load data in a MongoDB instance <a href="https://github.com/EasyBatch/easybatch-tutorials/tree/master/src/main/java/org/easybatch/tutorials/intermediate/mongodb/load" target="_blank">here</a>.</p>
+
+<h2>7. What's next?</h2>
 
 <p>In the next tutorial, you will learn how to build a <a
         href="http://fr.wikipedia.org/wiki/Extract_Transform_Load" target="_blank">Extract-Transform-Load</a> application using Easy Batch.
@@ -377,8 +426,8 @@ INFO: Shutting down the engine</code></pre>
 
 <nav>
     <ul class="pager">
-        <li class="previous"><a href="./pipeline.html"><span aria-hidden="true">&larr;</span> Processing pipeline tutorial</a></li>
-        <li class="next"><a href="./elasticsearch.html">ETL tutorial<span aria-hidden="true">&rarr;</span></a></li>
+        <li class="previous"><a href="./word-count.html"><span aria-hidden="true">&larr;</span> Word count tutorial</a></li>
+        <li class="next"><a href="./elasticsearch.html">Indexing ElasticSearch tutorial<span aria-hidden="true">&rarr;</span></a></li>
     </ul>
 </nav>
 

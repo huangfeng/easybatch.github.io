@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Easy Batch &bull; Filter-Map-Reduce tutorial</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Mahmoud Ben Hassine">
+    <meta name="description" content="open source lightweight batch processing framework for Java">
+    <meta name="keyword" content="java, batch, batch processing, open source">
+
+    <!-- Bootstrap CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Plugins -->
+    <link href="../css/highlight/default.css" media="screen" rel="stylesheet" />
+    <link href="../css/clingify/clingify.css" rel="stylesheet">
+
+    <!-- Theme style -->
+    <link href="../css/theme-style.min.css" rel="stylesheet">
+
+    <!--Your custom colour override-->
+    <link href="../css/colour-blue.css" id="colour-scheme" rel="stylesheet">
+
+    <!-- Your custom override -->
+    <link href="../css/custom-style.css" rel="stylesheet">
+
+    <!-- HTML5 shiv & respond.js for IE6-8 support of HTML5 elements & media queries -->
+    <!--[if lt IE 9]>
+    <script src="../js/plugins/html5shiv/html5shiv.js"></script>
+    <script src="../js/plugins/respond/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="shortcut icon" href="../img/misc/gear.ico">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300|Rambla|Calligraffitti' rel='stylesheet' type='text/css'>
+
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-35599235-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+
+</head>
+<body class="page page-index-static">
+
+<a href="#content" class="sr-only">Skip to content</a>
+<div id="navigation" class="wrapper">
+    <div class="navbar-static-top">
+
+        <!--Header & Branding region-->
+        <div class="header">
+            <div class="header-inner container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <!--branding/logo-->
+                        <a class="navbar-brand" href="../index.html" title="Home">
+                            <h1><span>Easy</span>Batch</h1>
+                        </a>
+                        <div class="slogan">Batch processing with Java made easy</div>
+                    </div>
+                    <div class="col-md-4">
+                        <!--social media icons-->
+                        <div class="social-media">
+                            <a href="https://github.com/EasyBatch/easybatch-framework" title="View on GitHub" target="_blank"><i class="fa fa-github"></i></a>
+                            <a href="https://twitter.com/intent/tweet?url=http://www.easybatch.org/&text=Easy%20Batch:%20batch%20processing%20with%20Java%20made%20easy&via=md_benhassine" title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="https://plus.google.com/share?url=http://www.easybatch.org&text=Easy%20Batch:%20batch%20processing%20with%20Java%20made%20easy" title="Share on Google+" target="_blank"><i class="fa fa-google-plus"></i></a>
+                            <a href="https://gitter.im/EasyBatch/easybatch-framework" title="Chat on Gitter" target="_blank"><i class="fa fa-comment"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container" data-toggle="clingify">
+            <div class="navbar">
+                <!--
+              mobile collapse menu button
+              - data-toggle="toggle" = default BS menu
+              - data-toggle="jpanel-menu" = jPanel Menu
+              -->
+                <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
+
+                <!--user menu-->
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.1.0</a> </div>
+
+                <!--everything within this div is collapsed on mobile-->
+                <div class="navbar-collapse collapse">
+
+                    <!--main navigation-->
+                    <ul class="nav navbar-nav">
+                        <li><a href="../index.html"><i class="fa fa-home fa-lg"></i> Home</a></li>
+                        <li class="dropdown"> <a href="#" class="dropdown-toggle menu-item" id="features-drop" data-toggle="dropdown"><i class="fa fa-book fa-lg" ></i> Documentation +</a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="about-drop">
+                                <li role="presentation"><a role="menuitem" href="../documentation/getting-started.html" class="menu-item"><i class="fa fa-play fa-lg"></i> Getting started</a></li>
+                                <li role="presentation"><a role="menuitem" href="../documentation/architecture.html" tabindex="-1" class="menu-item"><i class="fa fa-flask fa-lg"></i> Architecture</a></li>
+                                <li role="presentation"><a role="menuitem" href="../documentation/user-guide.html" tabindex="-1" class="menu-item"><i class="fa fa-book fa-lg"></i> User guide</a></li>
+                                <li role="presentation"><a role="menuitem" href="../api/index.html" tabindex="-1" class="menu-item" target="_blank"><i class="fa fa-folder-open fa-lg"></i> API docs</a></li>
+                                <li role="presentation"><a role="menuitem" href="../documentation/faq.html" tabindex="-1" class="menu-item"><i class="fa fa-question-circle fa-lg"></i> FAQs</a></li>
+                                <li role="presentation"><a role="menuitem" href="https://speakerdeck.com/benas/easy-batch" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-video-camera fa-lg"></i> Presentation slides</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="../tutorials/index.html" class="menu-item"><i class="fa fa-code fa-lg"></i> Tutorials</a></li>
+                        <li class="dropdown"> <a href="" class="dropdown-toggle" id="about-drop" data-toggle="dropdown"><i class="fa fa-thumbs-o-up fa-lg"></i> Get involved +</a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="about-drop">
+                                <li role="presentation"><a role="menuitem" href="https://github.com/EasyBatch/easybatch-framework" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-github fa-lg"></i> Source repository</a></li>
+                                <li role="presentation"><a role="menuitem" href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-bug fa-lg"></i> Issue tracker</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+                <!--/.navbar-collapse -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="content">
+    <div class="container">
+
+        <!-- breadcrumb -->
+<ul class="breadcrumb">
+    <li><a href="../index.html">Home</a></li>
+    
+    <li><a href="../tutorials/index.html">Tutorials</a></li>
+    
+    
+    <li class="active">Filter-Map-Reduce tutorial</li>
+</ul>
+
+        <div class="row">
+            <div class="col-md-9">
+
+                <h1 class="title-divider"><span>Filter-Map-Reduce tutorial</span></h1>
+
+                <h2>1. Introduction</h2>
+
+<p>This tutorial is a filter-map-reduce application that calculates some statistics on a list of persons of the following <code>Person</code> type:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code>public class Person {
+
+    private String name;
+    private String country;
+    private int age;
+
+    public Person(String name, String country, int age) {
+        this.name = name;
+        this.country = country;
+        this.age = age;
+    }
+
+    //getters and setters omitted
+}</code></pre>
+</div>
+
+<p>Here is the list of persons that represent our data source:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code>List&lt;Person&gt; dataSource = new ArrayList&lt;Person&gt;();
+dataSource.add(new Person("jean", "france", 10));
+dataSource.add(new Person("foo", "usa", 30));
+dataSource.add(new Person("bar", "belgium", 20));
+dataSource.add(new Person("jacques", "france", 40));</code></pre>
+</div>
+
+<p>Let's get started!</p>
+
+<h2>2. What you’ll need</h2>
+
+<ul>
+    <li>JDK 1.6+</li>
+    <li>Maven</li>
+    <li>Git (Optional)</li>
+    <li>Your favorite IDE (Optional)</li>
+</ul>
+
+<h2>3. Example 1: Find the youngest french person's age</h2>
+
+<p>In this example, we would like to find the age of youngest french person. First, let's create a engine to read persons from the data source:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Engine engine = EngineBuilder.aNewEngine()
+    .reader(new IterableRecordReader&lt;Person&gt;(dataSource))
+    .build();</code></pre>
+</div>
+
+<p>The list of persons is an iterable data source, we can use the <code>IterableRecordReader</code> to read persons from this list. Then, we need to filter non-french persons. Let's create a record filter called <code>CountryFilter</code> :</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">public class CountryFilter implements RecordFilter {
+
+    private String country;
+
+    public CountryFilter(String country) {
+        this.country = country;
+    }
+
+    @Override
+    public boolean filterRecord(Record record) {
+        Person person = (Person) record.getPayload();
+        return !country.equalsIgnoreCase(person.getCountry());
+    }
+
+}</code></pre>
+</div>
+
+<p>After that, we need to get the age of each person as the "map" operation. We can create a <code>AgeMapper</code> for that:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">public class AgeMapper implements RecordMapper&lt;Integer&gt; {
+
+    @Override
+    public Integer mapRecord(Record record) {
+        Person person = (Person) record.getPayload();
+        return person.getAge();
+    }
+
+}</code></pre>
+</div>
+
+<p>Now, we should calculate the lowest age as the "reduce" operation. Here is a record processor to calculate the minimum age:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">public class MinCalculator implements ComputationalRecordProcessor&lt;Integer, Integer, Integer&gt; {
+
+    private Integer min = Integer.MAX_VALUE;
+
+    @Override
+    public Integer processRecord(Integer record) {
+        if (record < min) {
+            min = record;
+        }
+        return record;
+    }
+
+    @Override
+    public Integer getComputationResult() {
+        return min;
+    }
+
+}</code></pre>
+</div>
+
+<p>Note that this is a <code>ComputationalRecordProcessor</code> since it does some computation. Computational record processors should placed at
+the end of the pipeline to be able to get their computation result from the execution report:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Engine engine = EngineBuilder.aNewEngine()
+    .reader(new IterableRecordReader&lt;Person&gt;(dataSource))
+    .filter(new CountryFilter("france"))
+    .mapper(new AgeMapper())
+    .processor(new MinCalculator())
+    .build();
+
+Report report = engine.call();
+System.out.println("The youngest french person's age is: " + report.getBatchResult());</code></pre>
+</div>
+
+<p>The previous listing is the complete application with all components together. If you run this example, you should get the following result:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code>The youngest french person's age is: 10</code></pre>
+</div>
+
+<h2>3. Example 2: Group persons by country</h2>
+
+<p>In this example, we would like to group persons by country. For instance, for the previous data source, we should get the following result:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code>Persons grouped by country:
+{ belgium=[Person{name='bar',country='belgium',age=20}],
+  france=[Person{name='jacques',country='france',age=40},Person{name='jean',country='france',age=10}],
+  usa=[Person{name='foo',country='usa',age=30}]
+}</code></pre>
+</div>
+
+<p>Since the data source is the same as the previous example, we will reuse the same record reader:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Engine engine = EngineBuilder.aNewEngine()
+    .reader(new IterableRecordReader&lt;Person&gt;(dataSource))
+    .build();</code></pre>
+</div>
+
+<p>Then, we need to implement a record processor to group person by country. Here is the code for that:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">public class GroupByCountry implements
+    ComputationalRecordProcessor&lt;Record, Record, Map&lt;String, Set&lt;Person&gt;&gt;&gt; {
+
+    private  Map&lt;String, Set&lt;Person&gt;&gt; personsByCountry = new HashMap&lt;String, Set&lt;Person&gt;&gt;();
+
+    @Override
+    public Record processRecord(Record record) {
+        Person person = (Person) record.getPayload();
+        String country = person.getCountry();
+        if (!personsByCountry.containsKey(country)) {
+            personsByCountry.put(country, new HashSet&lt;Person&gt;());
+        }
+        personsByCountry.get(country).add(person);
+        return record;
+    }
+
+    @Override
+    public Map&lt;String, Set&lt;Person&gt;&gt; getComputationResult() {
+        return personsByCountry;
+    }
+
+}</code></pre>
+</div>
+
+<p>This computational record processor groups persons by country in a <code>java.util.Map</code> instance. That's all what we need for this example, let's register the <code>GroupByCountry</code> processor:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Engine engine = EngineBuilder.aNewEngine()
+    .reader(new IterableRecordReader&lt;Person&gt;(dataSource))
+    .processor(new GroupByCountry())
+    .build();</code></pre>
+</div>
+
+<p>If you run this example, you should get the following result:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code>Persons grouped by country:
+{ belgium=[Person{name='bar',country='belgium',age=20}],
+  france=[Person{name='jacques',country='france',age=40},Person{name='jean',country='france',age=10}],
+  usa=[Person{name='foo',country='usa',age=30}]
+}</code></pre>
+</div>
+
+<h2>4. Running the tutorial</h2>
+
+<h3>4.1 From the command line</h3>
+
+<p>To run the tutorial from scratch, you can follow these instructions:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code>$>git clone https://github.com/EasyBatch/easybatch-tutorials.git
+$>cd easybatch-tutorials
+$>mvn install
+$>mvn exec:java -PrunFilterMapReduceTutorial
+</code></pre>
+</div>
+
+<h3>4.2 From your IDE</h3>
+
+<p>First, you need to checkout the source code of the tutorial available <a href="https://github.com/EasyBatch/easybatch-tutorials/tree/master/src/main/java/org/easybatch/tutorials/basic/filterMapReduce" target="_blank">here</a>:</p>
+
+<div class="bs-callout bs-callout-code">
+    <pre><code>$>git clone https://github.com/EasyBatch/easybatch-tutorials.git</code></pre>
+</div>
+
+<p>If you do not have git installed, you can download a zip file containing the project's source code from GitHub
+    <a href="https://github.com/EasyBatch/easybatch-tutorials/archive/master.zip">here</a>.</p>
+
+<p>Then, import the <code><em>easybatch-tutorials</em></code> module in you favorite IDE and resolve maven dependencies.</p>
+
+<p>Finally, run the <code><em>org.easybatch.tutorials.basic.filterMapReduce.Launcher</em></code> class without any argument.</p>
+
+<h2>5. Summary</h2>
+
+<p>Congratulations! You have built a Filter-Map-Reduce application with Easy Batch.</p>
+
+<h2>6. What's next?</h2>
+
+<p>In the next tutorial, you will implement the classic word count sample.</p>
+
+<nav>
+    <ul class="pager">
+        <li class="previous"><a href="./pipeline.html"><span aria-hidden="true">&larr;</span> Unix-like pipeline tutorial</a></li>
+        <li class="next"><a href="./word-count.html">Word count tutorial <span aria-hidden="true">&rarr;</span></a></li>
+    </ul>
+</nav>
+
+
+            </div>
+
+            <div class="col-md-3 sidebar-right">
+                <!-- <div class="inner" data-spy="affix" data-offset-top="40" data-offset-bottom="300"> -->
+<div class="inner">
+<ul class="list-lg">
+    <li class="sidebar-separator">About Easy Batch</li>
+    <li >
+        <a href="../index.html">Overview</a>
+    </li>
+    <li >
+        <a href="../release-notes.html">Release notes</a>
+    </li>
+    <li class="sidebar-separator">Documentation</li>
+    <li >
+        <a href="../documentation/getting-started.html">Getting started</a>
+    </li>
+    <li >
+        <a href="../documentation/architecture.html">Architecture</a>
+    </li>
+    <li >
+        <a href="../documentation/user-guide.html">User guide</a>
+    </li>
+    <li  class="active" >
+        <a href="../tutorials/index.html">Tutorials</a>
+    </li>
+    <li>
+        <a href="../api/index.html" target="_blank">API docs</a>
+    </li>
+    <li >
+        <a href="../documentation/faq.html">FAQs</a>
+    </li>
+    <li>
+        <a href="https://speakerdeck.com/benas/easy-batch" target="_blank">Presentation slides</a>
+    </li>
+    <li class="sidebar-separator">Get involved</li>
+    <li>
+        <a href="https://github.com/EasyBatch/easybatch-framework" target="_blank">Source repository</a>
+    </li>
+    <li>
+        <a href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank">Issue tracker</a>
+    </li>
+</ul>
+</div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<!-- FOOTER -->
+<footer id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col">
+                <div class="block contact-block">
+                    <h3>Documentation</h3>
+                    <ul class="fa-ul">
+                        <li><a href="../documentation/getting-started.html"><i class="fa fa-li fa-play"></i> Getting started</a></li>
+                        <li><a href="../documentation/architecture.html"><i class="fa fa-li fa-flask"></i> Architecture</a></li>
+                        <li><a href="../documentation/user-guide.html"><i class="fa fa-li fa-book"></i> User guide</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 col">
+                <div class="block contact-block">
+                    <h3>Tutorials</h3>
+                    <ul class="fa-ul">
+                    <li><a href="../tutorials/index.html#basic"><i class="fa fa-li fa-star-o"></i> Basic tutorials</a></li>
+                        <li><a href="../tutorials/index.html#intermediate"><i class="fa fa-li fa-star-half-o"></i> Intermediate tutorials</a></li>
+                        <li><a href="../tutorials/index.html#advanced"><i class="fa fa-li fa-star"></i> Advanced Tutorials</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 col">
+                <div class="block contact-block">
+                    <h3>Get involved</h3>
+                    <ul class="fa-ul">
+                        <li><a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-li fa-github"></i> Source repository</a></a></li>
+                        <li><a href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank"><i class="fa fa-li fa-bug"></i> Issue tracker</a></li>
+                        <li><a href="../documentation/faq.html"><i class="fa fa-li fa-question"></i> FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 col">
+                <div class="block contact-block">
+                    <h3>Become a friend</h3>
+                    <ul class="fa-ul">
+                        <li><a href="https://twitter.com/intent/tweet?url=http://www.easybatch.org/&text=Easy%20Batch:%20batch%20processing%20with%20Java%20made%20easy&via=md_benhassine" target="_blank"><i class="fa fa-li fa-twitter"></i> Share it on Twitter</a></a></li>
+                        <li><a href="https://plus.google.com/share?url=http://www.easybatch.org&text=Easy%20Batch:%20batch%20processing%20with%20Java%20made%20easy" target="_blank"><i class="fa fa-li fa-google-plus"></i> Share it on Google+</a></a></li>
+                        <li><a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-li fa-heart"></i> Star it on GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <br>
+        <p class="back-top floatright" style="display: none;">
+            <a href="#top"><span></span></a>
+        </p>
+
+        <div class="row">
+            <div id="toplink"><a href="#top" class="top-link" title="Back to top">Back To Top <i class="fa fa-chevron-up"></i></a></div>
+
+            <div class="subfooter">
+                <br>
+                <div class="col-md-4">
+                    <p>&copy; Easy Batch is created by <a href="http://www.mahmoud-benhassine.fr" target="_blank">Mahmoud Ben Hassine</a> <br>
+                    and the <a href="https://github.com/EasyBatch/easybatch-framework#awesome-contributors" target="_blank">awesome contributors</a></p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <iframe src="http://ghbtns.com/github-btn.html?user=EasyBatch&repo=easybatch-framework&type=watch&count=true"
+                            allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+                    <iframe src="http://ghbtns.com/github-btn.html?user=EasyBatch&repo=easybatch-framework&type=fork&count=true"
+                            allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
+                </div>
+                <div class="col-md-4">
+                    <p class="footer-menu">Easy Batch is open source and is released <br> under the terms of the <a href="http://opensource.org/licenses/mit-license.php/" target="_blank">MIT license</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!--Scripts -->
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery-migrate-1.2.1.min.js"></script> <!--Legacy jQuery support for quicksand plugin-->
+
+<!-- Bootstrap JS -->
+<script src="../js/bootstrap.min.js"></script>
+
+<!--JS plugins-->
+<script src="../js/plugins/clingify/jquery.clingify.min.js"></script>
+<script src="../js/plugins/jRespond/jRespond.js"></script>
+
+<!--Custom scripts mainly used to trigger libraries -->
+<script src="../js/script.min.js"></script>
+<script src="../js/scrolltotop.js"></script>
+<script src="../js/homeScroll.js"></script>
+<script src="../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

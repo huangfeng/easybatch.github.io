@@ -93,7 +93,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.3</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.1.0</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -177,7 +177,7 @@ This tutorial is divided into 5 parts. Each part will introduce a new API and gi
 
 <div class="bs-callout bs-callout-code">
 <pre><code>Engine engine = new EngineBuilder()
-    <strong>.reader(new FlatFileRecordReader(new File("tweets.csv")))</strong>
+    <strong>.reader(new FlatFileRecordReader("tweets.csv"))</strong>
     .build();</code></pre>
 </div>
 
@@ -187,7 +187,7 @@ This tutorial is divided into 5 parts. Each part will introduce a new API and gi
         <p>The <code><em>HeaderRecordFilter</em></code> is designed specifically for that. So let's use it:</p>
 
 <div class="bs-callout bs-callout-code"><pre><code>Engine engine = new EngineBuilder()
-    .reader(new FlatFileRecordReader(new File("tweets.csv")))
+    .reader(new FlatFileRecordReader("tweets.csv"))
     <strong>.filter(new HeaderRecordFilter())</strong>
     .build();</code></pre>
 </div>
@@ -226,7 +226,7 @@ This tutorial is divided into 5 parts. Each part will introduce a new API and gi
 
 <p>Let's register the <code><em>DelimitedRecordMapper</em></code>:</p>
 <div class="bs-callout bs-callout-code"><pre><code>Engine engine = new EngineBuilder()
-    .reader(new FlatFileRecordReader(new File("tweets.csv")))
+    .reader(new FlatFileRecordReader("tweets.csv"))
     .filter(new HeaderRecordFilter())
     <strong>.mapper(new DelimitedRecordMapper(Tweet.class, new String[]{"id", "name", "message"}))</strong>
     .build();</code></pre>
@@ -284,7 +284,7 @@ This tutorial is divided into 5 parts. Each part will introduce a new API and gi
         </div>
 
 <div class="bs-callout bs-callout-code"><pre><code>Engine engine = new EngineBuilder()
-    .reader(new FlatFileRecordReader(new File("tweets.csv")))
+    .reader(new FlatFileRecordReader("tweets.csv"))
     .filter(new HeaderRecordFilter())
     .mapper(new DelimitedRecordMapper(Tweet.class, new String[]{"id", "name", "message"}))
     <strong>.validator(new BeanValidationRecordValidator&lt;Tweet&gt;())</strong>
@@ -331,7 +331,7 @@ This tutorial is divided into 5 parts. Each part will introduce a new API and gi
     You will see how to do that in a second, for now let's register this processor within the engine:</p>
 
 <div class="bs-callout bs-callout-code"><pre><code>Engine engine = new EngineBuilder()
-    .reader(new FlatFileRecordReader(new File("tweets.csv")))
+    .reader(new FlatFileRecordReader("tweets.csv"))
     .filter(new HeaderRecordFilter())
     .mapper(new DelimitedRecordMapper(Tweet.class, new String[]{"id", "name", "message"}))
     .validator(new BeanValidationRecordValidator&lt;Tweet&gt;())

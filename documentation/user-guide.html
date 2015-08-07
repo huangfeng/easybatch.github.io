@@ -93,7 +93,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.3</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.1.0</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -218,7 +218,29 @@
 
 <p>Silent mode is disabled by default.</p>
 
-<h3 id="1.5">1.5 Enabling JMX monitoring</h3>
+<h3 id="1.5">1.5 Skipping records</h3>
+
+<p>You may want to skip a predefined number of records from being processed. For instance, to skip the first 10 records, you can use the following snippet:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Engine engine = new EngineBuilder()
+    <strong>.skip(10)</strong>
+    .build();</code></pre>
+</div>
+
+<h3 id="1.6">1.6 Limiting records</h3>
+
+<p>You can also limit the total number of records to process using the <code>limit</code> method of the <code>EngineBuilder</code>:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Engine engine = new EngineBuilder()
+    <strong>.limit(1000)</strong>
+    .build();</code></pre>
+</div>
+
+<p>The previous listing makes the engine process at most 1000 records.</p>
+
+<h3 id="1.7">1.7 Enabling JMX monitoring</h3>
 
 <p>Easy Batch allows you to monitor job execution and progress at runtime using JMX.
     The JMX MBean named <code><em>org.easybatch.core.jmx:name=YourEngineName</em></code>
@@ -319,7 +341,7 @@
     <li>in-memory strings</li>
     <li>databases</li>
     <li>JMS queues</li>
-    <li>Lists and Queues of objects</li>
+    <li>Queues and Iterable objects</li>
     <li>and standard input</li>
 </ul>
 
@@ -333,7 +355,7 @@
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-flatfile&lt;/artifactId&gt;
-    &lt;version&gt;3.0.3&lt;/version&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -405,7 +427,7 @@
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-xml&lt;/artifactId&gt;
-    &lt;version&gt;3.0.3&lt;/version&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -488,7 +510,7 @@
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-json&lt;/artifactId&gt;
-    &lt;version&gt;3.0.3&lt;/version&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -529,7 +551,7 @@
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-jdbc&lt;/artifactId&gt;
-    &lt;version&gt;3.0.3&lt;/version&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -566,7 +588,7 @@
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-jpa&lt;/artifactId&gt;
-    &lt;version&gt;3.0.3&lt;/version&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -587,7 +609,37 @@
         to fetch using the <code><em>maxResults</em></code> parameter of the <code><em>JpaRecordReader</em></code>.</p>
 </div>
 
-<h4>2.4.3. Reading data from Mongo DB</h4>
+<h4>2.4.3. Reading data using Hibernate</h4>
+
+<p>The <code><em>HibernateRecordReader</em></code> allows you to read records from a database using <a href="http://hibernate.org/" target="_blank">Hibernate</a>.</p>
+
+<p>To use the <code><em>HibernateRecordReader</em></code>, first you need to add the <code><em>easybatch-hibernate</em></code> module to your dependencies:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
+    &lt;artifactId&gt;easybatch-hibernate&lt;/artifactId&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+
+<p>Then, you can register it with the <code><em>EngineBuilder</em></code>:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Engine engine = new EngineBuilder()
+    <strong>.reader(new HibernateRecordReader&lt;MyObjectType&gt;(mySessionFactory, myQuery))</strong>
+    .build();</code></pre>
+</div>
+
+<p> When you create a <code><em>HibernateRecordReader</em></code>, you should specify the <code><em>SessionFactory</em></code> that will be used to create the <code><em>Session</em></code>
+    and your HQL query.</p>
+
+<div class="bs-callout bs-callout-warning">
+    <p><strong>Heads up!:</strong> The <code><em>HibernateRecordReader</em></code> uses the <code><em>org.hibernate.ScrollableResults</em></code> behind the scene to stream records in chunks.
+        You can specify the fetch size and the maximum rows to fetch using the <code><em>fetchSize</em></code> and <code><em>maxResult</em></code> parameters.</p>
+</div>
+
+<h4>2.4.4. Reading data from Mongo DB</h4>
 
 <p>The <code><em>MongoDBRecordReader</em></code> allows you to read data from a
     <a href="http://www.mongodb.org" target="_blank">Mongo DB</a> instance.</p>
@@ -598,7 +650,7 @@
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-mongodb&lt;/artifactId&gt;
-    &lt;version&gt;3.0.3&lt;/version&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -622,7 +674,7 @@
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-jms&lt;/artifactId&gt;
-    &lt;version&gt;3.0.3&lt;/version&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -667,8 +719,8 @@ The <code><em>JmsQueueRecordReader</em></code> will produce <code><em>JmsRecord<
             <td>StringRecord</td>
         </tr>
         <tr>
-            <td>List of objects</td>
-            <td>ListRecordReader</td>
+            <td>Iterable data source</td>
+            <td>IterableRecordReader</td>
             <td>GenericRecord</td>
         </tr>
         <tr>
@@ -679,6 +731,46 @@ The <code><em>JmsQueueRecordReader</em></code> will produce <code><em>JmsRecord<
     </tbody>
 </table>
 
+<h3>2.7 MultiRecord readers</h3>
+
+<p>As you may know, the processing <a href="../documentation/architecture.html#workflow" target="_blank">workflow</a> used internally by Easy Batch is record wise: records are processed one by one in sequence.
+In some situations, you may need to read and process a chunk of records at a time. A chunk of records in Easy Batch is called a <code><em>MultiRecord</em></code>.
+A <code><em>MultiRecord</em></code> is a regular Record having a list of records as payload. Let's see an example:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">MultiRecord {
+    record1: "foo"
+    record2: "bar"
+}
+</code></pre>
+</div>
+
+<p>In this example, the <code><em>MultiRecord</em></code> contains 2 records.</p>
+
+<p>To read a chunk of records, you need to use a <code><em>MultiRecordReader</em></code>. There are several built-in <code><em>MultiRecordReaders</em></code> to read records in chunks from a variety of data sources:</p>
+
+<div class="row">
+    <p class="pull-center"><img class="ebi" src="../img/eb/multirecord-readers.png"/></p>
+</div>
+
+<p><code><em>MultiRecordReaders</em></code> are like regular <code><em>RecordReaders</em></code> but they read <code><em>MultiRecords</em></code> instead of <code><em>Records</em></code>.
+When you create a <code><em>MultiRecordReader</em></code>, you need to specify the data source and the chunk size:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">List&lt;String&gt; dataSource = Arrays.asList("foo", "bar", "baz", "toto", "titi");
+IterableMultiRecordReader&lt;String&gt; reader = new IterableMultiRecordReader&lt;String&gt;(dataSource, 2);
+</code></pre>
+</div>
+
+<p>In this example, with a chunk size of 2, the <code><em>IterableMultiRecordReader</em></code> will read:</p>
+
+<ul>
+    <li>A first <code><em>MultiRecord</em></code> containing 2 records: "foo" and "bar"</li>
+    <li>A second <code><em>MultiRecord</em></code> containing 2 records: "baz" and "toto"</li>
+    <li>A third <code><em>MultiRecord</em></code> containing 1 record: "titi"</li>
+</ul>
+
+<p>All <code><em>MultiRecordReaders</em></code> operate in this way.</p>
         </div>
         <div class="tab-pane fade" id="filtering">
             <h2 id="3">3. Filtering records</h2>
@@ -779,7 +871,7 @@ in the same order in which you register them. The engine will stop the chain on 
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-flatfile&lt;/artifactId&gt;
-    &lt;version&gt;3.0.3&lt;/version&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -920,7 +1012,7 @@ in the same order in which you register them. The engine will stop the chain on 
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-apache-commons-csv&lt;/artifactId&gt;
-    &lt;version&gt;3.0.3&lt;/version&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -942,7 +1034,7 @@ in the same order in which you register them. The engine will stop the chain on 
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-opencsv&lt;/artifactId&gt;
-    &lt;version&gt;3.0.3&lt;/version&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -996,7 +1088,7 @@ in the same order in which you register them. The engine will stop the chain on 
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-xml&lt;/artifactId&gt;
-    &lt;version&gt;3.0.3&lt;/version&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -1032,7 +1124,7 @@ in the same order in which you register them. The engine will stop the chain on 
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-xstream&lt;/artifactId&gt;
-    &lt;version&gt;3.0.3&lt;/version&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -1050,7 +1142,7 @@ in the same order in which you register them. The engine will stop the chain on 
 
 <p>Easy Batch does not provide support for JSON mapping yet.
     The goal is to use the reference implementation of <a href="https://jcp.org/en/jsr/detail?id=367" target="_blank">JSON-B</a>.
-    As of version 3.0.3, the reference implementation of JSON-B is not available yet.
+    As of version 3.1.0, the reference implementation of JSON-B is not available yet.
     Built-in support for JSON mapping will be provided as soon as the reference implementation of JSON-B will become available.
 </p>
 
@@ -1065,7 +1157,7 @@ in the same order in which you register them. The engine will stop the chain on 
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-jackson&lt;/artifactId&gt;
-    &lt;version&gt;3.0.3&lt;/version&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -1087,7 +1179,7 @@ in the same order in which you register them. The engine will stop the chain on 
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-gson&lt;/artifactId&gt;
-    &lt;version&gt;3.0.3&lt;/version&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -1115,7 +1207,7 @@ you can use the <code><em>JdbcRecordMapper</em></code>.</p>
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-jdbc&lt;/artifactId&gt;
-    &lt;version&gt;3.0.3&lt;/version&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
         </div>
 
@@ -1161,7 +1253,7 @@ Note that to use this mapper, you should add the following maven dependency to y
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-spring&lt;/artifactId&gt;
-    &lt;version&gt;3.0.3&lt;/version&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -1173,7 +1265,12 @@ Note that to use this mapper, you should add the following maven dependency to y
 <p>In order to get the payload of <code><em>GenericRecord</em></code>, you can use the <code><em>GenericRecordMapper</em></code>.
 This mapper simply returns the payload of the <code><em>GenericRecord</em></code> which is the instance of your domain object.</p>
 
-<h4>4.4.3 Mapping MongoDB records</h4>
+<h4>4.4.3 Mapping Hibernate records</h4>
+
+<p>Much like the <code><em>JpaRecordReader</em></code>, the <code><em>HibernateRecordReader</em></code> produces <code><em>GenericRecord</em></code>
+instances having your domain object as payload. You can get this payload with a <code><em>GenericRecordMapper</em></code>.</p>
+
+<h4>4.4.4 Mapping MongoDB records</h4>
 
 <p>When you use the <code><em>MongoDBRecordReader</em></code> to read data from a Mongo DB instance, you get <code><em>MongoRecord</em></code>
     instances having <code><em>com.mongodb.DBObject</em></code> as payload. In order to map <code><em>MongoRecord</em></code> to domain objects,
@@ -1185,7 +1282,7 @@ This mapper simply returns the payload of the <code><em>GenericRecord</em></code
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-mongodb&lt;/artifactId&gt;
-    &lt;version&gt;3.0.3&lt;/version&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -1199,6 +1296,28 @@ This mapper simply returns the payload of the <code><em>GenericRecord</em></code
 <p>The <code><em>MongoDBRecordMapper</em></code> uses <a href="https://github.com/mongodb/morphia" target="_blank">Morphia</a> behind the scene
     to map <code><em>com.mongodb.DBObject</em></code> to domain objects.
     Note that your domain object should be annotated with Morphia's annotations.</p>
+
+<h3>4.5 Mapping MultiRecords</h3>
+
+<p>When you use a <code><em>MultiRecordReader</em></code>, you get instances of the <code><em>MultiRecord</em></code> class having a list of <code><em>Record</em></code> instances as payload.
+    These records in turn have your domain objects as payload.
+    If you want to get a list of your domain objects from a <code><em>MultiRecord</em></code>,
+    you need to use a <code><em>GenericMultiRecordMapper</em></code>.</p>
+
+<p>Let's see an example:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">List&lt;String&gt; dataSource = Arrays.asList("foo", "bar", "baz", "toto", "titi");
+
+aNewEngine()
+    .reader(new IterableMultiRecordReader&lt;String&gt;(dataSource, 2))
+    .mapper(new GenericMultiRecordMapper())
+    .processor(new MyProcessor())
+    .build().call();</code></pre>
+</div>
+
+<p>In this example, the <code><em>MyProcessor</em></code> will get a <code><em>List&lt;String&gt;</em></code> as input.
+Without the <code><em>GenericMultiRecordMapper</em></code>, the processor will get a <code><em>MultiRecord</em></code> as input.</p>
 
         </div>
         <div class="tab-pane fade" id="validation">
@@ -1227,7 +1346,7 @@ to validate your domain objects. In order to use this validator, you should proc
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-validation&lt;/artifactId&gt;
-    &lt;version&gt;3.0.3&lt;/version&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -1259,7 +1378,7 @@ to validate your domain objects. In order to use this validator, you should proc
 <p>Easy Batch lets you define your batch processing business logic through the <code><em>RecordProcessor</em></code> interface.
     This is where you implement what to do for each record.</p>
 
-<p>Once the pre-processing stage (filtering, parsing, mapping and validating records) is finished, input records enter the processing pipeline:</p>
+<p>Once the pre-processing stage (filtering, parsing, mapping and validating records) is finished, records enter the processing pipeline:</p>
 
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
@@ -1303,6 +1422,245 @@ Report report = engine.call();
     <p>Registering a record processor is <strong>optional</strong>. By default, Easy Batch registers a NoOp record processor that returns the record as is without any processing logic.</p>
 </div>
 
+<h3 id="6.1">6.1 Record writers</h3>
+
+<p>A <code><em>RecordWriter</em></code> is a record processor that writes records to a data sink. A data sink could be:</p>
+
+<ul>
+    <li>The standard output</li>
+    <li>A database</li>
+    <li>A file</li>
+    <li>etc</li>
+</ul>
+
+<p>Easy Batch comes with common record writers to write data to a variety of data sinks and using different technologies:</p>
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <p class="pull-center"><img class="ebi" src="../img/eb/writers.png"/></p>
+    </div>
+</div>
+
+<div class="bs-callout bs-callout-warning">
+    <h5><i class="fa fa-info-circle"></i> Heads up!</h5>
+    <p>Record writers are regular processors and are part of the processing pipeline. Easy Batch does not open/close the data sink, you need 
+    to use a <code>JobEventListener</code> to open/close the data sink if any.</p>
+</div>
+
+<p>All record writers write the <strong>payload</strong> of the record to the data sink. If your record has been mapped to a domain object, it is that
+domain object that will be written to the data sink.</p>
+
+<h4>6.1.1 Writing data to an output stream</h4>
+
+<p>The <code><em>OutputStreamRecordWriter</em></code> writes records to a <code>java.io.OutputStreamWriter</code>.</p>
+
+<p>When you create a <code><em>OutputStreamRecordWriter</em></code>, you need to supply the <code><em>java.io.OutputStreamWriter</em></code> to write data to.</p>
+
+<p>The are two convenient <code><em>OutputStreamRecordWriter</em></code>s:</p>
+
+<ul>
+    <li><code><em>StandardOutputRecordWriter</em></code>: writes records to the standard output</li>
+    <li><code><em>FileRecordWriter</em></code>: writes records to a file</li>
+</ul>
+
+<h4>6.1.2 Writing data to a String</h4>
+
+<p>The <code><em>StringRecordWriter</em></code> writes records to a <code><em>StringWriter</em></code>:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">StringWriter stringWriter = new StringWriter();
+StringRecordWriter stringRecordWriter = new StringRecordWriter(stringWriter);</code></pre>
+</div>
+
+<h4>6.1.3 Writing data to a Collection</h4>
+
+<p>The <code><em>CollectionRecordWriter</em></code> writes records to a <code><em>java.util.Collection</em></code> type:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">List&lt;String&gt; output = new ArrayList&lt;String&gt;();
+CollectionRecordWriter writer = new CollectionRecordWriter&lt;String&gt;(output);</code></pre>
+</div>
+
+<h4>6.1.4 Writing data to a relational database</h4>
+
+<h5>6.1.4.1 Using JDBC</h5>
+
+<p>The <code><em>JdbcRecordWriter</em></code> writes records to a relational database using JDBC. This writer needs to be configured with three artifacts:</p>
+
+<ul>
+    <li>A connection to the database</li>
+    <li>The sql query to write data</li>
+    <li>A <code><em>PreparedStatementProvider</em></code> that will be used to fill in the sql query parameter from the record</li>
+</ul>
+
+<p>Let's see an example:</p>
+
+<div class="bs-callout bs-callout-code">
+    <pre><code class="java">Connection connection = // .. get a JDBC connection
+String query = "INSERT INTO Tweet VALUES (?,?,?);";
+JdbcRecordWriter jdbcRecordWriter
+        = new JdbcRecordWriter(connection, query, new PreparedStatementProvider() {
+            @Override
+            public void prepareStatement(PreparedStatement preparedStatement, Object record) {
+                Tweet tweet = (Tweet) record;
+                preparedStatement.setInt(1, tweet.getId());
+                preparedStatement.setString(2, tweet.getUser());
+                preparedStatement.setString(3, tweet.getMessage());
+            }
+});</code></pre>
+</div>
+
+<p>In the previous listing, the <code><em>JdbcRecordWriter</em></code> writes tweets to the <code>Tweet</code> table.</p>
+<p>The <code><em>PreparedStatementProvider</em></code> is responsible for providing query parameters from the <em>tweet</em> object.</p>
+
+<p>The <code><em>JdbcRecordWriter</em></code> expects a Java object as input and not a <code><em>Record</em></code>. This object will be
+passed to the <code><em>PreparedStatementProvider</em></code> to complete the prepared statement with parameters.</p>
+
+<div class="bs-callout bs-callout-warning">
+    <h5><i class="fa fa-info-circle"></i> Heads up!</h5>
+    <p>What about transactions? The <code><em>JdbcRecordWriter</em></code> does not deal with database transactions, it simply writes the record to the database.
+    By default, the sql connection is in <em>autocommit</em> mode. This results in a transaction being started and committed for each record which may lead to a performance issue for large data sets.
+    In order to commit a transaction per chunk of records, you can disable the <em>autocommit</em> mode and register a <code><em>JdbcTransactionStepListener</em></code>.</p>
+</div>
+
+<p>You can find a complete tutorial on how to use the <code><em>JdbcRecordWriter</em></code> <a href="https://github.com/EasyBatch/easybatch-tutorials/tree/master/src/main/java/org/easybatch/tutorials/intermediate/jdbc" target="_blank">here</a>.</p>
+
+<h5>6.1.4.2 Using JPA</h5>
+
+<p>The <code><em>JpaRecordWriter</em></code> writes records to the database using a <code><em>EntityManager</em></code>. You need to supply a <code><em>EntityManager</em></code> at construction time:</p>
+
+<div class="bs-callout bs-callout-code">
+    <pre><code class="java">JpaRecordWriter&lt;MyType&gt; writer = new JpaRecordWriter&lt;MyType&gt;(entityManager);</code></pre>
+</div>
+
+<p>In this example, the <code><em>JpaRecordWriter</em></code> expects a Java object of type <em>MyType</em> as input. Make sure to map records to your domain object type
+before passing them to the <code><em>JpaRecordWriter</em></code>.</p>
+
+<p>The <code><em>JpaRecordWriter</em></code> does not deal with database transactions, it simply persists the record in the database without flushing the persistence context.
+In order to commit a transaction and flush the persistence context, you need to register a <code><em>JpaTransactionStepListener</em></code>. This listener
+will begin and commit a transaction for every record (or chunk of records).</p>
+
+<h5>6.1.4.3 Using Hibernate</h5>
+
+<p>Like the <code><em>JpaRecordWriter</em></code>, the <code><em>HibernateRecordWriter</em></code> writes records to a database through a Hibernate <code>Session</code>:</p>
+
+<div class="bs-callout bs-callout-code">
+    <pre><code class="java">HibernateRecordWriter&lt;MyType&gt; writer = new HibernateRecordWriter&lt;MyType&gt;(session);</code></pre>
+</div>
+
+<p>In this example, the <code><em>HibernateRecordWriter</em></code> expects a Java object of type <em>MyType</em> as input. Make sure to map records to your domain object type
+    before passing them to the <code><em>HibernateRecordWriter</em></code>.</p>
+
+<p>This writer does not deal with database transactions and you need to use a <code><em>HibernateTransactionStepListener</em></code> in order to commit a transaction
+after each chunk of written records.</p>
+
+<p>You can find a complete tutorial on how to use the <code><em>HibernateRecordWriter</em></code> <a href="https://github.com/EasyBatch/easybatch-tutorials/tree/master/src/main/java/org/easybatch/tutorials/intermediate/hibernate" target="_blank">here</a>.</p>
+
+<h4>6.1.5 Writing data to a MongoDB server</h4>
+
+<p>The <code><em>MongoDBRecordWriter</em></code> writes a <code><em>DBObject</em></code> to a collection. To use the <code><em>MongoDBRecordWriter</em></code>, you need to specify the collection to write documents to:</p>
+
+<div class="bs-callout bs-callout-code">
+    <pre><code class="java">MongoDBRecordWriter writer = new MongoDBRecordWriter(collection);</code></pre>
+</div>
+
+<p>Make sure to map your record to a <code><em>DBObject</em></code> before calling the <code><em>MongoDBRecordWriter</em></code>.</p>
+
+<h4>6.1.6 Writing data to a JMS queue</h4>
+
+<p>The <code><em>JmsRecordWriter</em></code> sends a <code><em>javax.jms.Message</em></code> to a Jms queue. When you create a <code><em>JmsRecordWriter</em></code>, you need to supply a queueConnectionFactory and the queue to send messages to:</p>
+
+<div class="bs-callout bs-callout-code">
+    <pre><code class="java">JmsRecordWriter writer = new JmsRecordWriter(queueConnectionFactory, queue);</code></pre>
+</div>
+
+<h3 id="6.2">6.2 MultiRecord writers</h3>
+
+<p>A <code><em>MultiRecordWriter</em></code> is a record processor that writes multi-records to a data sink. <code><em>MultiRecordWriters</em></code>
+allows you to get better performance with batch inserts. Here are the built-in <code><em>MultiRecordWriters</em></code>:</p>
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <p class="pull-center"><img class="ebi" src="../img/eb/multirecord-writers.png"/></p>
+    </div>
+</div>
+
+<p>Like regular <code><em>RecordWriters</em></code>, to use a <code><em>MultiRecordWriter</em></code> you need to specify the data sink to write records to and the chunk size. For example:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">List&lt;String&gt; dataSource = Arrays.asList("foo", "bar", "baz", "toto", "titi");
+List&lt;String&gt; dataSink = new ArrayList&lt;String&gt;();
+
+aNewEngine()
+    .reader(new IterableMultiRecordReader&lt;String&gt;(dataSource, 2))
+    .writer(new CollectionMultiRecordWriter(dataSink))
+    .build().call();</code></pre>
+</div>
+
+<p>In this example, the engine will read records from the <code>dataSource</code> in chunks of 2 and writes them to the <code>dataSink</code> also in chunks of 2.</p>
+
+<h3 id="6.3">6.3 Record marshallers</h3>
+
+<p>As you have seen in previous sections, Easy Batch development is POJO-based. It's highly recommended to use POJOs as a pivot model instead of manipulating raw data.
+    In many cases, we need to marshal a domain object to a target format (Xml, Json, Csv, etc). <code><em>RecordMarshaller</em></code>s are record processors that marshal Java objects to a specific format. Here are the built-in marshallers:</p>
+
+<div class="row">
+    <p class="pull-center"><img class="ebi" src="../img/eb/marshallers.png"/></p>
+</div>
+
+<div class="bs-callout bs-callout-warning">
+    <h5><i class="fa fa-info-circle"></i> Heads up!</h5>
+    <p>Record marshallers expect a Java object as input. So be sure to map records to your domain objects before trying to marshal them.</p>
+</div>
+
+<p><code><em>RecordMarshallers</em></code> produce <code>String</code> representations of the marshalled objects.</p>
+
+<h4>6.2.1 Marshalling records to flat format</h4>
+
+<p>There are 3 marshallers to transform a record to flat formats:</p>
+
+<ul>
+    <li><strong>DelimitedRecordMarshaller:</strong> marshals a POJO to CSV format. To use this marshaller, you need to add the <code>easybatch-flatfile</code> dependency to your project</li>
+    <li><strong>ApacheCommonCsvRecordMarshaller:</strong> marshals a POJO to CSV format using <a
+            href="https://commons.apache.org/proper/commons-csv/" target="_blank">Apache commons CSV</a>. To use this marshaller, you need to add the <code>easybatch-apache-commons-csv</code> dependency to your project</li>
+    <li><strong>FixedLengthRecordMarshaller:</strong> marshals a POJO to fixed-length format. To use this marshaller, you need to add the <code>easybatch-flatfile</code> dependency to your project</li>
+</ul>
+
+<div class="bs-callout bs-callout-warning">
+    <h5><i class="fa fa-info-circle"></i> Heads up!</h5>
+    <p>By default, these record marshallers do not support recursive (deep) marshalling of POJOs.
+        In order to have more control over how to extract and format your domain object's fields,
+        you can implement the <code><em>RecordFieldExtractor</em></code> interface and supply your implementation at marshaller's construction time.</p>
+</div>
+
+<h4>6.2.2 Marshalling records to Xml format</h4>
+
+<h5>6.2.2.1 Using JAXB</h5>
+
+<p>The <code><em>XmlRecordMarshaller</em></code> marshals a Java object to Xml format as a String. This marshaller uses JAXB behind the scene. The object type should be annotated with <code><em>javax.xml.bind.annotation.XmlRootElement</em></code>.
+To use the <code><em>XmlRecordMarshaller</em></code>, you need first to add the <code>easybatch-xml</code> dependency to your project. Then you can create the marshaller by specifying the object type at construction time:</p>
+
+<div class="bs-callout bs-callout-code">
+    <pre><code class="java">XmlRecordMarshaller marshaller = new XmlRecordMarshaller(MyType.class);</code></pre>
+</div>
+
+<h5>6.2.2.2 Using xStream</h5>
+
+<p>Like the <code><em>XmlRecordMarshaller</em></code>, the <code><em>XstreamRecordMarshaller</em></code> uses <a href="http://x-stream.github.io/" target="_blank">Xstream</a> to marshal Java objects to Xml format.
+    With this marshaller, your domain object does not need to be annotated with <code>javax.xml.bind.annotation.XmlRootElement</code>. To use the <code><em>XstreamRecordMarshaller</em></code>, first you need to add the <code>easybatch-xstream</code> dependency to your project, then you can create it by specifying the Xml element name and your object type:</p>
+
+<div class="bs-callout bs-callout-code">
+    <pre><code class="java">XstreamRecordMarshaller marshaller = new XstreamRecordMarshaller("myType", MyType.class);</code></pre>
+</div>
+
+<h4>6.2.3 Marshalling records to Json format</h4>
+
+<p>There are two marshallers that you can use to marshal a Java object to Json format:</p>
+
+<ul>
+    <li><strong>GsonRecordMarshaller:</strong> uses <a href="https://github.com/google/gson" target="_blank">Google's Gson</a>. To use this marshaller, you need to add the <code>easybatch-gson</code> dependency and provide a pre-configured <code>Gson</code> instance at creation time</li>
+    <li><strong>JacksonRecordMarshaller:</strong> uses <a href="https://github.com/FasterXML/jackson" target="_blank">Jacskon</a>. To use this marshaller, you need to add the <code>easybatch-jackson</code> dependency and provide a pre-configured <code>ObjectMapper</code> instance at creation time</li>
+</ul>
         </div>
         <div class="tab-pane fade" id="reporting">
             <h2 id="7">7. Easy Batch report</h2>
@@ -1357,7 +1715,7 @@ Report report = engine.call();
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-tools&lt;/artifactId&gt;
-    &lt;version&gt;3.0.3&lt;/version&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -1395,7 +1753,7 @@ Report report = engine.call();
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-tools&lt;/artifactId&gt;
-    &lt;version&gt;3.0.3&lt;/version&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 

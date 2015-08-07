@@ -9,6 +9,7 @@
             padding-top: 20px;
             padding-bottom: 20px;
         }
+        .label-skipped{background-color:#E0E1AA}
     </style>
 </head>
 <body>
@@ -16,8 +17,10 @@
 <div class="container col-md-8 col-md-offset-2">
     <div class="row">
         <h1 class="text-center">Easy Batch Report</h1>
-        <h3>Engine name: master engine <span class="pull-right">Execution id: 4cc5-8658</span></h3>
-        <h3>Data source: In-Memory String <span class="pull-right">Status: FINISHED</span></h3>
+        <h3>Engine name: engine</h3>
+        <h3>Data source: /data/in/tweets.csv</h3>
+        <h3>Records limit: 10</h3>
+        <h3>Execution id: c8d6a5fc-b2b4-4ee0-9dda-f9ec042d5864</h3>
         <br/>
     </div>
 
@@ -39,6 +42,10 @@
                     <td>10000ms</td>
                 </tr>
                 <tr>
+                    <td>Status</td>
+                    <td><span class="label label-status label-success">FINISHED</span></td>
+                </tr>
+                <tr>
                     <td>Total records</td>
                     <td>10</td>
                 </tr>
@@ -53,8 +60,12 @@
             <table class="table table table-bordered table-hover table-condensed">
                 <tbody>
                 <tr>
+                    <td>Skipped records</td>
+                    <td><span class="label label-skipped skipped-records" data-total="1">1 (10.0%)</span></td>
+                </tr>
+                <tr>
                     <td>Filtered records</td>
-                    <td><span class="label label-default filtered-records" data-total="2">2 (20.0%)</span></td>
+                    <td><span class="label label-default filtered-records" data-total="1">1 (10.0%)</span></td>
                 </tr>
                 <tr>
                     <td>Ignored records</td>
@@ -80,6 +91,90 @@
     <div class="row">
         <div id="chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
     </div>
+
+    <div class="row">
+        <h3>System properties</h3>
+        <table class="table table-bordered table-striped table-hover table-condensed">
+            <tbody>
+            <tr>
+                <td>java.runtime.name</td>
+                <td>Java(TM) SE Runtime Environment</td>
+            </tr>
+            <tr>
+                <td>java.vm.version</td>
+                <td>24.51-b03</td>
+            </tr>
+            <tr>
+                <td>java.vm.vendor</td>
+                <td>Oracle Corporation</td>
+            </tr>
+            <tr>
+                <td>java.vendor.url</td>
+                <td>http://java.oracle.com/</td>
+            </tr>
+            <tr>
+                <td>path.separator</td>
+                <td>:</td>
+            </tr>
+            <tr>
+                <td>java.vm.name</td>
+                <td>Java HotSpot(TM) 64-Bit Server VM</td>
+            </tr>
+            <tr>
+                <td>java.vm.specification.name</td>
+                <td>Java Virtual Machine Specification</td>
+            </tr>
+            <tr>
+                <td>java.runtime.version</td>
+                <td>1.7.0_51-b13</td>
+            </tr>
+            <tr>
+                <td>java.vm.specification.vendor</td>
+                <td>Oracle Corporation</td>
+            </tr>
+            <tr>
+                <td>sun.jnu.encoding</td>
+                <td>UTF-8</td>
+            </tr>
+            <tr>
+                <td>java.specification.name</td>
+                <td>Java Platform API Specification</td>
+            </tr>
+            <tr>
+                <td>java.class.version</td>
+                <td>51.0</td>
+            </tr>
+            <tr>
+                <td>file.encoding</td>
+                <td>UTF-8</td>
+            </tr>
+            <tr>
+                <td>java.specification.version</td>
+                <td>1.7</td>
+            </tr>
+            <tr>
+                <td>java.vm.specification.version</td>
+                <td>1.7</td>
+            </tr>
+            <tr>
+                <td>java.specification.vendor</td>
+                <td>Oracle Corporation</td>
+            </tr>
+            <tr>
+                <td>java.version</td>
+                <td>1.7.0_51</td>
+            </tr>
+            <tr>
+                <td>java.vendor</td>
+                <td>Oracle Corporation</td>
+            </tr>
+            <tr>
+                <td>file.separator</td>
+                <td>/</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery.js"></script>
@@ -87,6 +182,13 @@
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script>
     jQuery(document).ready(function () {
+
+        var status = jQuery(".label-status");
+        if (status.html() == "FINISHED") {
+            status.addClass("label-success");
+        } else {
+            status.addClass("label-danger");
+        }
 
         jQuery('#chart').highcharts({
             chart: {
@@ -120,6 +222,11 @@
             series: [{
                 type: 'pie',
                 data: [
+                    {
+                        name: 'Skipped',
+                        color: '#E0E1AA',
+                        y: jQuery(".skipped-records").data("total")
+                    },
                     {
                         name: 'Filtered',
                         color: '#999999',

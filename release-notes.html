@@ -93,7 +93,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.3</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.1.0</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -145,23 +145,36 @@
 
                 <h1 class="title-divider"><span>Release notes</span></h1>
 
-                              <h2 id="3.0.3"><i class="fa fa-tag"></i> Current version: 3.0.3 (2015-07-01)</h2>
+                              <h2 id="3.1.0"><i class="fa fa-tag"></i> Current version: 3.1.0 (2015-08-09)</h2>
+
+                <p>This new major version adds many new features to the framework:</p>
+
+                    <ul>
+                        <li>Record writers: introduction of the <code><em>RecordWriter</em></code> API with several implementations to write records to a variety of data sinks</li>
+                        <li>Record marshallers: introduction of the <code><em>RecordMarshaller</em></code> API with several implementations to marshal records to a variety of output formats (CSV, Xml, Json, etc)</li>
+                        <li>Chunk processing: Introduction of the <code><em>MultiRecord</em></code>, <code><em>MultiRecordReader</em></code> and <code><em>MultiRecordWriter</em></code> APIs to support bulk operations</li>
+                        <li>Introduction of the <em>skip</em> and <em>limit</em> engine parameters</li>
+                    </ul>
+
+                <p>This version also adds new tutorials and includes many bug fixes and performance improvements. Please check the <a href="https://github.com/EasyBatch/easybatch-framework/blob/master/CHANGELOG.txt" target="_blank">change log</a> for all details about changes.</p>
+
+              <h2>Prior versions</h2>
+
+                <h3 id="3.0.3"><i class="fa fa-tag"></i> Version: 3.0.3 (2015-07-01)</h3>
 
                 <p>This is the third bug fix release for version 3.0 that fixes the following issues:</p>
 
-                    <ul>
-                        <li>Issue <a href="https://github.com/EasyBatch/easybatch-framework/issues/67" target="_blank">#67</a>: Problem with Xml special characters</li>
-                        <li>Issue <a href="https://github.com/EasyBatch/easybatch-framework/issues/68" target="_blank">#68</a>: Invalid XML when reading XML content with custom namespace</li>
-                        <li>Issue <a href="https://github.com/EasyBatch/easybatch-framework/issues/70" target="_blank">#70</a>: Incorrect statistic percent in report when total records = 0</li>
-                        <li>Issue <a href="https://github.com/EasyBatch/easybatch-framework/issues/71" target="_blank">#71</a>: Stopping a batch job scheduler affects other schedulers</li>
-                        <li>Issue <a href="https://github.com/EasyBatch/easybatch-framework/issues/74" target="_blank">#74</a>: Report statistics percents are not correctly rounded</li>
-                        <li>Issue <a href="https://github.com/EasyBatch/easybatch-framework/issues/75" target="_blank">#75</a>: JMS poison records are ignored</li>
-                        <li>Issue <a href="https://github.com/EasyBatch/easybatch-framework/issues/76" target="_blank">#76</a>: Runtime exceptions thrown by custom listeners are not handled properly</li>
-                    </ul>
+                <ul>
+                    <li>Issue <a href="https://github.com/EasyBatch/easybatch-framework/issues/67" target="_blank">#67</a>: Problem with Xml special characters</li>
+                    <li>Issue <a href="https://github.com/EasyBatch/easybatch-framework/issues/68" target="_blank">#68</a>: Invalid XML when reading XML content with custom namespace</li>
+                    <li>Issue <a href="https://github.com/EasyBatch/easybatch-framework/issues/70" target="_blank">#70</a>: Incorrect statistic percent in report when total records = 0</li>
+                    <li>Issue <a href="https://github.com/EasyBatch/easybatch-framework/issues/71" target="_blank">#71</a>: Stopping a batch job scheduler affects other schedulers</li>
+                    <li>Issue <a href="https://github.com/EasyBatch/easybatch-framework/issues/74" target="_blank">#74</a>: Report statistics percents are not correctly rounded</li>
+                    <li>Issue <a href="https://github.com/EasyBatch/easybatch-framework/issues/75" target="_blank">#75</a>: JMS poison records are ignored</li>
+                    <li>Issue <a href="https://github.com/EasyBatch/easybatch-framework/issues/76" target="_blank">#76</a>: Runtime exceptions thrown by custom listeners are not handled properly</li>
+                </ul>
 
                 <p>This version also includes many improvements and introduces some minor API changes. Please check the <a href="https://github.com/EasyBatch/easybatch-framework/blob/master/CHANGELOG.txt" target="_blank">change log</a> for all details about changes.</p>
-
-              <h2>Prior versions</h2>
 
                 <h3 id="3.0.2"><i class="fa fa-tag"></i> Version 3.0.2 (2015-06-10)</h3>
 

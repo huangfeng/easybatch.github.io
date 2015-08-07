@@ -93,7 +93,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.3</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.1.0</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -183,7 +183,7 @@
 
 <div class="bs-callout bs-callout-code">
 <pre><code>Engine engine = new EngineBuilder()
-    <strong>.reader(new FlatFileRecordReader(new File("tweets.csv")))</strong>
+    <strong>.reader(new FlatFileRecordReader("tweets.csv"))</strong>
     .build();</code></pre>
 </div>
 
@@ -196,7 +196,7 @@
 
 <div class="bs-callout bs-callout-code">
 <pre><code>Engine engine = new EngineBuilder()
-    .reader(new FlatFileRecordReader(new File("tweets.csv")))
+    .reader(new FlatFileRecordReader("tweets.csv"))
     <strong>.filter(new GrepFilter("#EasyBatch"))</strong>
     .build();</code></pre>
 </div>
@@ -344,13 +344,12 @@ INFO: Shutting down the engine</code></pre>
 
 <h2>9. What's next?</h2>
 
-<p>That was all for basic tutorials, you can now move on to the next level to see how to build real world enterprise
-    batch applications using Easy Batch.</p>
+<p>In the next tutorial, you will learn how to implement a Filter-Map-Reduce application with Easy Batch.</p>
 
 <nav>
     <ul class="pager">
         <li class="previous"><a href="./key-apis.html"><span aria-hidden="true">&larr;</span> Key APIs tutorial</a></li>
-        <li class="next"><a href="./loading-data.html">Loading data in a database <span aria-hidden="true">&rarr;</span></a></li>
+        <li class="next"><a href="./filter-map-reduce.html">Filter-Map-Reduce tutorial <span aria-hidden="true">&rarr;</span></a></li>
     </ul>
 </nav>
 

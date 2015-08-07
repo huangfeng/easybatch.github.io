@@ -93,7 +93,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.0.3</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.1.0</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -224,7 +224,7 @@
 
         // Build a master engine that will read records from the data source
         // and dispatch them to worker engines
-        Engine masterEngine = aNewEngine()
+        Engine masterEngine = EngineBuilder.aNewEngine()
             .named("master-engine")
             .reader(new FlatFileRecordReader(tweets))
             .processor(roundRobinRecordDispatcher)
@@ -247,7 +247,7 @@
     }
 
     public static Engine buildWorkerEngine(BlockingQueue&lt;Record&gt; queue, String engineName) {
-        return aNewEngine()
+        return EngineBuilder.aNewEngine()
             .named(engineName)
             .reader(new QueueRecordReader(queue))
             .filter(new PoisonRecordFilter())
