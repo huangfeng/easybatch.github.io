@@ -67,18 +67,17 @@
                         <a class="navbar-brand" href="../index.html" title="Home">
                             <h1><span>Easy</span>Batch</h1>
                         </a>
-                        <div class="slogan">Batch processing with Java made easy</div>
+                        <div class="slogan"><i class="fa fa-cog fa-spin"></i> The simple, stupid batch processing framework for Java</div>
                     </div>
                     <div class="col-md-4">
                         <!--social media icons-->
                         <div class="social-media">
                             <a href="https://github.com/EasyBatch/easybatch-framework" title="View on GitHub" target="_blank"><i class="fa fa-github"></i></a>
-                            <a href="https://twitter.com/intent/tweet?url=http://www.easybatch.org/&text=Easy%20Batch:%20batch%20processing%20with%20Java%20made%20easy&via=md_benhassine" title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
-                            <a href="https://plus.google.com/share?url=http://www.easybatch.org&text=Easy%20Batch:%20batch%20processing%20with%20Java%20made%20easy" title="Share on Google+" target="_blank"><i class="fa fa-google-plus"></i></a>
+                            <a href="https://twitter.com/intent/tweet?url=http://www.easybatch.org/&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java&via=easy_batch" title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="https://plus.google.com/share?url=http://www.easybatch.org&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java" title="Share on Google+" target="_blank"><i class="fa fa-google-plus"></i></a>
                             <a href="https://gitter.im/EasyBatch/easybatch-framework" title="Chat on Gitter" target="_blank"><i class="fa fa-comment"></i></a>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -93,7 +92,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.1.0</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 4.0.0</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -106,14 +105,15 @@
                                 <li role="presentation"><a role="menuitem" href="../documentation/getting-started.html" class="menu-item"><i class="fa fa-play fa-lg"></i> Getting started</a></li>
                                 <li role="presentation"><a role="menuitem" href="../documentation/architecture.html" tabindex="-1" class="menu-item"><i class="fa fa-flask fa-lg"></i> Architecture</a></li>
                                 <li role="presentation"><a role="menuitem" href="../documentation/user-guide.html" tabindex="-1" class="menu-item"><i class="fa fa-book fa-lg"></i> User guide</a></li>
-                                <li role="presentation"><a role="menuitem" href="../api/index.html" tabindex="-1" class="menu-item" target="_blank"><i class="fa fa-folder-open fa-lg"></i> API docs</a></li>
-                                <li role="presentation"><a role="menuitem" href="../documentation/faq.html" tabindex="-1" class="menu-item"><i class="fa fa-question-circle fa-lg"></i> FAQs</a></li>
-                                <li role="presentation"><a role="menuitem" href="https://speakerdeck.com/benas/easy-batch" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-video-camera fa-lg"></i> Presentation slides</a></li>
+                                <li role="presentation"><a role="menuitem" href="../documentation/components-reference.html" tabindex="-1" class="menu-item"><i class="fa fa-code fa-lg"></i> Components reference</a></li>
+                                <li role="presentation"><a role="menuitem" href="../api" tabindex="-1" class="menu-item" target="_blank"><i class="fa fa-folder-open fa-lg"></i> API docs</a></li>
+                                <li role="presentation"><a role="menuitem" href="https://speakerdeck.com/benas/easy-batch" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-video-camera fa-lg"></i> Presentation</a></li>
                             </ul>
                         </li>
-                        <li><a href="../tutorials/index.html" class="menu-item"><i class="fa fa-code fa-lg"></i> Tutorials</a></li>
+                        <li><a href="../tutorials/index.html" class="menu-item"><i class="fa fa-terminal fa-lg"></i> Tutorials</a></li>
                         <li class="dropdown"> <a href="" class="dropdown-toggle" id="about-drop" data-toggle="dropdown"><i class="fa fa-thumbs-o-up fa-lg"></i> Get involved +</a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="about-drop">
+                                <li role="presentation"><a role="menuitem" href="../faq.html" tabindex="-1" class="menu-item"><i class="fa fa-question-circle fa-lg"></i> FAQs</a></li>
                                 <li role="presentation"><a role="menuitem" href="https://github.com/EasyBatch/easybatch-framework" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-github fa-lg"></i> Source repository</a></li>
                                 <li role="presentation"><a role="menuitem" href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-bug fa-lg"></i> Issue tracker</a></li>
                             </ul>
@@ -127,6 +127,7 @@
     </div>
 </div>
 
+
 <div id="content">
     <div class="container">
 
@@ -137,8 +138,10 @@
     <li><a href="../tutorials/index.html">Tutorials</a></li>
     
     
+    
     <li class="active">Word count tutorial</li>
 </ul>
+
 
         <div class="row">
             <div class="col-md-9">
@@ -151,7 +154,7 @@
 
 <div class="bs-callout bs-callout-code">
 <pre><code>String dataSource =
-    "big data is often" + System.getProperty("line.separator"); +
+    "big data is often\n" +
     "not so big";</code></pre>
 </div>
 
@@ -166,7 +169,7 @@
 <h2>2. What you’ll need</h2>
 
 <ul>
-    <li>JDK 1.6+</li>
+    <li>JDK 1.7+</li>
     <li>Maven</li>
     <li>Git (Optional)</li>
     <li>Your favorite IDE (Optional)</li>
@@ -174,41 +177,40 @@
 
 <h2>3. Reading records from the data source</h2>
 
-<p>To read records from a string, we can use the <code>StringRecordReader</code> :</p>
+<p>To read records from a string, we can use the <code><em>StringRecordReader</em></code> :</p>
 
 <div class="bs-callout bs-callout-code">
 <pre><code class="java">String dataSource =
-    "big data is often" + System.getProperty("line.separator"); +
+    "big data is often\n" +
     "not so big";
 
-Engine engine = EngineBuilder.aNewEngine()
+Job job = JobBuilder.aNewJob()
     <strong>.reader(new StringRecordReader(dataSource))</strong>
     .build();</code></pre>
 </div>
 
 <h2>4. Tokenizing records</h2>
 
-<p>The <code>StringRecordReader</code> produces <code>StringRecord</code> instances having the raw lines of text as payload.
+<p>The <code><em>StringRecordReader</em></code> produces <code><em>StringRecord</em></code> instances having the raw lines of text as payload.
     In order to count the occurrence of words, we need to split each record into a list of words. Here is a record processor that splits a record into a list of words:</p>
 
 <div class="bs-callout bs-callout-code">
-<pre><code class="java">public class LineTokenizer implements RecordMapper&lt;List&lt;String&gt;&gt; {
+<pre><code class="java">public class LineTokenizer implements RecordMapper&lt;StringRecord, GenericRecord&gt; {
 
-    public List&lt;String&gt; mapRecord(Record record) {
-        String payload = (String) record.getPayload();
-        return Arrays.asList(payload.split(" "));
+    public GenericRecord mapRecord(StringRecord record) {
+        String payload = record.getPayload();
+        return new GenericRecord&lt;&gt;(record.getHeader(), Arrays.asList(payload.split(" ")));
     }
-
 }</code></pre>
 </div>
 
 <h2>5. Counting the occurrence of words</h2>
 
-<p>In order to count the occurrence of each word, we will implement a record processor and map words to their occurrence in a <code>java.util.Map</code>. Here is the <code>WordCounter</code> code:</p>
+<p>In order to count the occurrence of each word, we will implement a record processor and map words to their occurrence in a <code><em>java.util.Map</em></code>. Here is the <code><em>WordCounter</em></code> code:</p>
 
 <div class="bs-callout bs-callout-code">
 <pre><code class="java">public class WordCounter implements
-    ComputationalRecordProcessor&lt;List&lt;String&gt;, List&lt;String&gt;, Map&lt;String, Integer&gt;&gt; {
+    ComputationalRecordProcessor&lt;GenericRecord, GenericRecord, Map&lt;String, Integer&gt;&gt; {
 
     private Map&lt;String, Integer&gt; words = new HashMap&lt;String, Integer&gt;();
 
@@ -216,7 +218,8 @@ Engine engine = EngineBuilder.aNewEngine()
         return words;
     }
 
-    public List&lt;String> processRecord(List&lt;String&gt; tokens) {
+    public GenericRecord processRecord(GenericRecord record) {
+        List&lt;String&gt; tokens = (List&lt;String&gt;) record.getPayload();
         for (String token : tokens) {
             Integer count = words.get(token);
             count = (count == null) ? 1 : count + 1;
@@ -227,29 +230,29 @@ Engine engine = EngineBuilder.aNewEngine()
 }</code></pre>
 </div>
 
-<p>Note that this is a <code>ComputationalRecordProcessor</code> since it does some computation.
+<p>Note that this is a <code><em>ComputationalRecordProcessor</em></code> since it does some computation.
     Computational record processors should be placed at the end of the pipeline to be able to get their computation result from the execution report.</p>
 
 <h2>6. Putting it all together</h2>
 
-<p>Now that we have a <code>LineTokenizer</code> and a <code>WordCounter</code>, we can register these components in the engine:</p>
+<p>Now that we have a <code>LineTokenizer</code> and a <code>WordCounter</code>, we can register these components in the job definition:</p>
 
 <div class="bs-callout bs-callout-code">
 <pre><code class="java">public class Launcher {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         String dataSource =
-            "big data is often" + System.getProperty("line.separator"); +
+            "big data is often\n" +
             "not so big";
 
-        Report report = EngineBuilder.aNewEngine()
+        JobReport report = JobBuilder.aNewJob()
             .reader(new StringRecordReader(dataSource))
             .mapper(new LineTokenizer())
             .processor(new WordCounter())
-            .build().call();
+            .build();
 
-        Map&lt;String, Integer&gt; words = (Map&lt;String, Integer&gt;) report.getBatchResult();
+        Map&lt;String, Integer&gt; words = (Map&lt;String, Integer&gt;) report.getResult();
 
         System.out.println(words);
     }
@@ -296,15 +299,10 @@ $>mvn exec:java -PrunWordCountTutorial
 <p>Cool! You have implemented the classic word count example with Easy Batch. You have learned how to create a <code>ComputationalRecordProcessor</code>
 to do some calculation on input data.</p>
 
-<h2>6. What's next?</h2>
-
-<p>That was all for basic tutorials, you can now move on to the next level to see how to build real world enterprise
-    batch applications using Easy Batch.</p>
-
 <nav>
     <ul class="pager">
-        <li class="previous"><a href="./filter-map-reduce.html"><span aria-hidden="true">&larr;</span> Filter-Map-Reduce tutorial</a></li>
-        <li class="next"><a href="./loading-data.html">Loading data in a database <span aria-hidden="true">&rarr;</span></a></li>
+        <li class="previous"><a href="./hello-world.html"><span aria-hidden="true">&larr;</span> Hello world tutorial</a></li>
+        <li class="next"><a href="./csv2xml.html">CSV to XML tutorial <span aria-hidden="true">&rarr;</span></a></li>
     </ul>
 </nav>
 
@@ -315,44 +313,48 @@ to do some calculation on input data.</p>
                 <!-- <div class="inner" data-spy="affix" data-offset-top="40" data-offset-bottom="300"> -->
 <div class="inner">
 <ul class="list-lg">
-    <li class="sidebar-separator">About Easy Batch</li>
-    <li >
-        <a href="../index.html">Overview</a>
+    <li class="sidebar-separator">Introduction</li>
+    <li>
+        <a href="../index.html"><i class="fa fa-home"></i> Overview</a>
     </li>
-    <li >
-        <a href="../release-notes.html">Release notes</a>
+    <li>
+        <a href="https://speakerdeck.com/benas/easy-batch" target="_blank"><i class="fa fa-video-camera"></i> Presentation</a>
+    </li>
+    <li>
+        <a href="https://github.com/EasyBatch/easybatch-framework/releases" target="_blank"><i class="fa fa-tags"></i> Release notes</a>
     </li>
     <li class="sidebar-separator">Documentation</li>
     <li >
-        <a href="../documentation/getting-started.html">Getting started</a>
+        <a href="../documentation/getting-started.html"><i class="fa fa-play"></i> Getting started</a>
     </li>
     <li >
-        <a href="../documentation/architecture.html">Architecture</a>
+        <a href="../documentation/architecture.html"><i class="fa fa-flask"></i> Architecture</a>
     </li>
     <li >
-        <a href="../documentation/user-guide.html">User guide</a>
+        <a href="../documentation/user-guide.html"><i class="fa fa-book"></i> User guide</a>
+    </li>
+    <li >
+    <a href="../documentation/components-reference.html"><i class="fa fa-code"></i> Components reference</a>
     </li>
     <li  class="active" >
-        <a href="../tutorials/index.html">Tutorials</a>
+        <a href="../tutorials"><i class="fa fa-terminal"></i> Tutorials</a>
     </li>
     <li>
-        <a href="../api/index.html" target="_blank">API docs</a>
-    </li>
-    <li >
-        <a href="../documentation/faq.html">FAQs</a>
-    </li>
-    <li>
-        <a href="https://speakerdeck.com/benas/easy-batch" target="_blank">Presentation slides</a>
+        <a href="../api" target="_blank"><i class="fa fa-folder-open"></i> API docs</a>
     </li>
     <li class="sidebar-separator">Get involved</li>
-    <li>
-        <a href="https://github.com/EasyBatch/easybatch-framework" target="_blank">Source repository</a>
+    <li >
+        <a href="../faq.html"><i class="fa fa-question-circle"></i> FAQs</a>
     </li>
     <li>
-        <a href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank">Issue tracker</a>
+        <a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-github"></i> Source repository</a>
+    </li>
+    <li>
+        <a href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank"><i class="fa fa-bug"></i> Issue tracker</a>
     </li>
 </ul>
 </div>
+
             </div>
         </div>
 
@@ -365,21 +367,21 @@ to do some calculation on input data.</p>
         <div class="row">
             <div class="col-md-3 col">
                 <div class="block contact-block">
-                    <h3>Documentation</h3>
+                    <h3>Introduction</h3>
                     <ul class="fa-ul">
                         <li><a href="../documentation/getting-started.html"><i class="fa fa-li fa-play"></i> Getting started</a></li>
                         <li><a href="../documentation/architecture.html"><i class="fa fa-li fa-flask"></i> Architecture</a></li>
-                        <li><a href="../documentation/user-guide.html"><i class="fa fa-li fa-book"></i> User guide</a></li>
+                        <li><a href="https://speakerdeck.com/benas/easy-batch" target="_blank"><i class="fa fa-li fa-video-camera"></i> Presentation</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-md-3 col">
                 <div class="block contact-block">
-                    <h3>Tutorials</h3>
+                    <h3>Documentation</h3>
                     <ul class="fa-ul">
-                    <li><a href="../tutorials/index.html#basic"><i class="fa fa-li fa-star-o"></i> Basic tutorials</a></li>
-                        <li><a href="../tutorials/index.html#intermediate"><i class="fa fa-li fa-star-half-o"></i> Intermediate tutorials</a></li>
-                        <li><a href="../tutorials/index.html#advanced"><i class="fa fa-li fa-star"></i> Advanced Tutorials</a></li>
+                    <li><a href="../documentation/user-guide.html"><i class="fa fa-li fa-book"></i> User guide</a></li>
+                        <li><a href="../documentation/components-reference.html"><i class="fa fa-li fa-code"></i> Components reference</a></li>
+                        <li><a href="../tutorials/index.html"><i class="fa fa-li fa-terminal"></i> Tutorials</a></li>
                     </ul>
                 </div>
             </div>
@@ -387,9 +389,9 @@ to do some calculation on input data.</p>
                 <div class="block contact-block">
                     <h3>Get involved</h3>
                     <ul class="fa-ul">
-                        <li><a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-li fa-github"></i> Source repository</a></a></li>
+                        <li><a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-li fa-github"></i> Source repository</a></li>
                         <li><a href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank"><i class="fa fa-li fa-bug"></i> Issue tracker</a></li>
-                        <li><a href="../documentation/faq.html"><i class="fa fa-li fa-question"></i> FAQs</a></li>
+                        <li><a href="../faq.html"><i class="fa fa-li fa-question"></i> FAQs</a></li>
                     </ul>
                 </div>
             </div>
@@ -397,8 +399,8 @@ to do some calculation on input data.</p>
                 <div class="block contact-block">
                     <h3>Become a friend</h3>
                     <ul class="fa-ul">
-                        <li><a href="https://twitter.com/intent/tweet?url=http://www.easybatch.org/&text=Easy%20Batch:%20batch%20processing%20with%20Java%20made%20easy&via=md_benhassine" target="_blank"><i class="fa fa-li fa-twitter"></i> Share it on Twitter</a></a></li>
-                        <li><a href="https://plus.google.com/share?url=http://www.easybatch.org&text=Easy%20Batch:%20batch%20processing%20with%20Java%20made%20easy" target="_blank"><i class="fa fa-li fa-google-plus"></i> Share it on Google+</a></a></li>
+                        <li><a href="https://twitter.com/intent/tweet?url=http://www.easybatch.org/&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java&via=easy_batch" title="Share on Twitter" target="_blank"><i class="fa fa-li fa-twitter"></i> Share it on Twitter</a></li>
+                        <li><a href="https://plus.google.com/share?url=http://www.easybatch.org&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java" title="Share on Google+" target="_blank"><i class="fa fa-li fa-google-plus"></i> Share it on Google+</a></li>
                         <li><a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-li fa-heart"></i> Star it on GitHub</a></li>
                     </ul>
                 </div>
@@ -433,6 +435,7 @@ to do some calculation on input data.</p>
         </div>
     </div>
 </footer>
+
 
 <!--Scripts -->
 <script src="../js/jquery.min.js"></script>

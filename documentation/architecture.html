@@ -67,18 +67,17 @@
                         <a class="navbar-brand" href="../index.html" title="Home">
                             <h1><span>Easy</span>Batch</h1>
                         </a>
-                        <div class="slogan">Batch processing with Java made easy</div>
+                        <div class="slogan"><i class="fa fa-cog fa-spin"></i> The simple, stupid batch processing framework for Java</div>
                     </div>
                     <div class="col-md-4">
                         <!--social media icons-->
                         <div class="social-media">
                             <a href="https://github.com/EasyBatch/easybatch-framework" title="View on GitHub" target="_blank"><i class="fa fa-github"></i></a>
-                            <a href="https://twitter.com/intent/tweet?url=http://www.easybatch.org/&text=Easy%20Batch:%20batch%20processing%20with%20Java%20made%20easy&via=md_benhassine" title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
-                            <a href="https://plus.google.com/share?url=http://www.easybatch.org&text=Easy%20Batch:%20batch%20processing%20with%20Java%20made%20easy" title="Share on Google+" target="_blank"><i class="fa fa-google-plus"></i></a>
+                            <a href="https://twitter.com/intent/tweet?url=http://www.easybatch.org/&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java&via=easy_batch" title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="https://plus.google.com/share?url=http://www.easybatch.org&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java" title="Share on Google+" target="_blank"><i class="fa fa-google-plus"></i></a>
                             <a href="https://gitter.im/EasyBatch/easybatch-framework" title="Chat on Gitter" target="_blank"><i class="fa fa-comment"></i></a>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -93,7 +92,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.1.0</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 4.0.0</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -106,14 +105,15 @@
                                 <li role="presentation"><a role="menuitem" href="../documentation/getting-started.html" class="menu-item"><i class="fa fa-play fa-lg"></i> Getting started</a></li>
                                 <li role="presentation"><a role="menuitem" href="../documentation/architecture.html" tabindex="-1" class="menu-item"><i class="fa fa-flask fa-lg"></i> Architecture</a></li>
                                 <li role="presentation"><a role="menuitem" href="../documentation/user-guide.html" tabindex="-1" class="menu-item"><i class="fa fa-book fa-lg"></i> User guide</a></li>
-                                <li role="presentation"><a role="menuitem" href="../api/index.html" tabindex="-1" class="menu-item" target="_blank"><i class="fa fa-folder-open fa-lg"></i> API docs</a></li>
-                                <li role="presentation"><a role="menuitem" href="../documentation/faq.html" tabindex="-1" class="menu-item"><i class="fa fa-question-circle fa-lg"></i> FAQs</a></li>
-                                <li role="presentation"><a role="menuitem" href="https://speakerdeck.com/benas/easy-batch" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-video-camera fa-lg"></i> Presentation slides</a></li>
+                                <li role="presentation"><a role="menuitem" href="../documentation/components-reference.html" tabindex="-1" class="menu-item"><i class="fa fa-code fa-lg"></i> Components reference</a></li>
+                                <li role="presentation"><a role="menuitem" href="../api" tabindex="-1" class="menu-item" target="_blank"><i class="fa fa-folder-open fa-lg"></i> API docs</a></li>
+                                <li role="presentation"><a role="menuitem" href="https://speakerdeck.com/benas/easy-batch" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-video-camera fa-lg"></i> Presentation</a></li>
                             </ul>
                         </li>
-                        <li><a href="../tutorials/index.html" class="menu-item"><i class="fa fa-code fa-lg"></i> Tutorials</a></li>
+                        <li><a href="../tutorials/index.html" class="menu-item"><i class="fa fa-terminal fa-lg"></i> Tutorials</a></li>
                         <li class="dropdown"> <a href="" class="dropdown-toggle" id="about-drop" data-toggle="dropdown"><i class="fa fa-thumbs-o-up fa-lg"></i> Get involved +</a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="about-drop">
+                                <li role="presentation"><a role="menuitem" href="../faq.html" tabindex="-1" class="menu-item"><i class="fa fa-question-circle fa-lg"></i> FAQs</a></li>
                                 <li role="presentation"><a role="menuitem" href="https://github.com/EasyBatch/easybatch-framework" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-github fa-lg"></i> Source repository</a></li>
                                 <li role="presentation"><a role="menuitem" href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-bug fa-lg"></i> Issue tracker</a></li>
                             </ul>
@@ -127,6 +127,7 @@
     </div>
 </div>
 
+
 <div id="content">
     <div class="container">
 
@@ -135,117 +136,119 @@
     <li><a href="../index.html">Home</a></li>
     
     
-    <li><a href="../documentation/index.html">Documentation</a></li>
     
     <li class="active">Architecture</li>
 </ul>
+
 
         <div class="row">
             <div class="col-md-9">
 
                 <h1 class="title-divider"><span>Architecture</span></h1>
 
-                              <h2 id="1" >1. Framework overview</h2>
+                              <h2 id="overview" >Framework overview</h2>
 
-        <p>This section will give you both a high level and a detailed view of Easy Batch's internals.</p>
-
-        <h3>1.1 Macroscopic view</h3>
-
-        <p>The next figure describes the framework from a 10000 foot view:</p>
+        <p>The next figure describes Easy Batch from a bird eye view:</p>
 
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
-        <p class="pull-center"><img class="ebi" src="../img/eb/overview.jpg"/></p>
+        <p class="pull-center"><img class="ebi-small-80" src="../img/eb/overview.jpg"/></p>
     </div>
 </div>
 
-        <p>Easy Batch is all about processing a data source in batch mode. You can configure its behavior in many ways.</p>
-        <p>At the end of execution, the engine gives you a report with several metrics and statistics as well as a detailed log file
-        about the job execution.</p>
+<br/>
 
-        <h3>1.2 Mesoscopic view</h3>
+        <p>Easy Batch is all about processing a data source in batch mode:</p>
+        <ol>
+            <li>First, you need to configure a job</li>
+            <li>Then, you run your job</li>
+            <li>And finally you get an execution report and a log file about the job run</li>
+        </ol>
 
-        <p>Let's zoom in to see a bit more details about Easy Batch's internals:</p>
+        <h2 id="record-abstraction">The <em>Record</em> abstraction</h2>
+
+<p>Easy Batch <strong>streams</strong> data record by record from the data source.
+    Depending on the data source type, a record can be a line in a flat file, a tag in a XML file,
+    a row in a database table, a file in a folder, etc.</p>
+    
+<p>Here are some examples of records as seen by Easy Batch:</p>
 
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
-        <p class="pull-center"><img class="ebi" src="../img/eb/overview-meso.jpg"/></p>
+        <p class="pull-center"><img class="ebi" src="../img/eb/record-samples.jpg"/></p>
     </div>
 </div>
 
-        <p>Data read from the data source is first submitted to a pre-processing phase. In this phase, data is:</p>
+<div class="row">
+    <div class="col-md-6">
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">public interface Record&lt;P&gt; {
+
+    /** Return the record header */
+    Header getHeader();
+
+    /** Return the record payload */
+    P getPayload();
+
+}</code></pre>
+</div>
+
+    </div>
+
+    <div class="col-md-6">
+
+    <p>The generic <code><em>Record</em></code> interface is an abstraction of all record types.
+    A record has a header and a payload:</p>
         <ul>
-            <li>Filtered to keep only relevant parts to be processed</li>
-            <li>Parsed to a specific format if necessary</li>
-            <li>Mapped to domain objects</li>
-            <li>Validated against the application's constraints</li>
+            <li>The header contains various metadata about the record such as the data source from which
+                the record has been read, its physical number, creation date, etc..</li>
+            <li>The payload is the raw content of the record which is generic since its depends on
+                the data source type. The record payload can be of any type, so that it can represent any type of input data.</li>
         </ul>
+    </div>
 
-        <p>After this pre-processing stage, the data is ready to be processed quietly. It is then submitted to a processing
-        pipeline where successive operations are performed on it.</p>
+</div>
 
-        <h3>1.3 Microscopic view</h3>
-
-        <p>Let's zoom in to the third level.
-            The next figure describes the main components and gives you an overview of the framework's architecture:</p>
+<p>Records are submitted to a processing pipeline where each record is piped out from one processor to the next one:</p>
 
 <div class="row">
-    <div class="col-md-10 col-md-offset-1">
-        <p class="pull-center"><img class="ebi" src="../img/eb/architecture.jpg"/></p>
-    </div>
+    <br/>
+    <p class="pull-center"><img class="ebi-small-90" src="../img/eb/record-processing.jpg"/></p>
+    <br/>
 </div>
 
-              <p>Easy Batch processes data record by record. Depending on the data source type, a record can be a line in a flat file, a row in database, a tag in a XML file, a file in a folder, etc. The main components of the processing engine are:</p>
-              <ul>
-                  <li>Record reader: reads records <em>sequentially one by one</em> from the data source</li>
-                  <li>Record filter chain: a chain of filters to skip undesired records from being processed</li>
-                  <li>Record mapper: maps records to domain objects</li>
-                  <li>Record validation pipeline: applies declared validation constraints on records</li>
-                  <li>Record processing pipeline: applies business processing logic for each record</li>
-              </ul>
+<p>Record type can change from one processor to another.</p>
 
-            <p>All these components are optional. Easy Batch provides a No Operation implementation for each component.
-                You can find all details about these components in the <a href="user-guide.html">user guide</a>.</p>
+<h2 id="batch-abstraction">The <em>Batch</em> abstraction</h2>
 
-<div class="bs-callout bs-callout-warning">
-    <h5><i class="fa fa-info-circle"></i> Heads up!</h5>
-    <p>You can extend this workflow by registering custom listeners to do pre/post processing before and after each step. Please refer to the
-        <a href="user-guide.html">user guide</a> (section 9) for all details about how to use custom listeners.</p>
+<p>In the batch processing terminology, a batch is a set of records:</p>
+
+    <div class="bs-callout">
+    <p><em>This operating environment is termed as "batch processing" because the input data are collected into batches or sets of records and each batch is processed as a unit</em>
+    - <a href="https://en.wikipedia.org/wiki/Batch_processing" target="_blank">Wikipedia</a></p>
 </div>
 
-            <p>At the end of execution, you get a report containing several metrics and statistics.
-                Easy Batch also gives you a detailed log about what happened in case of failure in any of these steps.</p>
-
-        <p>When a record "survives" the pre-processing phase, it enters the processing pipeline where it is submitted to a chain of processors:</p>
+<p>A set of records in Easy Batch is represented by the <code><em>Batch</em></code> class. Batches are processed as a unit:</p>
 
 <div class="row">
-    <div class="col-md-10 col-md-offset-1">
-        <p class="pull-center"><img class="ebi-small" src="../img/eb/pipeline.jpg"/></p>
-    </div>
+    <p class="pull-center"><img class="ebi-small-90" src="../img/eb/batch-processing.jpg"/></p>
 </div>
 
-        <p>Record type can change from one processor to another. When all the processing pipeline has been applied, the engine moves to the next record.</p>
+<p>Easy Batch provides APIs to read/process/write records in batch mode.</p>
 
-              <h2 id="workflow">2. Processing workflow</h2>
+              <h2 id="workflow">Processing workflow</h2>
 
-              <p>The workflow used internally by Easy Batch is illustrated by the next figure and described below:</p>
+<p>Easy Batch submits each record (or batch of records) to a processing pipeline composed of a chain of processors.
+    Here is the processing workflow used internally by the engine:</p>
 
 <div class="row">
-    <div class="col-md-10 col-md-offset-1">
-        <p class="pull-center"><img class="ebi" src="../img/eb/workflow.jpg"/></p>
-    </div>
+    <p class="pull-center"><img class="ebi-small-90" src="../img/eb/workflow.jpg"/></p>
 </div>
-                  <ol>
-                      <li>The engine reads records one by one from the data source.
-                          If the record should be filtered, then the engine skips it and moves to the next one.</li>
-                      <li>The record mapper then tries to map the record to an instance of the domain object.
-                          If the record is not well formed or cannot be mapped to the domain object,
-                          the engine ignores it and moves to the next one.</li>
-                      <li>The record validator applies declared validation constraints on the record.
-                          If a validation constraint is violated, then the record is rejected.</li>
-                      <li>Finally, the business logic is executed by the record processor on the domain object correctly populated with valid data.
-                          If an exception occurs during record processing, the engine logs the exception and moves to the next record.</li>
-                  </ol>
+
+<p>The engine reads records (or batches) one by one in sequence from the data source. When all the processing pipeline has been applied, the engine moves to the next record.</p>
+<p>If a record processor throws an exception, next processors are skipped and the engine moves to the next record if any.</p>
+<p>When all records have been processed, the engine generates the execution report and stops the job.</p>
 
 
             </div>
@@ -254,44 +257,48 @@
                 <!-- <div class="inner" data-spy="affix" data-offset-top="40" data-offset-bottom="300"> -->
 <div class="inner">
 <ul class="list-lg">
-    <li class="sidebar-separator">About Easy Batch</li>
-    <li >
-        <a href="../index.html">Overview</a>
+    <li class="sidebar-separator">Introduction</li>
+    <li>
+        <a href="../index.html"><i class="fa fa-home"></i> Overview</a>
     </li>
-    <li >
-        <a href="../release-notes.html">Release notes</a>
+    <li>
+        <a href="https://speakerdeck.com/benas/easy-batch" target="_blank"><i class="fa fa-video-camera"></i> Presentation</a>
+    </li>
+    <li>
+        <a href="https://github.com/EasyBatch/easybatch-framework/releases" target="_blank"><i class="fa fa-tags"></i> Release notes</a>
     </li>
     <li class="sidebar-separator">Documentation</li>
     <li >
-        <a href="../documentation/getting-started.html">Getting started</a>
+        <a href="../documentation/getting-started.html"><i class="fa fa-play"></i> Getting started</a>
     </li>
     <li  class="active" >
-        <a href="../documentation/architecture.html">Architecture</a>
+        <a href="../documentation/architecture.html"><i class="fa fa-flask"></i> Architecture</a>
     </li>
     <li >
-        <a href="../documentation/user-guide.html">User guide</a>
+        <a href="../documentation/user-guide.html"><i class="fa fa-book"></i> User guide</a>
     </li>
     <li >
-        <a href="../tutorials/index.html">Tutorials</a>
+    <a href="../documentation/components-reference.html"><i class="fa fa-code"></i> Components reference</a>
+    </li>
+    <li >
+        <a href="../tutorials"><i class="fa fa-terminal"></i> Tutorials</a>
     </li>
     <li>
-        <a href="../api/index.html" target="_blank">API docs</a>
-    </li>
-    <li >
-        <a href="../documentation/faq.html">FAQs</a>
-    </li>
-    <li>
-        <a href="https://speakerdeck.com/benas/easy-batch" target="_blank">Presentation slides</a>
+        <a href="../api" target="_blank"><i class="fa fa-folder-open"></i> API docs</a>
     </li>
     <li class="sidebar-separator">Get involved</li>
-    <li>
-        <a href="https://github.com/EasyBatch/easybatch-framework" target="_blank">Source repository</a>
+    <li >
+        <a href="../faq.html"><i class="fa fa-question-circle"></i> FAQs</a>
     </li>
     <li>
-        <a href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank">Issue tracker</a>
+        <a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-github"></i> Source repository</a>
+    </li>
+    <li>
+        <a href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank"><i class="fa fa-bug"></i> Issue tracker</a>
     </li>
 </ul>
 </div>
+
             </div>
         </div>
 
@@ -304,21 +311,21 @@
         <div class="row">
             <div class="col-md-3 col">
                 <div class="block contact-block">
-                    <h3>Documentation</h3>
+                    <h3>Introduction</h3>
                     <ul class="fa-ul">
                         <li><a href="../documentation/getting-started.html"><i class="fa fa-li fa-play"></i> Getting started</a></li>
                         <li><a href="../documentation/architecture.html"><i class="fa fa-li fa-flask"></i> Architecture</a></li>
-                        <li><a href="../documentation/user-guide.html"><i class="fa fa-li fa-book"></i> User guide</a></li>
+                        <li><a href="https://speakerdeck.com/benas/easy-batch" target="_blank"><i class="fa fa-li fa-video-camera"></i> Presentation</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-md-3 col">
                 <div class="block contact-block">
-                    <h3>Tutorials</h3>
+                    <h3>Documentation</h3>
                     <ul class="fa-ul">
-                    <li><a href="../tutorials/index.html#basic"><i class="fa fa-li fa-star-o"></i> Basic tutorials</a></li>
-                        <li><a href="../tutorials/index.html#intermediate"><i class="fa fa-li fa-star-half-o"></i> Intermediate tutorials</a></li>
-                        <li><a href="../tutorials/index.html#advanced"><i class="fa fa-li fa-star"></i> Advanced Tutorials</a></li>
+                    <li><a href="../documentation/user-guide.html"><i class="fa fa-li fa-book"></i> User guide</a></li>
+                        <li><a href="../documentation/components-reference.html"><i class="fa fa-li fa-code"></i> Components reference</a></li>
+                        <li><a href="../tutorials/index.html"><i class="fa fa-li fa-terminal"></i> Tutorials</a></li>
                     </ul>
                 </div>
             </div>
@@ -326,9 +333,9 @@
                 <div class="block contact-block">
                     <h3>Get involved</h3>
                     <ul class="fa-ul">
-                        <li><a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-li fa-github"></i> Source repository</a></a></li>
+                        <li><a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-li fa-github"></i> Source repository</a></li>
                         <li><a href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank"><i class="fa fa-li fa-bug"></i> Issue tracker</a></li>
-                        <li><a href="../documentation/faq.html"><i class="fa fa-li fa-question"></i> FAQs</a></li>
+                        <li><a href="../faq.html"><i class="fa fa-li fa-question"></i> FAQs</a></li>
                     </ul>
                 </div>
             </div>
@@ -336,8 +343,8 @@
                 <div class="block contact-block">
                     <h3>Become a friend</h3>
                     <ul class="fa-ul">
-                        <li><a href="https://twitter.com/intent/tweet?url=http://www.easybatch.org/&text=Easy%20Batch:%20batch%20processing%20with%20Java%20made%20easy&via=md_benhassine" target="_blank"><i class="fa fa-li fa-twitter"></i> Share it on Twitter</a></a></li>
-                        <li><a href="https://plus.google.com/share?url=http://www.easybatch.org&text=Easy%20Batch:%20batch%20processing%20with%20Java%20made%20easy" target="_blank"><i class="fa fa-li fa-google-plus"></i> Share it on Google+</a></a></li>
+                        <li><a href="https://twitter.com/intent/tweet?url=http://www.easybatch.org/&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java&via=easy_batch" title="Share on Twitter" target="_blank"><i class="fa fa-li fa-twitter"></i> Share it on Twitter</a></li>
+                        <li><a href="https://plus.google.com/share?url=http://www.easybatch.org&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java" title="Share on Google+" target="_blank"><i class="fa fa-li fa-google-plus"></i> Share it on Google+</a></li>
                         <li><a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-li fa-heart"></i> Star it on GitHub</a></li>
                     </ul>
                 </div>
@@ -372,6 +379,7 @@
         </div>
     </div>
 </footer>
+
 
 <!--Scripts -->
 <script src="../js/jquery.min.js"></script>

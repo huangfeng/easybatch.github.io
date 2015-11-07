@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Easy Batch &bull; Extracting data from a database</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Mahmoud Ben Hassine">
+    <meta name="description" content="open source lightweight batch processing framework for Java">
+    <meta name="keyword" content="java, batch, batch processing, open source">
+
+    <!-- Bootstrap CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Plugins -->
+    <link href="../css/highlight/default.css" media="screen" rel="stylesheet" />
+    <link href="../css/clingify/clingify.css" rel="stylesheet">
+
+    <!-- Theme style -->
+    <link href="../css/theme-style.min.css" rel="stylesheet">
+
+    <!--Your custom colour override-->
+    <link href="../css/colour-blue.css" id="colour-scheme" rel="stylesheet">
+
+    <!-- Your custom override -->
+    <link href="../css/custom-style.css" rel="stylesheet">
+
+    <!-- HTML5 shiv & respond.js for IE6-8 support of HTML5 elements & media queries -->
+    <!--[if lt IE 9]>
+    <script src="../js/plugins/html5shiv/html5shiv.js"></script>
+    <script src="../js/plugins/respond/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="shortcut icon" href="../img/misc/gear.ico">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300|Rambla|Calligraffitti' rel='stylesheet' type='text/css'>
+
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-35599235-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+
+</head>
+<body class="page page-index-static">
+
+<a href="#content" class="sr-only">Skip to content</a>
+<div id="navigation" class="wrapper">
+    <div class="navbar-static-top">
+
+        <!--Header & Branding region-->
+        <div class="header">
+            <div class="header-inner container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <!--branding/logo-->
+                        <a class="navbar-brand" href="../index.html" title="Home">
+                            <h1><span>Easy</span>Batch</h1>
+                        </a>
+                        <div class="slogan"><i class="fa fa-cog fa-spin"></i> The simple, stupid batch processing framework for Java</div>
+                    </div>
+                    <div class="col-md-4">
+                        <!--social media icons-->
+                        <div class="social-media">
+                            <a href="https://github.com/EasyBatch/easybatch-framework" title="View on GitHub" target="_blank"><i class="fa fa-github"></i></a>
+                            <a href="https://twitter.com/intent/tweet?url=http://www.easybatch.org/&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java&via=easy_batch" title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="https://plus.google.com/share?url=http://www.easybatch.org&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java" title="Share on Google+" target="_blank"><i class="fa fa-google-plus"></i></a>
+                            <a href="https://gitter.im/EasyBatch/easybatch-framework" title="Chat on Gitter" target="_blank"><i class="fa fa-comment"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" data-toggle="clingify">
+            <div class="navbar">
+                <!--
+              mobile collapse menu button
+              - data-toggle="toggle" = default BS menu
+              - data-toggle="jpanel-menu" = jPanel Menu
+              -->
+                <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
+
+                <!--user menu-->
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 4.0.0</a> </div>
+
+                <!--everything within this div is collapsed on mobile-->
+                <div class="navbar-collapse collapse">
+
+                    <!--main navigation-->
+                    <ul class="nav navbar-nav">
+                        <li><a href="../index.html"><i class="fa fa-home fa-lg"></i> Home</a></li>
+                        <li class="dropdown"> <a href="#" class="dropdown-toggle menu-item" id="features-drop" data-toggle="dropdown"><i class="fa fa-book fa-lg" ></i> Documentation +</a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="about-drop">
+                                <li role="presentation"><a role="menuitem" href="../documentation/getting-started.html" class="menu-item"><i class="fa fa-play fa-lg"></i> Getting started</a></li>
+                                <li role="presentation"><a role="menuitem" href="../documentation/architecture.html" tabindex="-1" class="menu-item"><i class="fa fa-flask fa-lg"></i> Architecture</a></li>
+                                <li role="presentation"><a role="menuitem" href="../documentation/user-guide.html" tabindex="-1" class="menu-item"><i class="fa fa-book fa-lg"></i> User guide</a></li>
+                                <li role="presentation"><a role="menuitem" href="../documentation/components-reference.html" tabindex="-1" class="menu-item"><i class="fa fa-code fa-lg"></i> Components reference</a></li>
+                                <li role="presentation"><a role="menuitem" href="../api" tabindex="-1" class="menu-item" target="_blank"><i class="fa fa-folder-open fa-lg"></i> API docs</a></li>
+                                <li role="presentation"><a role="menuitem" href="https://speakerdeck.com/benas/easy-batch" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-video-camera fa-lg"></i> Presentation</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="../tutorials/index.html" class="menu-item"><i class="fa fa-terminal fa-lg"></i> Tutorials</a></li>
+                        <li class="dropdown"> <a href="" class="dropdown-toggle" id="about-drop" data-toggle="dropdown"><i class="fa fa-thumbs-o-up fa-lg"></i> Get involved +</a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="about-drop">
+                                <li role="presentation"><a role="menuitem" href="../faq.html" tabindex="-1" class="menu-item"><i class="fa fa-question-circle fa-lg"></i> FAQs</a></li>
+                                <li role="presentation"><a role="menuitem" href="https://github.com/EasyBatch/easybatch-framework" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-github fa-lg"></i> Source repository</a></li>
+                                <li role="presentation"><a role="menuitem" href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-bug fa-lg"></i> Issue tracker</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+                <!--/.navbar-collapse -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="content">
+    <div class="container">
+
+        <!-- breadcrumb -->
+<ul class="breadcrumb">
+    <li><a href="../index.html">Home</a></li>
+    
+    <li><a href="../tutorials/index.html">Tutorials</a></li>
+    
+    
+    
+    <li class="active">Extracting data from a database</li>
+</ul>
+
+
+        <div class="row">
+            <div class="col-md-9">
+
+                <h1 class="title-divider"><span>Extracting data from a database</span></h1>
+
+                      <h2 id="1">1. Introduction</h2>
+
+        <p>You have seen in the <a href="./loading-data.html">previous tutorial</a> how to load tweets from a flat file to a relational database.</p>
+
+        <p>In this tutorial, you will see how to do the opposite task: exporting tweets from the database to a flat file.</p>
+
+<h2>2. What you’ll need</h2>
+
+<ul>
+    <li>JDK 1.7+</li>
+    <li>Maven</li>
+    <li>Git (Optional)</li>
+    <li>Your favorite IDE (Optional)</li>
+</ul>
+
+<h2>3. Reading tweets from the database</h2>
+
+<p>There are 3 record readers to read data from a relational database:</p>
+<ul>
+    <li>The <code>JdbcRecordReader</code>: reads records from a database using the JDBC API.</li>
+    <li>The <code>JpaRecordReader</code>: reads records from a database using the Java Persistence API.</li>
+    <li>The <code>HibernateRecordReader</code>: reads records from a database using <a href="http://hibernate.org/orm/" target="_blank">Hibernate</a>.</li>
+</ul>
+
+<p>In this tutorial, we will use the <code>JdbcRecordReader</code>:</p>
+
+<div class="bs-callout bs-callout-code">
+    <pre><code class="java">Connection connection = DatabaseUtil.getConnection();
+Job job = JobBuilder.aNewJob()
+    <strong>.reader(new JdbcRecordReader(connection, "select * from tweet"))</strong>
+    .build();</code></pre>
+</div>
+
+<p>To use the <code><em>JdbcRecordReader</em></code>, we need to provide a database connection and the query to fetch data.</p>
+<p>The <code>DatabaseUtil</code> class provides static helper methods to work with the embedded database (not shown here for simplicity's sake).</p>
+
+<h2>4. Mapping records to instances of the <code>Tweet</code> bean</h2>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <p>The <code><em>JdbcRecordReader</em></code> create instances of <code><em>JdbcRecord</em></code> which have a <code><em>java.sql.ResultSet</em></code> as payload.</p>
+        <p>Easy Batch development is POJO-based, we would like to map <code><em>JdbcRecords</em></code> to instances of the <code><em>Tweet</em></code> POJO
+            and avoid dealing with the low level <code><em>java.sql.ResultSet</em></code> API.
+            The <code><em>JdbcRecordMapper</em></code> can map <code><em>JdbcRecords</em></code> to instances of the domain object <code><em>Tweet</em></code>:</p>
+
+    </div>
+
+    <div class="col-md-6">
+        <div class="bs-callout bs-callout-code">
+            <h5>Tweet.java</h5>
+<pre><code class="java">public class Tweet {
+    private int id;
+    private String user;
+    private String message;
+    // Getters, Setters and toString omitted
+}</code></pre>
+        </div>
+    </div>
+
+</div>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Connection connection = DatabaseUtil.getConnection();
+Job job = JobBuilder.aNewJob()
+    .reader(new JdbcRecordReader(connection, "select * from tweet"))
+    <strong>.mapper(new JdbcRecordMapper(Tweet.class, "id", "user", "message"))</strong>
+    .build();</code></pre>
+</div>
+
+<p>You must specify the type of the target bean and an array of field names in the same order as in the database table.</p>
+<p>Note that the mapper also converts raw data in the <code><em>java.sql.ResultSet</em></code> to typed data in the <code><em>Tweet</em></code> instance.</p>
+
+<h2>5. Marshalling tweets to CSV format</h2>
+
+<p>The <code><em>DelimitedRecordMarshaller</em></code> is designed to marshal a Java object to CSV format:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Connection connection = DatabaseUtil.getConnection();
+Job job = JobBuilder.aNewJob()
+    .reader(new JdbcRecordReader(connection, "select * from tweet"))
+    .mapper(new JdbcRecordMapper(Tweet.class, "id", "user", "message"))
+    <strong>.marshaller(new DelimitedRecordMarshaller(Tweet.class, "id", "user", "message"))</strong>
+    .build();</code></pre>
+</div>
+
+<p>By default, the <code><em>DelimitedRecordMarshaller</em></code> uses "," as delimiter and " as field qualifier.</p>
+
+<h2>6. Writing tweets to an output file</h2>
+
+<p>Now that we read records from the database, mapped them to domain objects and marshalled those objects to the desired format, we can use the
+<code><em>FileRecordWriter</em></code> to write records to a file:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Connection connection = DatabaseUtil.getConnection();
+Job job = JobBuilder.aNewJob()
+    .reader(new JdbcRecordReader(connection, "select * from tweet"))
+    .mapper(new JdbcRecordMapper(Tweet.class, "id", "user", "message"))
+    .marshaller(new DelimitedRecordMarshaller(Tweet.class, "id", "user", "message"))
+    <strong>.writer(new FileRecordWriter(new FileWriter("tweets.csv"))</strong>
+    .build();</code></pre>
+</div>
+
+
+<h2>7. Putting it all together</h2>
+
+<p>The following listing is the complete batch application to run the tutorial:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">public class Launcher {
+
+    public static void main(String[] args) throws Exception {
+    
+        // Start embedded database server
+        DatabaseUtil.startEmbeddedDatabase();
+        DatabaseUtil.populateTweetTable();
+        Connection connection = DatabaseUtil.getConnection();
+
+        String query = "select * from tweet";
+        String[] fields = new String[]{"id", "user", "message"};
+        FileWriter outputFile = new FileWriter("tweets.csv");
+
+        // Build a batch job
+        Job job = JobBuilder.aNewJob()
+            .reader(new JdbcRecordReader(connection, query))
+            .mapper(new JdbcRecordMapper(Tweet.class, fields))
+            .marshaller(new DelimitedRecordMarshaller(Tweet.class, fields))
+            .writer(new FileRecordWriter(outputFile)
+            .build();
+    
+        // Execute the job
+        JobReport report = JobExecutor.execute(job);
+    
+        // Shutdown embedded database server
+        DatabaseUtil.stopEmbeddedDatabase();
+    }
+
+}</code></pre>
+</div>
+
+                <h2>8. Running the tutorial</h2>
+
+        <h3>8.1 From the command line</h3>
+
+        <p>To run the tutorial, proceed as follows:</p>
+        <div class="bs-callout bs-callout-code">
+<pre><code>$>git clone https://github.com/EasyBatch/easybatch-tutorials.git
+$>cd easybatch-tutorials
+$>mvn install
+$>mvn exec:java -PrunJdbcExportDataTutorial
+$>cat tweets.csv
+</code></pre>
+    </div>
+
+        <p>You should see the following output:</p>
+        <div class="bs-callout bs-callout-code">
+<pre><code>INFO: Starting job 'job'
+INFO: Execution id: 196a6058-e188-4613-84e2-4c7814653858
+INFO: Data source: Connection URL: jdbc:hsqldb:mem | Query string: select * from tweet
+INFO: Skip: 0
+INFO: Limit: N/A
+INFO: Timeout: N/A
+INFO: Strict mode: false
+INFO: Silent mode: false
+INFO: Keep alive: false
+INFO: Jmx mode: false
+INFO: Job 'job' started
+INFO: Stopping job 'job'
+INFO: Job 'job' finished with exit status: COMPLETED
+
+"1","foo","easy batch rocks! #EasyBatch"
+"2","bar","@foo I do confirm :-)"</code></pre>
+        </div>
+
+<h3>8.2 From your IDE</h3>
+
+<p>First, you need to checkout the source code of the tutorial available <a href="https://github.com/EasyBatch/easybatch-tutorials/tree/master/src/main/java/org/easybatch/tutorials/intermediate/jdbc/extract" target="_blank">here</a>:</p>
+
+<div class="bs-callout bs-callout-code">
+    <pre><code>$>git clone https://github.com/EasyBatch/easybatch-tutorials.git</code></pre>
+</div>
+
+<p>If you do not have git installed, you can download a zip file containing the project's source code from GitHub
+    <a href="https://github.com/EasyBatch/easybatch-tutorials/archive/master.zip">here</a>.</p>
+
+<p>Then, import the <code><em>easybatch-tutorials</em></code> module in you favorite IDE and resolve maven dependencies.</p>
+
+<p>Finally, run the <code><em>org.easybatch.tutorials.intermediate.jdbc.extract.Launcher</em></code> class without any argument.</p>
+
+<h2>9. Summary</h2>
+
+<p>In this tutorial, you have learned how to use Easy Batch to extract data from a relational database.
+    Note that we have reused exactly the same components that served for another application.
+    This is how flexible Easy Batch's API is to enforce reuse.</p>
+
+<nav>
+    <ul class="pager">
+        <li class="previous"><a href="./loading-data.html"><span aria-hidden="true">&larr;</span> Loading data in a database tutorial</a></li>
+        <li class="next"><a href="./batch-processing.html">Batch processing tutorial <span aria-hidden="true">&rarr;</span></a></li>
+    </ul>
+</nav>
+
+
+            </div>
+
+            <div class="col-md-3 sidebar-right">
+                <!-- <div class="inner" data-spy="affix" data-offset-top="40" data-offset-bottom="300"> -->
+<div class="inner">
+<ul class="list-lg">
+    <li class="sidebar-separator">Introduction</li>
+    <li>
+        <a href="../index.html"><i class="fa fa-home"></i> Overview</a>
+    </li>
+    <li>
+        <a href="https://speakerdeck.com/benas/easy-batch" target="_blank"><i class="fa fa-video-camera"></i> Presentation</a>
+    </li>
+    <li>
+        <a href="https://github.com/EasyBatch/easybatch-framework/releases" target="_blank"><i class="fa fa-tags"></i> Release notes</a>
+    </li>
+    <li class="sidebar-separator">Documentation</li>
+    <li >
+        <a href="../documentation/getting-started.html"><i class="fa fa-play"></i> Getting started</a>
+    </li>
+    <li >
+        <a href="../documentation/architecture.html"><i class="fa fa-flask"></i> Architecture</a>
+    </li>
+    <li >
+        <a href="../documentation/user-guide.html"><i class="fa fa-book"></i> User guide</a>
+    </li>
+    <li >
+    <a href="../documentation/components-reference.html"><i class="fa fa-code"></i> Components reference</a>
+    </li>
+    <li  class="active" >
+        <a href="../tutorials"><i class="fa fa-terminal"></i> Tutorials</a>
+    </li>
+    <li>
+        <a href="../api" target="_blank"><i class="fa fa-folder-open"></i> API docs</a>
+    </li>
+    <li class="sidebar-separator">Get involved</li>
+    <li >
+        <a href="../faq.html"><i class="fa fa-question-circle"></i> FAQs</a>
+    </li>
+    <li>
+        <a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-github"></i> Source repository</a>
+    </li>
+    <li>
+        <a href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank"><i class="fa fa-bug"></i> Issue tracker</a>
+    </li>
+</ul>
+</div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<!-- FOOTER -->
+<footer id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col">
+                <div class="block contact-block">
+                    <h3>Introduction</h3>
+                    <ul class="fa-ul">
+                        <li><a href="../documentation/getting-started.html"><i class="fa fa-li fa-play"></i> Getting started</a></li>
+                        <li><a href="../documentation/architecture.html"><i class="fa fa-li fa-flask"></i> Architecture</a></li>
+                        <li><a href="https://speakerdeck.com/benas/easy-batch" target="_blank"><i class="fa fa-li fa-video-camera"></i> Presentation</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 col">
+                <div class="block contact-block">
+                    <h3>Documentation</h3>
+                    <ul class="fa-ul">
+                    <li><a href="../documentation/user-guide.html"><i class="fa fa-li fa-book"></i> User guide</a></li>
+                        <li><a href="../documentation/components-reference.html"><i class="fa fa-li fa-code"></i> Components reference</a></li>
+                        <li><a href="../tutorials/index.html"><i class="fa fa-li fa-terminal"></i> Tutorials</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 col">
+                <div class="block contact-block">
+                    <h3>Get involved</h3>
+                    <ul class="fa-ul">
+                        <li><a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-li fa-github"></i> Source repository</a></li>
+                        <li><a href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank"><i class="fa fa-li fa-bug"></i> Issue tracker</a></li>
+                        <li><a href="../faq.html"><i class="fa fa-li fa-question"></i> FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 col">
+                <div class="block contact-block">
+                    <h3>Become a friend</h3>
+                    <ul class="fa-ul">
+                        <li><a href="https://twitter.com/intent/tweet?url=http://www.easybatch.org/&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java&via=easy_batch" title="Share on Twitter" target="_blank"><i class="fa fa-li fa-twitter"></i> Share it on Twitter</a></li>
+                        <li><a href="https://plus.google.com/share?url=http://www.easybatch.org&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java" title="Share on Google+" target="_blank"><i class="fa fa-li fa-google-plus"></i> Share it on Google+</a></li>
+                        <li><a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-li fa-heart"></i> Star it on GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <br>
+        <p class="back-top floatright" style="display: none;">
+            <a href="#top"><span></span></a>
+        </p>
+
+        <div class="row">
+            <div id="toplink"><a href="#top" class="top-link" title="Back to top">Back To Top <i class="fa fa-chevron-up"></i></a></div>
+
+            <div class="subfooter">
+                <br>
+                <div class="col-md-4">
+                    <p>&copy; Easy Batch is created by <a href="http://www.mahmoud-benhassine.fr" target="_blank">Mahmoud Ben Hassine</a> <br>
+                    and the <a href="https://github.com/EasyBatch/easybatch-framework#awesome-contributors" target="_blank">awesome contributors</a></p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <iframe src="http://ghbtns.com/github-btn.html?user=EasyBatch&repo=easybatch-framework&type=watch&count=true"
+                            allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+                    <iframe src="http://ghbtns.com/github-btn.html?user=EasyBatch&repo=easybatch-framework&type=fork&count=true"
+                            allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
+                </div>
+                <div class="col-md-4">
+                    <p class="footer-menu">Easy Batch is open source and is released <br> under the terms of the <a href="http://opensource.org/licenses/mit-license.php/" target="_blank">MIT license</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!--Scripts -->
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery-migrate-1.2.1.min.js"></script> <!--Legacy jQuery support for quicksand plugin-->
+
+<!-- Bootstrap JS -->
+<script src="../js/bootstrap.min.js"></script>
+
+<!--JS plugins-->
+<script src="../js/plugins/clingify/jquery.clingify.min.js"></script>
+<script src="../js/plugins/jRespond/jRespond.js"></script>
+
+<!--Custom scripts mainly used to trigger libraries -->
+<script src="../js/script.min.js"></script>
+<script src="../js/scrolltotop.js"></script>
+<script src="../js/homeScroll.js"></script>
+<script src="../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

@@ -67,18 +67,17 @@
                         <a class="navbar-brand" href="../index.html" title="Home">
                             <h1><span>Easy</span>Batch</h1>
                         </a>
-                        <div class="slogan">Batch processing with Java made easy</div>
+                        <div class="slogan"><i class="fa fa-cog fa-spin"></i> The simple, stupid batch processing framework for Java</div>
                     </div>
                     <div class="col-md-4">
                         <!--social media icons-->
                         <div class="social-media">
                             <a href="https://github.com/EasyBatch/easybatch-framework" title="View on GitHub" target="_blank"><i class="fa fa-github"></i></a>
-                            <a href="https://twitter.com/intent/tweet?url=http://www.easybatch.org/&text=Easy%20Batch:%20batch%20processing%20with%20Java%20made%20easy&via=md_benhassine" title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
-                            <a href="https://plus.google.com/share?url=http://www.easybatch.org&text=Easy%20Batch:%20batch%20processing%20with%20Java%20made%20easy" title="Share on Google+" target="_blank"><i class="fa fa-google-plus"></i></a>
+                            <a href="https://twitter.com/intent/tweet?url=http://www.easybatch.org/&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java&via=easy_batch" title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="https://plus.google.com/share?url=http://www.easybatch.org&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java" title="Share on Google+" target="_blank"><i class="fa fa-google-plus"></i></a>
                             <a href="https://gitter.im/EasyBatch/easybatch-framework" title="Chat on Gitter" target="_blank"><i class="fa fa-comment"></i></a>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -93,7 +92,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 3.1.0</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 4.0.0</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -106,14 +105,15 @@
                                 <li role="presentation"><a role="menuitem" href="../documentation/getting-started.html" class="menu-item"><i class="fa fa-play fa-lg"></i> Getting started</a></li>
                                 <li role="presentation"><a role="menuitem" href="../documentation/architecture.html" tabindex="-1" class="menu-item"><i class="fa fa-flask fa-lg"></i> Architecture</a></li>
                                 <li role="presentation"><a role="menuitem" href="../documentation/user-guide.html" tabindex="-1" class="menu-item"><i class="fa fa-book fa-lg"></i> User guide</a></li>
-                                <li role="presentation"><a role="menuitem" href="../api/index.html" tabindex="-1" class="menu-item" target="_blank"><i class="fa fa-folder-open fa-lg"></i> API docs</a></li>
-                                <li role="presentation"><a role="menuitem" href="../documentation/faq.html" tabindex="-1" class="menu-item"><i class="fa fa-question-circle fa-lg"></i> FAQs</a></li>
-                                <li role="presentation"><a role="menuitem" href="https://speakerdeck.com/benas/easy-batch" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-video-camera fa-lg"></i> Presentation slides</a></li>
+                                <li role="presentation"><a role="menuitem" href="../documentation/components-reference.html" tabindex="-1" class="menu-item"><i class="fa fa-code fa-lg"></i> Components reference</a></li>
+                                <li role="presentation"><a role="menuitem" href="../api" tabindex="-1" class="menu-item" target="_blank"><i class="fa fa-folder-open fa-lg"></i> API docs</a></li>
+                                <li role="presentation"><a role="menuitem" href="https://speakerdeck.com/benas/easy-batch" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-video-camera fa-lg"></i> Presentation</a></li>
                             </ul>
                         </li>
-                        <li><a href="../tutorials/index.html" class="menu-item"><i class="fa fa-code fa-lg"></i> Tutorials</a></li>
+                        <li><a href="../tutorials/index.html" class="menu-item"><i class="fa fa-terminal fa-lg"></i> Tutorials</a></li>
                         <li class="dropdown"> <a href="" class="dropdown-toggle" id="about-drop" data-toggle="dropdown"><i class="fa fa-thumbs-o-up fa-lg"></i> Get involved +</a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="about-drop">
+                                <li role="presentation"><a role="menuitem" href="../faq.html" tabindex="-1" class="menu-item"><i class="fa fa-question-circle fa-lg"></i> FAQs</a></li>
                                 <li role="presentation"><a role="menuitem" href="https://github.com/EasyBatch/easybatch-framework" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-github fa-lg"></i> Source repository</a></li>
                                 <li role="presentation"><a role="menuitem" href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-bug fa-lg"></i> Issue tracker</a></li>
                             </ul>
@@ -127,6 +127,7 @@
     </div>
 </div>
 
+
 <div id="content">
     <div class="container">
 
@@ -137,8 +138,10 @@
     <li><a href="../tutorials/index.html">Tutorials</a></li>
     
     
+    
     <li class="active">Loading data in a database</li>
 </ul>
+
 
         <div class="row">
             <div class="col-md-9">
@@ -147,57 +150,166 @@
 
                               <h2 id="1">1. Introduction</h2>
 
-        <p>You have seen in a <a href="./key-apis.html">previous tutorial</a> how to process tweets form a CSV file to compute some statistics.
-            You have filtered undesired data, mapped tweets to the <code><em>Tweet</em></code> bean, and validated them using the
-            <a href="http://www.beanvalidation.org" target="_blank">Bean Validation API</a>.</p>
+<p>After reading the <a href="./hello-world.html">Hello world tutorial</a>, you should be familiar with basic blocs to create an application with Easy Batch.
+    We will continue our journey with processing the same tweets:</p>
 
-        <p>In this tutorial, you will see how to store these tweets in a database.
-            Since only the business logic changes, you will reuse the same application and register a new processor to load validated tweets in the database.</p>
+<div class="bs-callout bs-callout-code">
+    <h5>tweets.csv</h5>
+<pre><code>id,user,message
+1,foo,easy batch rocks! #EasyBatch
+2,bar,@foo I do confirm :-)
+3,baz,@foo @bar Is it really easy?
+4,toto,@foo @bar @baz yeah! kinda KISS framework
+</code></pre>
+</div>
+
+        <p>In this tutorial, you will learn how to store these tweets in a relational database. So let's get started!</p>
 
 <h2>2. What you’ll need</h2>
 
 <ul>
-    <li>JDK 1.6+</li>
+    <li>JDK 1.7+</li>
     <li>Maven</li>
     <li>Git (Optional)</li>
     <li>Your favorite IDE (Optional)</li>
 </ul>
 
-<h2>3. Writing tweets to the database</h2>
+<h2>3. Reading tweets from a flat file</h2>
 
-    <p>Here is a quick look of what you have seen in the previous tutorial:</p>
+<p>The <code><em>FlatFileRecordReader</em></code> is used to read records from a flat file. So let's use this reader:</p>
 
 <div class="bs-callout bs-callout-code">
-<pre><code class="java">public class Launcher {
-
-    public static void main(String[] args) throws Exception {
-
-        // Build a batch engine
-        Engine engine = new EngineBuilder()
-            .reader(new FlatFileRecordReader(new File("tweets.csv")))
-            .filter(new HeaderRecordFilter())
-            .mapper(new DelimitedRecordMapper(Tweet.class, new String[]{"id", "name", "message"}))
-            .validator(new BeanValidationRecordValidator&lt;Tweet&gt;())
-            .processor(new TweetCountProcessor())
-            .build();
-
-        // Run the batch engine
-        Report report = engine.call();
-
-        // Print the batch execution report
-        System.out.println("Total tweets containing #EasyBatch: " + report.getBatchResult());
-    }
-}</code></pre>
+<pre><code>Job job = new JobBuilder()
+    <strong>.reader(new FlatFileRecordReader("tweets.csv"))</strong>
+    .skip(1)
+    .build();</code></pre>
 </div>
+
+<p>We skip the first record since it has no business value and we don't like to save it in the database.</p>
+
+<h2>4. Mapping tweets to the <code>Tweet</code> bean</h2>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <p>Easy Batch development is POJO-centric, you would like to map each tweet to an instance of the <code><em>Tweet</em></code> bean.</p>
+        <p>Each field in the text record should be mapped to the corresponding field in the <code>Tweet</code> bean.</p>
+        <p>You can provide object mapping logic by implementing the <code><em>RecordMapper</em></code> interface or use one of the built-in mappers.</p>
+        <p>The <code><em>DelimitedRecordMapper</em></code> is able to map delimited values to a Java bean. It sounds like this is what you want since you will be reading data from a CSV file.</p>
+    </div>
+
+    <div class="col-md-6">
+        <div class="bs-callout bs-callout-code">
+            <h5>Tweet.java</h5>
+<pre><code class="java">public class Tweet {
+
+    private int id;
+
+    private String user;
+
+    private String message;
+
+    // Getters, Setters and toString omitted
+}</code></pre>
+
+        </div>
+    </div>
+
+</div>
+
+<p>Let's register the <code><em>DelimitedRecordMapper</em></code>:</p>
+<div class="bs-callout bs-callout-code"><pre><code>Job job = new JobBuilder()
+    .skip(1)
+    .reader(new FlatFileRecordReader("tweets.csv"))
+    <strong>.mapper(new DelimitedRecordMapper(Tweet.class, "id", "name", "message"))</strong>
+    .build();</code></pre>
+</div>
+
+<p>You must specify the type of the target bean and an array of field names in the same order as in the CSV file.
+    By default, this mapper uses the comma <code><em>","</em></code>
+    as delimiter which is fine in our case. You can also configure a custom delimiter if you want.</p>
+<p>Note that the mapper also converts raw textual data
+    to typed data in the <code><em>Tweet</em></code> instance.</p>
+
+<div class="bs-callout bs-callout-warning">
+    <h5><i class="fa fa-info-circle"></i> Heads up!</h5>
+    <p>If the mapper is not able to map a record to an instance of the <code><em>Tweet</em></code> class, it will throw
+        an exception that will cause the job to reject this record and move to the next one.</p>
+</div>
+
+<h2>5. Validating tweets</h2>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <p>We all know that tweets can have at most 140 characters, and we would like to save only valid tweets in the database.</p>
+
+        <p>How to declare this constraint on our <code><em>Tweet</em></code> bean?
+            The <a href="http://www.beanvalidation.org" target="_blank">Bean Validation API</a> is the way to go since it provides an elegant solution to declare
+            validation constraints on domain objects using annotations.</p>
+
+        <p>Easy Batch provides support for Bean Validation API so you can just annotate your
+            <code><em>Tweet</em></code> class with constraint annotations.</p>
+        <p>Now that you placed validation constraints on the <code><em>Tweet</em></code> bean, let's configure a job
+            to validate records according to these constraints:</p>
+    </div>
+
+    <div class="col-md-6">
+        <div class="bs-callout bs-callout-code">
+            <h5>Tweet.java</h5>
+<pre><code class="java">public class Tweet {
+
+    private int id;
+
+    <strong>@NotNull</strong>
+    private String user;
+
+    <strong>@Size(min=0, max=140)</strong>
+    private String message;
+
+    // Getters, Setters and toString omitted
+    }</code></pre>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="bs-callout bs-callout-code"><pre><code>Job job = new JobBuilder()
+    .skip(1)
+    .reader(new FlatFileRecordReader("tweets.csv"))
+    .mapper(new DelimitedRecordMapper(Tweet.class, "id", "name", "message"))
+    <strong>.validator(new BeanValidationRecordValidator&lt;Tweet&gt;())</strong>
+    .build();</code></pre>
+</div>
+
+<p>The <code><em>BeanValidationRecordValidator</em></code> is responsible of validating records.
+    When a record is not valid, the job will reject it and move to the next one.</p>
+
+<h2>6. Writing tweets to the database</h2>
+
+<p>There are 3 record writers to write data in a relational database:</p>
+<ul>
+    <li>The <code>JdbcRecordWriter</code>: writes records in a database using the JDBC API.</li>
+    <li>The <code>JpaRecordWriter</code>: writes records in a database using the Java Persistence API.</li>
+    <li>The <code>HibernateRecordWriter</code>: writes records in a database using <a href="http://hibernate.org/orm/" target="_blank">Hibernate</a>.</li>
+</ul>
+
+<p>In this tutorial, we will use the <code>JdbcRecordWriter</code>.</p>
 
         <div class="row">
 
-            <div class="col-md-8">
-                <p>We will change the <code><em>TweetCountProcessor</em></code> by a <code>RecordWriter</code> to store tweets in a database instead of counting them.</p>
+            <div class="col-md-7">
                 <p>To keep the tutorial simple, a in-memory database will be used.</p>
                 <p>Tweets will be inserted in the <code><em>tweet</em></code> table.</p>
+                <p>To use the <code><em>JdbcRecordWriter</em></code>, we need to supply 3 artifacts:</p>
+                <ul>
+                    <li>a JDBC connection</li>
+                    <li>the SQL query to insert data</li>
+                    <li>and a <code>PreparedStatementProvider</code></li>
+                </ul>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <table class="table table-bordered table-condensed table-striped">
                     <caption>- Tweet table -</caption>
                     <thead>
@@ -225,19 +337,6 @@
         </div>
 
 
-<p>There are 3 record writers to load data in a relational database:</p>
-<ul>
-    <li>The <code>JdbcRecordWriter</code>: writes records in a database using the JDBC API.</li>
-    <li>The <code>JpaRecordWriter</code>: writes records in a database using the Java Persistence API.</li>
-    <li>The <code>HibernateRecordWriter</code>: writes records in a database using <a href="http://hibernate.org/orm/" target="_blank">Hibernate</a>.</li>
-</ul>
-
-<p>In this tutorial, we will use the <code>JdbcRecordWriter</code>. To use this writer, we need to supply 3 artifacts:</p>
-<ul>
-    <li>a JDBC connection</li>
-    <li>the SQL query to insert data</li>
-    <li>and a <code>PreparedStatementProvider</code></li>
-</ul>
 
 <p>First things first, let's create a JDBC connection:</p>
 
@@ -245,9 +344,8 @@
     <pre><code class="java">Connection connection = DatabaseUtil.getConnection()</code></pre>
 </div>
 
-<p>The <code>DatabaseUtil</code> class provides static helper methods to work with the embedded database (not shown here for simplicity's sake).</p>
-
-<p>Next, we need to provide the SQL query to insert tweets in the <code>Tweet</code> table:</p>
+<p>The <code>DatabaseUtil</code> class provides static helper methods to work with the embedded database (not shown here for simplicity's sake).
+    Next, we need to provide the SQL query to insert tweets in the <code>Tweet</code> table:</p>
 
 <div class="bs-callout bs-callout-code">
     <pre><code class="sql">String query = "INSERT INTO TWEET values (?, ?, ?)"</code></pre>
@@ -257,20 +355,24 @@
 
 <div class="bs-callout bs-callout-code">
 <pre><code class="java">Connection connection = DatabaseUtil.getConnection();
-    String query = "INSERT INTO tweet VALUES (?,?,?);";
-    JdbcRecordWriter jdbcRecordWriter =
-        new JdbcRecordWriter(connection, query, new PreparedStatementProvider() {
-            @Override
-            public void prepareStatement(PreparedStatement preparedStatement, Object record) {
-                Tweet tweet = (Tweet) record;
-                preparedStatement.setInt(1, tweet.getId());
-                preparedStatement.setString(2, tweet.getUser());
-                preparedStatement.setString(3, tweet.getMessage());
-            }
+String query = "INSERT INTO tweet VALUES (?,?,?);";
+JdbcRecordWriter jdbcRecordWriter =
+    new JdbcRecordWriter(connection, query, new PreparedStatementProvider() {
+        @Override
+        public void prepareStatement(PreparedStatement preparedStatement, Object record) {
+            Tweet tweet = (Tweet) record;
+            preparedStatement.setInt(1, tweet.getId());
+            preparedStatement.setString(2, tweet.getUser());
+            preparedStatement.setString(3, tweet.getMessage());
+        }
 });</code></pre>
 </div>
 
-<p>That's all for the record writer, let put all components together:</p>
+<p>That's all for the record writer, let's put all components together.</p>
+
+<h2>7. Putting it all together</h2>
+
+<p>The following listing is the batch application to run the tutorial:</p>
 
 <div class="bs-callout bs-callout-code">
 <pre><code class="java">public class Launcher {
@@ -278,7 +380,7 @@
     public static void main(String[] args) throws Exception {
 
         //load tweets from tweets.csv
-        File tweets = new File("tweets.csv").toURI());
+        File tweets = new File("tweets.csv");
     
         //Start embedded database server
         DatabaseUtil.startEmbeddedDatabase();
@@ -297,55 +399,66 @@
                     }
         });
     
-        // Build and run a batch engine
-        EngineBuilder.aNewEngine()
+        // Build a batch job
+        Job job = JobBuilder.aNewJob()
+            .skip(1)
             .reader(new FlatFileRecordReader(tweets))
-            .filter(new HeaderRecordFilter())
-            .mapper(new DelimitedRecordMapper(Tweet.class, new String[]{"id", "user", "message"}))
+            .mapper(new DelimitedRecordMapper(Tweet.class, "id", "user", "message"))
+            .validator(new BeanValidationRecordValidator&lt;Tweet&gt;())
             .writer(jdbcRecordWriter)
-            .build().call();
-    
+            .call();
+
+        // Execute the job
+        JobReport report = JobExecutor.execute(job);
+
         // Dump tweet table to check inserted data
         DatabaseUtil.dumpTweetTable();
     
         // Shutdown embedded database server and delete temporary files
         DatabaseUtil.cleanUpWorkingDirectory();
     }
-
 }</code></pre>
 </div>
 
-                <h2>4. Running the tutorial</h2>
+                <h2>8. Running the tutorial</h2>
 
-        <h3>4.1 From the command line</h3>
+        <h3>8.1 From the command line</h3>
 
         <p>To run the tutorial, proceed as follows:</p>
         <div class="bs-callout bs-callout-code">
 <pre><code>$>git clone https://github.com/EasyBatch/easybatch-tutorials.git
 $>cd easybatch-tutorials
 $>mvn install
-$>mvn exec:java -PrunJdbcTutorial
+$>mvn exec:java -PrunJdbcImportDataTutorial
 </code></pre>
     </div>
 
         <p>You should see the following output:</p>
         <div class="bs-callout bs-callout-code">
-<pre><code>INFO: Initializing the engine
-INFO: Data source: tweets.csv
+<pre><code>INFO: Starting job 'job'
+INFO: Execution id: bf1254ac-ecb3-45b9-82ac-35ead8d09b36
+INFO: Data source: /data/tweets.csv
+INFO: Skip: 1
+INFO: Limit: N/A
+INFO: Timeout: N/A
 INFO: Strict mode: false
-INFO: The engine is running
-INFO: Record #1 [Record{number=1, payload='id,user,message'}] has been filtered.
-Tweet {id=1,user='foo',message='easy batch rocks! #EasyBatch'} successfully persisted in the database
-Tweet {id=2,user='bar',message='@foo I do confirm :-)'} successfully persisted in the database
+INFO: Silent mode: false
+INFO: Keep alive: false
+INFO: Jmx mode: false
+INFO: Job 'job' started
+INFO: Stopping job 'job'
+INFO: Job 'job' finished with exit status: COMPLETED
+
 Loading tweets from the database...
 Tweet : id= 1 | user= foo | message= easy batch rocks! #EasyBatch
 Tweet : id= 2 | user= bar | message= @foo I do confirm :-)
-INFO: Shutting down the engine</code></pre>
+Tweet : id= 3 | user= baz | message= @foo @bar Is it really easy?
+Tweet : id= 4 | user= toto | message= @foo @bar @baz yeah! kinda KISS framework</code></pre>
         </div>
 
-<h3>4.2 From your IDE</h3>
+<h3>8.2 From your IDE</h3>
 
-<p>First, you need to checkout the source code of the tutorial available <a href="https://github.com/EasyBatch/easybatch-tutorials/tree/master/src/main/java/org/easybatch/tutorials/intermediate/jdbc" target="_blank">here</a>:</p>
+<p>First, you need to checkout the source code of the tutorial available <a href="https://github.com/EasyBatch/easybatch-tutorials/tree/master/src/main/java/org/easybatch/tutorials/intermediate/jdbc/load" target="_blank">here</a>:</p>
 
 <div class="bs-callout bs-callout-code">
     <pre><code>$>git clone https://github.com/EasyBatch/easybatch-tutorials.git</code></pre>
@@ -356,80 +469,19 @@ INFO: Shutting down the engine</code></pre>
 
 <p>Then, import the <code><em>easybatch-tutorials</em></code> module in you favorite IDE and resolve maven dependencies.</p>
 
-<p>Finally, run the <code><em>org.easybatch.tutorials.intermediate.jdbc.Launcher</em></code> class without any argument.</p>
+<p>Finally, run the <code><em>org.easybatch.tutorials.intermediate.jdbc.load.Launcher</em></code> class without any argument.</p>
 
-<h2>5. Performance considerations</h2>
+<h2>9. Summary</h2>
 
-<p>By default, the JDBC connection is in <code>autocommit</code> mode. This will make the <code>JdbcRecordWriter</code> commit a transaction after each record insertion.</p>
-
-<p>For performance sensitive applications, this may not be the wanted behavior. You may want to commit a transaction after the insertion of a chunk of records.
-This is possible through the <code>JdbcTransactionStepListener</code>. You need to disable the <code>autocommit</code> in the JDBC connection and configure the listener with a commit-interval value:</p>
-
-<div class="bs-callout bs-callout-code">
-<pre><code class="java">connection.setAutoCommit(false);
-int commitInterval = 10;
-
-EngineBuilder.aNewEngine()
-    .reader(new FlatFileRecordReader(tweets))
-    .filter(new HeaderRecordFilter())
-    .mapper(new DelimitedRecordMapper(Tweet.class, new String[]{"id", "user", "message"}))
-    .writer(jdbcRecordWriter)
-    <strong>.recordProcessorEventListener(new JdbcTransactionStepListener(connection, commitInterval))</strong>
-    .build().call();
-</code></pre>
-</div>
-
-<p>In this example, the <code>JdbcTransactionStepListener</code> will commit a transaction after each 10 records.</p>
-
-<p>But there still a last point to take into account. What if we have 25 input records? The <code>JdbcTransactionStepListener</code> will:
-<ul>
-    <li>start and commit a transaction for the first 10 records</li>
-    <li>start and commit a transaction for the next 10 records</li>
-    <li>start a transaction for the remaining 5 records, but since this listener is bound to the record processing step, it will never commit the transaction for the last records (if any)</li>
-</ul>
-
-<p>This is where the <code>JdbcTransactionJobListener</code> comes to play, to commit the last transaction (if any). This is a job listener that will check at the end of the job if there is an active
-transaction and will commit it. This what will make the last records to be committed to the database:</p>
-
-<div class="bs-callout bs-callout-code">
-<pre><code class="java">connection.setAutoCommit(false);
-int commitInterval = 10;
-
-EngineBuilder.aNewEngine()
-        .reader(new FlatFileRecordReader(tweets))
-        .filter(new HeaderRecordFilter())
-        .mapper(new DelimitedRecordMapper(Tweet.class, new String[]{"id", "user", "message"}))
-        .writer(jdbcRecordWriter)
-        <strong>.recordProcessorEventListener(new JdbcTransactionStepListener(connection, commitInterval))
-        .jobEventListener(new JdbcTransactionJobListener(connection, true))</strong>
-        .build().call();
-</code></pre>
-</div>
-
-<p>That's all, we have improved the performance of our application with bulk-writes. Easy Batch provide transaction management support through the <code>JdbcTransactionStepListener</code> and <code>JdbcTransactionJobListener</code> APIs.</p>
-
-<h2>6. Summary</h2>
-
-<p>In this tutorial, you have learned how to use Easy Batch in a typical enterprise requirement to persist data into a database.
-    Note that you have only provided configuration meta-data and have reused exactly the same components that served for another application.
-    This is how flexible Easy Batch's API is to enforce reuse.</p>
-
-<p>In this tutorial, we have used the <code>JdbcRecordWriter</code> to inserts tweets in the database, but you can find <a href="https://github.com/EasyBatch/easybatch-tutorials/tree/master/src/main/java/org/easybatch/tutorials/intermediate/hibernate" target="_blank">here</a> the same example using the <code>HibernateRecordWriter</code>.
-There is also another tutorial to load data in a MongoDB instance <a href="https://github.com/EasyBatch/easybatch-tutorials/tree/master/src/main/java/org/easybatch/tutorials/intermediate/mongodb/load" target="_blank">here</a>.</p>
-
-<h2>7. What's next?</h2>
-
-<p>In the next tutorial, you will learn how to build a <a
-        href="http://fr.wikipedia.org/wiki/Extract_Transform_Load" target="_blank">Extract-Transform-Load</a> application using Easy Batch.
-    You will extract tweets from the database, transform them to JSON format and load them in an <a
-            href="http://www.elasticsearch.org" target="_blank">ElasticSearch</a> index.</p>
+<p>In this tutorial, you have learned how to use Easy Batch in a typical enterprise requirement to persist data into a database.</p>
 
 <nav>
     <ul class="pager">
-        <li class="previous"><a href="./word-count.html"><span aria-hidden="true">&larr;</span> Word count tutorial</a></li>
-        <li class="next"><a href="./elasticsearch.html">Indexing ElasticSearch tutorial<span aria-hidden="true">&rarr;</span></a></li>
+        <li class="previous"><a href="./csv2xml.html"><span aria-hidden="true">&larr;</span> CSV to XML tutorial</a></li>
+        <li class="next"><a href="./extracting-data.html">Extracting data from a database tutorial<span aria-hidden="true">&rarr;</span></a></li>
     </ul>
 </nav>
+
 
             </div>
 
@@ -437,44 +489,48 @@ There is also another tutorial to load data in a MongoDB instance <a href="https
                 <!-- <div class="inner" data-spy="affix" data-offset-top="40" data-offset-bottom="300"> -->
 <div class="inner">
 <ul class="list-lg">
-    <li class="sidebar-separator">About Easy Batch</li>
-    <li >
-        <a href="../index.html">Overview</a>
+    <li class="sidebar-separator">Introduction</li>
+    <li>
+        <a href="../index.html"><i class="fa fa-home"></i> Overview</a>
     </li>
-    <li >
-        <a href="../release-notes.html">Release notes</a>
+    <li>
+        <a href="https://speakerdeck.com/benas/easy-batch" target="_blank"><i class="fa fa-video-camera"></i> Presentation</a>
+    </li>
+    <li>
+        <a href="https://github.com/EasyBatch/easybatch-framework/releases" target="_blank"><i class="fa fa-tags"></i> Release notes</a>
     </li>
     <li class="sidebar-separator">Documentation</li>
     <li >
-        <a href="../documentation/getting-started.html">Getting started</a>
+        <a href="../documentation/getting-started.html"><i class="fa fa-play"></i> Getting started</a>
     </li>
     <li >
-        <a href="../documentation/architecture.html">Architecture</a>
+        <a href="../documentation/architecture.html"><i class="fa fa-flask"></i> Architecture</a>
     </li>
     <li >
-        <a href="../documentation/user-guide.html">User guide</a>
+        <a href="../documentation/user-guide.html"><i class="fa fa-book"></i> User guide</a>
+    </li>
+    <li >
+    <a href="../documentation/components-reference.html"><i class="fa fa-code"></i> Components reference</a>
     </li>
     <li  class="active" >
-        <a href="../tutorials/index.html">Tutorials</a>
+        <a href="../tutorials"><i class="fa fa-terminal"></i> Tutorials</a>
     </li>
     <li>
-        <a href="../api/index.html" target="_blank">API docs</a>
-    </li>
-    <li >
-        <a href="../documentation/faq.html">FAQs</a>
-    </li>
-    <li>
-        <a href="https://speakerdeck.com/benas/easy-batch" target="_blank">Presentation slides</a>
+        <a href="../api" target="_blank"><i class="fa fa-folder-open"></i> API docs</a>
     </li>
     <li class="sidebar-separator">Get involved</li>
-    <li>
-        <a href="https://github.com/EasyBatch/easybatch-framework" target="_blank">Source repository</a>
+    <li >
+        <a href="../faq.html"><i class="fa fa-question-circle"></i> FAQs</a>
     </li>
     <li>
-        <a href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank">Issue tracker</a>
+        <a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-github"></i> Source repository</a>
+    </li>
+    <li>
+        <a href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank"><i class="fa fa-bug"></i> Issue tracker</a>
     </li>
 </ul>
 </div>
+
             </div>
         </div>
 
@@ -487,21 +543,21 @@ There is also another tutorial to load data in a MongoDB instance <a href="https
         <div class="row">
             <div class="col-md-3 col">
                 <div class="block contact-block">
-                    <h3>Documentation</h3>
+                    <h3>Introduction</h3>
                     <ul class="fa-ul">
                         <li><a href="../documentation/getting-started.html"><i class="fa fa-li fa-play"></i> Getting started</a></li>
                         <li><a href="../documentation/architecture.html"><i class="fa fa-li fa-flask"></i> Architecture</a></li>
-                        <li><a href="../documentation/user-guide.html"><i class="fa fa-li fa-book"></i> User guide</a></li>
+                        <li><a href="https://speakerdeck.com/benas/easy-batch" target="_blank"><i class="fa fa-li fa-video-camera"></i> Presentation</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-md-3 col">
                 <div class="block contact-block">
-                    <h3>Tutorials</h3>
+                    <h3>Documentation</h3>
                     <ul class="fa-ul">
-                    <li><a href="../tutorials/index.html#basic"><i class="fa fa-li fa-star-o"></i> Basic tutorials</a></li>
-                        <li><a href="../tutorials/index.html#intermediate"><i class="fa fa-li fa-star-half-o"></i> Intermediate tutorials</a></li>
-                        <li><a href="../tutorials/index.html#advanced"><i class="fa fa-li fa-star"></i> Advanced Tutorials</a></li>
+                    <li><a href="../documentation/user-guide.html"><i class="fa fa-li fa-book"></i> User guide</a></li>
+                        <li><a href="../documentation/components-reference.html"><i class="fa fa-li fa-code"></i> Components reference</a></li>
+                        <li><a href="../tutorials/index.html"><i class="fa fa-li fa-terminal"></i> Tutorials</a></li>
                     </ul>
                 </div>
             </div>
@@ -509,9 +565,9 @@ There is also another tutorial to load data in a MongoDB instance <a href="https
                 <div class="block contact-block">
                     <h3>Get involved</h3>
                     <ul class="fa-ul">
-                        <li><a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-li fa-github"></i> Source repository</a></a></li>
+                        <li><a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-li fa-github"></i> Source repository</a></li>
                         <li><a href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank"><i class="fa fa-li fa-bug"></i> Issue tracker</a></li>
-                        <li><a href="../documentation/faq.html"><i class="fa fa-li fa-question"></i> FAQs</a></li>
+                        <li><a href="../faq.html"><i class="fa fa-li fa-question"></i> FAQs</a></li>
                     </ul>
                 </div>
             </div>
@@ -519,8 +575,8 @@ There is also another tutorial to load data in a MongoDB instance <a href="https
                 <div class="block contact-block">
                     <h3>Become a friend</h3>
                     <ul class="fa-ul">
-                        <li><a href="https://twitter.com/intent/tweet?url=http://www.easybatch.org/&text=Easy%20Batch:%20batch%20processing%20with%20Java%20made%20easy&via=md_benhassine" target="_blank"><i class="fa fa-li fa-twitter"></i> Share it on Twitter</a></a></li>
-                        <li><a href="https://plus.google.com/share?url=http://www.easybatch.org&text=Easy%20Batch:%20batch%20processing%20with%20Java%20made%20easy" target="_blank"><i class="fa fa-li fa-google-plus"></i> Share it on Google+</a></a></li>
+                        <li><a href="https://twitter.com/intent/tweet?url=http://www.easybatch.org/&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java&via=easy_batch" title="Share on Twitter" target="_blank"><i class="fa fa-li fa-twitter"></i> Share it on Twitter</a></li>
+                        <li><a href="https://plus.google.com/share?url=http://www.easybatch.org&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java" title="Share on Google+" target="_blank"><i class="fa fa-li fa-google-plus"></i> Share it on Google+</a></li>
                         <li><a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-li fa-heart"></i> Star it on GitHub</a></li>
                     </ul>
                 </div>
@@ -555,6 +611,7 @@ There is also another tutorial to load data in a MongoDB instance <a href="https
         </div>
     </div>
 </footer>
+
 
 <!--Scripts -->
 <script src="../js/jquery.min.js"></script>

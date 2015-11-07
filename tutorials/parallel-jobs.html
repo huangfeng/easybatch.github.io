@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Easy Batch &bull; Parallel jobs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Mahmoud Ben Hassine">
+    <meta name="description" content="open source lightweight batch processing framework for Java">
+    <meta name="keyword" content="java, batch, batch processing, open source">
+
+    <!-- Bootstrap CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Plugins -->
+    <link href="../css/highlight/default.css" media="screen" rel="stylesheet" />
+    <link href="../css/clingify/clingify.css" rel="stylesheet">
+
+    <!-- Theme style -->
+    <link href="../css/theme-style.min.css" rel="stylesheet">
+
+    <!--Your custom colour override-->
+    <link href="../css/colour-blue.css" id="colour-scheme" rel="stylesheet">
+
+    <!-- Your custom override -->
+    <link href="../css/custom-style.css" rel="stylesheet">
+
+    <!-- HTML5 shiv & respond.js for IE6-8 support of HTML5 elements & media queries -->
+    <!--[if lt IE 9]>
+    <script src="../js/plugins/html5shiv/html5shiv.js"></script>
+    <script src="../js/plugins/respond/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="shortcut icon" href="../img/misc/gear.ico">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300|Rambla|Calligraffitti' rel='stylesheet' type='text/css'>
+
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-35599235-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+
+</head>
+<body class="page page-index-static">
+
+<a href="#content" class="sr-only">Skip to content</a>
+<div id="navigation" class="wrapper">
+    <div class="navbar-static-top">
+
+        <!--Header & Branding region-->
+        <div class="header">
+            <div class="header-inner container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <!--branding/logo-->
+                        <a class="navbar-brand" href="../index.html" title="Home">
+                            <h1><span>Easy</span>Batch</h1>
+                        </a>
+                        <div class="slogan"><i class="fa fa-cog fa-spin"></i> The simple, stupid batch processing framework for Java</div>
+                    </div>
+                    <div class="col-md-4">
+                        <!--social media icons-->
+                        <div class="social-media">
+                            <a href="https://github.com/EasyBatch/easybatch-framework" title="View on GitHub" target="_blank"><i class="fa fa-github"></i></a>
+                            <a href="https://twitter.com/intent/tweet?url=http://www.easybatch.org/&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java&via=easy_batch" title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="https://plus.google.com/share?url=http://www.easybatch.org&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java" title="Share on Google+" target="_blank"><i class="fa fa-google-plus"></i></a>
+                            <a href="https://gitter.im/EasyBatch/easybatch-framework" title="Chat on Gitter" target="_blank"><i class="fa fa-comment"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" data-toggle="clingify">
+            <div class="navbar">
+                <!--
+              mobile collapse menu button
+              - data-toggle="toggle" = default BS menu
+              - data-toggle="jpanel-menu" = jPanel Menu
+              -->
+                <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
+
+                <!--user menu-->
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 4.0.0</a> </div>
+
+                <!--everything within this div is collapsed on mobile-->
+                <div class="navbar-collapse collapse">
+
+                    <!--main navigation-->
+                    <ul class="nav navbar-nav">
+                        <li><a href="../index.html"><i class="fa fa-home fa-lg"></i> Home</a></li>
+                        <li class="dropdown"> <a href="#" class="dropdown-toggle menu-item" id="features-drop" data-toggle="dropdown"><i class="fa fa-book fa-lg" ></i> Documentation +</a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="about-drop">
+                                <li role="presentation"><a role="menuitem" href="../documentation/getting-started.html" class="menu-item"><i class="fa fa-play fa-lg"></i> Getting started</a></li>
+                                <li role="presentation"><a role="menuitem" href="../documentation/architecture.html" tabindex="-1" class="menu-item"><i class="fa fa-flask fa-lg"></i> Architecture</a></li>
+                                <li role="presentation"><a role="menuitem" href="../documentation/user-guide.html" tabindex="-1" class="menu-item"><i class="fa fa-book fa-lg"></i> User guide</a></li>
+                                <li role="presentation"><a role="menuitem" href="../documentation/components-reference.html" tabindex="-1" class="menu-item"><i class="fa fa-code fa-lg"></i> Components reference</a></li>
+                                <li role="presentation"><a role="menuitem" href="../api" tabindex="-1" class="menu-item" target="_blank"><i class="fa fa-folder-open fa-lg"></i> API docs</a></li>
+                                <li role="presentation"><a role="menuitem" href="https://speakerdeck.com/benas/easy-batch" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-video-camera fa-lg"></i> Presentation</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="../tutorials/index.html" class="menu-item"><i class="fa fa-terminal fa-lg"></i> Tutorials</a></li>
+                        <li class="dropdown"> <a href="" class="dropdown-toggle" id="about-drop" data-toggle="dropdown"><i class="fa fa-thumbs-o-up fa-lg"></i> Get involved +</a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="about-drop">
+                                <li role="presentation"><a role="menuitem" href="../faq.html" tabindex="-1" class="menu-item"><i class="fa fa-question-circle fa-lg"></i> FAQs</a></li>
+                                <li role="presentation"><a role="menuitem" href="https://github.com/EasyBatch/easybatch-framework" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-github fa-lg"></i> Source repository</a></li>
+                                <li role="presentation"><a role="menuitem" href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-bug fa-lg"></i> Issue tracker</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+                <!--/.navbar-collapse -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="content">
+    <div class="container">
+
+        <!-- breadcrumb -->
+<ul class="breadcrumb">
+    <li><a href="../index.html">Home</a></li>
+    
+    <li><a href="../tutorials/index.html">Tutorials</a></li>
+    
+    
+    
+    <li class="active">Parallel jobs</li>
+</ul>
+
+
+        <div class="row">
+            <div class="col-md-9">
+
+                <h1 class="title-divider"><span>Parallel jobs</span></h1>
+
+                              <h2 id="1">1. Introduction</h2>
+
+              <p>Easy Batch jobs implement the <code><em>java.util.concurrent.Callable</em></code> interface.
+                  This turns them into units of work that can be submitted to a <code><em>java.util.concurrent.ExecutorService</em></code>.</p>
+              <p>Using the <code><em>java.util.concurrent.ExecutorService</em></code> with a pool of threads, you can run multiple Easy Batch jobs in parallel.
+                  There are at least 3 ways to process data in parallel:</p>
+              <ol>
+                  <li>Distributing input records to multiple jobs</li>
+                  <li>Physical partitioning of the data source into multiple physical parts which will be processed by separate jobs</li>
+                  <li>Logical partitioning of the data source into multiple logical parts which will be processed by separate jobs</li>
+              </ol>
+
+                <p>In this tutorial, you will see an example of implementing each of these techniques using Easy Batch.</p>
+
+              <p>You will reuse the same application developed in the <a href="./hello-world.html">Hello world tutorial</a> but with a huge tweets data source:</p>
+
+<div class="bs-callout bs-callout-code">
+    <h5>tweets.csv</h5>
+<pre><code>id,user,message
+1,foo,easy batch rocks! #EasyBatch
+2,bar,@foo I do confirm :-)
+...
+10000000,baz,@foo @bar what are you talking about? Am I in trouble?
+</code></pre>
+</div>
+
+<h2>2. What you’ll need</h2>
+
+<ul>
+    <li>JDK 1.7+</li>
+    <li>Maven</li>
+    <li>Git (Optional)</li>
+    <li>Your favorite IDE (Optional)</li>
+</ul>
+
+        <h2>3. Dispatching records</h2>
+
+<p>The <code><em>RecordDispatcher</em></code> API is used to distribute work to multiple workers:</p>
+
+        <div class="row">
+            <p class="pull-center"><img class="ebi-small-90" src="../img/eb/dispatcher.jpg"/></p>
+        </div>
+
+        <p>There are 4 implementations of the <code><em>RecordDispatcher</em></code> API. Please refer to the
+            <a href="../documentation/components-reference.html">components reference</a> (section "dispatchers") for all details about available record dispatchers.
+        In this tutorial, you will learn how to use the <code><em>RoundRobinRecordDispatcher</em></code> to distribute tweets to 2 queues.</p>
+
+<div class="bs-callout bs-callout-warning">
+    <h5><i class="fa fa-info-circle"></i> Heads up!</h5>
+    <p>Poison records serve as End-Of-Stream messages, they are used to stop the job (gracefully).</p>
+    <p>The <code><em>PoisonRecord</em></code> utility class is used to stop the job when all data has been read.
+        Poison records have no business value, you should filter them using the <code><em>PoisonRecordFilter</em></code>.</p>
+</div>
+
+        <p>We will create a "master" job that will read data from the input file and use a <code><em>RoundRobinRecordDispatcher</em></code>
+        to distribute records to "worker" jobs. Each worker job will read data from a queue which holds the work that is assigned to it:</p>
+
+        <div class="bs-callout bs-callout-code">
+<pre><code class="java">public class ParallelTutorialWithRecordDispatching {
+
+        private static final int THREAD_POOL_SIZE = 3;
+
+        public static void main(String[] args) throws Exception {
+
+        // Input file tweets.csv
+        File tweets = new File("tweets.csv");
+
+        // Create queues
+        BlockingQueue&lt;Record&gt; queue1 = new LinkedBlockingQueue&lt;&gt;();
+        BlockingQueue&lt;Record&gt; queue2 = new LinkedBlockingQueue&lt;&gt;();
+
+        // Create a round robin record dispatcher
+        RoundRobinRecordDispatcher&lt;Record&gt; roundRobinRecordDispatcher
+                = new RoundRobinRecordDispatcher&lt;&gt;(Arrays.asList(queue1, queue2));
+
+        // Build a master job that will read records from the data source
+        // and dispatch them to worker jobs
+        Job masterJob = JobBuilder.aNewJob()
+            .named("master-job")
+            .reader(new FlatFileRecordReader(tweets))
+            .filter(new HeaderRecordFilter())
+            .mapper(new DelimitedRecordMapper(Tweet.class, "id", "user", "message"))
+            .dispatcher(roundRobinRecordDispatcher)
+            .jobListener(new PoisonRecordBroadcaster&lt;&gt;(Arrays.asList(queue1, queue2)))
+            .build();
+
+        // Build worker jobs
+        Job workerJob1 = buildWorkerJob(queue1, "worker-job1");
+        Job workerJob2 = buildWorkerJob(queue2, "worker-job2");
+
+        // Create a thread pool to call master and worker jobs in parallel
+        ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+
+        // Submit workers to executor service
+        executorService.invokeAll(Arrays.asList(masterJob, workerJob1, workerJob2));
+
+        // Shutdown executor service
+        executorService.shutdown();
+    }
+
+    public static Job buildWorkerJob(BlockingQueue&lt;Record&gt; queue, String jobName) {
+        return JobBuilder.aNewJob()
+            .named(jobName)
+            .reader(new BlockingQueueRecordReader(queue))
+            .filter(new PoisonRecordFilter())
+            .processor(new TweetProcessor())
+            .build();
+    }
+}</code></pre>
+</div>
+
+        <p>The record dispatcher dispatches records to a <code><em>java.util.concurrent.BlockingQueue</em></code>.
+        We can use the <code><em>BlockingQueueRecordReader</em></code> to pull records from this queue. When the master job finishes reading the data source, it sends a <code><em>PoisonRecord</em></code>
+            using the <code><em>PoisonRecordBroadcaster</em></code> to stop worker jobs.</p>
+
+        <h2>4. Splitting the data source</h2>
+
+        <p>It is a common technique to split the data source into multiple slices as follow:</p>
+
+<div class="row">
+    <p class="pull-center"><img class="ebi-small-90" src="../img/eb/split.jpg"/></p>
+</div>
+
+        <p>Easy Batch does not provide a feature to partition input data. If you decided to split your data source into multiples parts,
+        you can still use Easy Batch to process them in parallel using a <code><em>java.util.concurrent.ExecutorService</em></code>.
+            Here is a sample of how to use multiple jobs to process multiple data source parts in parallel:</p>
+
+        <div class="bs-callout bs-callout-code">
+<pre><code class="java">public class ParallelTutorialWithDataSplitting {
+
+    private static final int THREAD_POOL_SIZE = 2;
+
+    public static void main(String[] args) throws Exception {
+
+        // Input file tweets-part1.csv
+        File tweetsPart1 = new File(args[0]);
+
+        // Input file tweets-part2.csv
+        File tweetsPart2 = new File(args[1]);
+
+        // Build worker jobs
+        Job job1 = buildJob(tweetsPart1, "worker-job1");
+        Job job2 = buildJob(tweetsPart2, "worker-job2");
+
+        //create a 2 threads pool to call worker jobs in parallel
+        ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+
+        List&lt;Future&lt;Report&gt;&gt; partialReports =
+                            executorService.invokeAll(Arrays.asList(job1, job2));
+
+        //merge partial reports into a global one
+        JobReport report1 = partialReports.get(0).get();
+        JobReport report2 = partialReports.get(1).get();
+
+        JobReportMerger reportMerger = new DefaultJobReportMerger();
+        JobReport finalReport = reportMerger.mergerReports(report1, report2);
+        System.out.println(finalReport);
+
+        executorService.shutdown();
+    }
+
+    private static Job buildJob(File file, String jobName) throws FileNotFoundException {
+        return JobBuilder.aNewJob()
+            .named(jobName)
+            .reader(new FlatFileRecordReader(file))
+            .mapper(new DelimitedRecordMapper(Tweet.class, "id", "user", "message"))
+            .processor(new TweetProcessor())
+            .build();
+    }
+}</code></pre>
+        </div>
+
+<p>In this example, we have distributed the work across multiple jobs, so we will get partial reports at the end of execution of each worker job.
+    How do we get a global report for all the work? This is where the <code><em>ReportMerger</em></code> comes to play,
+    that is, to merge partial reports into a global one.</p>
+
+<div class="bs-callout bs-callout-warning">
+    <h5><i class="fa fa-info-circle"></i> Heads up!</h5>
+    <p>In this example, you have used multiple threads within the same JVM to process data in parallel.
+        You could also launch separate JVMs for each part.</p>
+</div>
+
+<h2>5. Filtering the data source</h2>
+
+        <p>Sometimes it is just impossible to split the data source into multiple physical parts. The third technique is to use a single data source
+        but to instruct worker jobs to process separate parts and filter the rest of the data source.</p>
+
+        <p>Let's see an example:</p>
+
+<div class="row">
+    <p class="pull-center"><img class="ebi-small-90" src="../img/eb/filter.jpg"/></p>
+</div>
+
+              <ul>
+                  <li>The first job instance will read data from <code>tweets.csv</code> file, process records 1-2 and filter records 3-4.</li>
+                  <li>The second job instance will also read data from <code>tweets.csv</code> file, process records 3-4 and filter records 1-2.</li>
+              </ul>
+
+              <p>The following listing shows the code to achieve this configuration:</p>
+
+        <div class="bs-callout bs-callout-code">
+<pre><code class="java">public class ParallelTutorialWithDataFiltering {
+
+    private static final int THREAD_POOL_SIZE = 2;
+
+    public static void main(String[] args) throws Exception {
+
+        // Input file tweets.csv
+        File tweets = new File(args[0]);
+
+        <strong>// worker job 1: process data from tweets.csv, filter records 3-4
+        Job job1 = buildJob(tweets, new RecordNumberGreaterThanFilter(2), "worker-job1");
+
+        // worker job 2: process data from tweets.csv, filter records 1-2
+        Job job2 = buildJob(tweets, new RecordNumberLowerThanFilter(3), "worker-job2");</strong>
+
+        //create a 2 threads pool to call worker jobs in parallel
+        ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+
+        List&lt;Future&lt;Report&gt;&gt; partialReports =
+                            executorService.invokeAll(Arrays.asList(job1, job2));
+
+        //merge partial reports into a global one
+        JobReport report1 = partialReports.get(0).get();
+        JobReport report2 = partialReports.get(1).get();
+
+        JobReportMerger reportMerger = new DefaultJobReportMerger();
+        JobReport finalReport = reportMerger.mergerReports(report1, report2);
+        System.out.println(finalReport);
+
+        executorService.shutdown();
+    }
+
+    private static Job buildJob(File file, RecordFilter recordFilter, String jobName)
+        throws FileNotFoundException {
+        return new JobBuilder()
+            .named(jobName)
+            .reader(new FlatFileRecordReader(file))
+            .filter(recordFilter)
+            .mapper(new DelimitedRecordMapper(Tweet.class, "id", "user", "message"))
+            .processor(new TweetProcessor())
+            .build();
+    }
+}</code></pre>
+        </div>
+
+              <h2>6. Running the tutorial</h2>
+
+        <h3>6.1 From the command line</h3>
+
+<p>To run the tutorials, proceed as follow:</p>
+<div class="bs-callout bs-callout-code">
+<pre><code>$>git clone https://github.com/EasyBatch/easybatch-tutorials.git
+$>cd easybatch-tutorials
+$>mvn install
+$> # Launch the record dispatching tutorial
+$>mvn exec:java -PrunParallelTutorialWithRecordDispatching
+$> # Launch the data source splitting tutorial
+$>mvn exec:java -PrunParallelTutorialWithDataSplitting
+$> # Launch the data source filtering tutorial
+$>mvn exec:java -PrunParallelTutorialWithDataFiltering
+</code></pre>
+</div>
+
+<h3>6.2 From your IDE</h3>
+
+<p>First, you need to checkout the source code of the tutorial available <a href="https://github.com/EasyBatch/easybatch-tutorials/tree/master/src/main/java/org/easybatch/tutorials/advanced/parallel" target="_blank">here</a>:</p>
+
+<div class="bs-callout bs-callout-code">
+    <pre><code>$>git clone https://github.com/EasyBatch/easybatch-tutorials.git</code></pre>
+</div>
+
+<p>If you do not have git installed, you can download a zip file containing the project's source code from GitHub
+    <a href="https://github.com/EasyBatch/easybatch-tutorials/archive/master.zip">here</a>.</p>
+
+<p>Then, import the <code><em>easybatch-tutorials</em></code> module in you favorite IDE and resolve maven dependencies.</p>
+
+<p>Finally, run the one of the following classes without any argument:</p>
+<ul>
+    <li><code><em>org.easybatch.tutorials.advanced.parallel.ParallelTutorialWithDataFiltering</em></code></li>
+    <li><code><em>org.easybatch.tutorials.advanced.parallel.ParallelTutorialWithDataSplitting</em></code></li>
+    <li><code><em>org.easybatch.tutorials.advanced.parallel.ParallelTutorialWithRecordDispatching</em></code></li>
+</ul>
+
+<h2>7. Summary</h2>
+
+              <p>In this tutorial, you have seen at least 3 ways of how to process data in parallel using multiple worker jobs
+                  in order to speed up the overall processing time.</p>
+              <p>The following table summarizes the advantages and drawbacks for each approach:</p>
+              <table class="table table-bordered table-condensed ">
+                  <thead>
+                  <tr class="alert-info">
+                      <th>Approach</th>
+                      <th>Advantages</th>
+                      <th>Drawbacks</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                      <td>Dispatching records (no partitioning)</td>
+                      <td><span class="text-success">Best way to distribute work across multiple workers.</span></td>
+                      <td><span class="text-danger">Need to setup an additional record reader and queues.</span></td>
+                  </tr>
+                  <tr>
+                      <td>Splitting the data source<br>(physical partitioning)</td>
+                      <td><span class="text-success">Each job reads only its own part and not the entire data source</span></td>
+                      <td><span class="text-danger">Need to split the data source into multiple parts</span></td>
+                  </tr>
+                  <tr>
+                      <td>Filtering the data source<br>(logical partitioning)</td>
+                      <td><span class="text-success">No need to split the input data source into multiple parts</span></td>
+                      <td><span class="text-danger">Each job will read the entire data source</span></td>
+                  </tr>
+                  </tbody>
+              </table>
+
+        <p>Using a record dispatcher should be your first choice when dealing with data processing in parallel
+            because it is more efficient than other techniques and provides the most natural way of distributing the work across multiple jobs.</p>
+
+<nav>
+    <ul class="pager">
+        <li class="previous"><a href="./batch-processing.html"><span aria-hidden="true">&larr;</span> Batch processing tutorial</a></li>
+        <li class="next"><a href="./asynchronous-jobs.html">Asynchronous jobs tutorial <span aria-hidden="true">&rarr;</span></a></li>
+    </ul>
+</nav>
+
+
+
+            </div>
+
+            <div class="col-md-3 sidebar-right">
+                <!-- <div class="inner" data-spy="affix" data-offset-top="40" data-offset-bottom="300"> -->
+<div class="inner">
+<ul class="list-lg">
+    <li class="sidebar-separator">Introduction</li>
+    <li>
+        <a href="../index.html"><i class="fa fa-home"></i> Overview</a>
+    </li>
+    <li>
+        <a href="https://speakerdeck.com/benas/easy-batch" target="_blank"><i class="fa fa-video-camera"></i> Presentation</a>
+    </li>
+    <li>
+        <a href="https://github.com/EasyBatch/easybatch-framework/releases" target="_blank"><i class="fa fa-tags"></i> Release notes</a>
+    </li>
+    <li class="sidebar-separator">Documentation</li>
+    <li >
+        <a href="../documentation/getting-started.html"><i class="fa fa-play"></i> Getting started</a>
+    </li>
+    <li >
+        <a href="../documentation/architecture.html"><i class="fa fa-flask"></i> Architecture</a>
+    </li>
+    <li >
+        <a href="../documentation/user-guide.html"><i class="fa fa-book"></i> User guide</a>
+    </li>
+    <li >
+    <a href="../documentation/components-reference.html"><i class="fa fa-code"></i> Components reference</a>
+    </li>
+    <li  class="active" >
+        <a href="../tutorials"><i class="fa fa-terminal"></i> Tutorials</a>
+    </li>
+    <li>
+        <a href="../api" target="_blank"><i class="fa fa-folder-open"></i> API docs</a>
+    </li>
+    <li class="sidebar-separator">Get involved</li>
+    <li >
+        <a href="../faq.html"><i class="fa fa-question-circle"></i> FAQs</a>
+    </li>
+    <li>
+        <a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-github"></i> Source repository</a>
+    </li>
+    <li>
+        <a href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank"><i class="fa fa-bug"></i> Issue tracker</a>
+    </li>
+</ul>
+</div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<!-- FOOTER -->
+<footer id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col">
+                <div class="block contact-block">
+                    <h3>Introduction</h3>
+                    <ul class="fa-ul">
+                        <li><a href="../documentation/getting-started.html"><i class="fa fa-li fa-play"></i> Getting started</a></li>
+                        <li><a href="../documentation/architecture.html"><i class="fa fa-li fa-flask"></i> Architecture</a></li>
+                        <li><a href="https://speakerdeck.com/benas/easy-batch" target="_blank"><i class="fa fa-li fa-video-camera"></i> Presentation</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 col">
+                <div class="block contact-block">
+                    <h3>Documentation</h3>
+                    <ul class="fa-ul">
+                    <li><a href="../documentation/user-guide.html"><i class="fa fa-li fa-book"></i> User guide</a></li>
+                        <li><a href="../documentation/components-reference.html"><i class="fa fa-li fa-code"></i> Components reference</a></li>
+                        <li><a href="../tutorials/index.html"><i class="fa fa-li fa-terminal"></i> Tutorials</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 col">
+                <div class="block contact-block">
+                    <h3>Get involved</h3>
+                    <ul class="fa-ul">
+                        <li><a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-li fa-github"></i> Source repository</a></li>
+                        <li><a href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank"><i class="fa fa-li fa-bug"></i> Issue tracker</a></li>
+                        <li><a href="../faq.html"><i class="fa fa-li fa-question"></i> FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 col">
+                <div class="block contact-block">
+                    <h3>Become a friend</h3>
+                    <ul class="fa-ul">
+                        <li><a href="https://twitter.com/intent/tweet?url=http://www.easybatch.org/&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java&via=easy_batch" title="Share on Twitter" target="_blank"><i class="fa fa-li fa-twitter"></i> Share it on Twitter</a></li>
+                        <li><a href="https://plus.google.com/share?url=http://www.easybatch.org&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java" title="Share on Google+" target="_blank"><i class="fa fa-li fa-google-plus"></i> Share it on Google+</a></li>
+                        <li><a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-li fa-heart"></i> Star it on GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <br>
+        <p class="back-top floatright" style="display: none;">
+            <a href="#top"><span></span></a>
+        </p>
+
+        <div class="row">
+            <div id="toplink"><a href="#top" class="top-link" title="Back to top">Back To Top <i class="fa fa-chevron-up"></i></a></div>
+
+            <div class="subfooter">
+                <br>
+                <div class="col-md-4">
+                    <p>&copy; Easy Batch is created by <a href="http://www.mahmoud-benhassine.fr" target="_blank">Mahmoud Ben Hassine</a> <br>
+                    and the <a href="https://github.com/EasyBatch/easybatch-framework#awesome-contributors" target="_blank">awesome contributors</a></p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <iframe src="http://ghbtns.com/github-btn.html?user=EasyBatch&repo=easybatch-framework&type=watch&count=true"
+                            allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+                    <iframe src="http://ghbtns.com/github-btn.html?user=EasyBatch&repo=easybatch-framework&type=fork&count=true"
+                            allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
+                </div>
+                <div class="col-md-4">
+                    <p class="footer-menu">Easy Batch is open source and is released <br> under the terms of the <a href="http://opensource.org/licenses/mit-license.php/" target="_blank">MIT license</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!--Scripts -->
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery-migrate-1.2.1.min.js"></script> <!--Legacy jQuery support for quicksand plugin-->
+
+<!-- Bootstrap JS -->
+<script src="../js/bootstrap.min.js"></script>
+
+<!--JS plugins-->
+<script src="../js/plugins/clingify/jquery.clingify.min.js"></script>
+<script src="../js/plugins/jRespond/jRespond.js"></script>
+
+<!--Custom scripts mainly used to trigger libraries -->
+<script src="../js/script.min.js"></script>
+<script src="../js/scrolltotop.js"></script>
+<script src="../js/homeScroll.js"></script>
+<script src="../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

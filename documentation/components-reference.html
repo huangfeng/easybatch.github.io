@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Easy Batch &bull; Components Reference</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Mahmoud Ben Hassine">
+    <meta name="description" content="open source lightweight batch processing framework for Java">
+    <meta name="keyword" content="java, batch, batch processing, open source">
+
+    <!-- Bootstrap CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Plugins -->
+    <link href="../css/highlight/default.css" media="screen" rel="stylesheet" />
+    <link href="../css/clingify/clingify.css" rel="stylesheet">
+
+    <!-- Theme style -->
+    <link href="../css/theme-style.min.css" rel="stylesheet">
+
+    <!--Your custom colour override-->
+    <link href="../css/colour-blue.css" id="colour-scheme" rel="stylesheet">
+
+    <!-- Your custom override -->
+    <link href="../css/custom-style.css" rel="stylesheet">
+
+    <!-- HTML5 shiv & respond.js for IE6-8 support of HTML5 elements & media queries -->
+    <!--[if lt IE 9]>
+    <script src="../js/plugins/html5shiv/html5shiv.js"></script>
+    <script src="../js/plugins/respond/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="shortcut icon" href="../img/misc/gear.ico">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300|Rambla|Calligraffitti' rel='stylesheet' type='text/css'>
+
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-35599235-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+
+</head>
+<body class="page page-index-static">
+
+<a href="#content" class="sr-only">Skip to content</a>
+<div id="navigation" class="wrapper">
+    <div class="navbar-static-top">
+
+        <!--Header & Branding region-->
+        <div class="header">
+            <div class="header-inner container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <!--branding/logo-->
+                        <a class="navbar-brand" href="../index.html" title="Home">
+                            <h1><span>Easy</span>Batch</h1>
+                        </a>
+                        <div class="slogan"><i class="fa fa-cog fa-spin"></i> The simple, stupid batch processing framework for Java</div>
+                    </div>
+                    <div class="col-md-4">
+                        <!--social media icons-->
+                        <div class="social-media">
+                            <a href="https://github.com/EasyBatch/easybatch-framework" title="View on GitHub" target="_blank"><i class="fa fa-github"></i></a>
+                            <a href="https://twitter.com/intent/tweet?url=http://www.easybatch.org/&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java&via=easy_batch" title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="https://plus.google.com/share?url=http://www.easybatch.org&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java" title="Share on Google+" target="_blank"><i class="fa fa-google-plus"></i></a>
+                            <a href="https://gitter.im/EasyBatch/easybatch-framework" title="Chat on Gitter" target="_blank"><i class="fa fa-comment"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" data-toggle="clingify">
+            <div class="navbar">
+                <!--
+              mobile collapse menu button
+              - data-toggle="toggle" = default BS menu
+              - data-toggle="jpanel-menu" = jPanel Menu
+              -->
+                <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
+
+                <!--user menu-->
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 4.0.0</a> </div>
+
+                <!--everything within this div is collapsed on mobile-->
+                <div class="navbar-collapse collapse">
+
+                    <!--main navigation-->
+                    <ul class="nav navbar-nav">
+                        <li><a href="../index.html"><i class="fa fa-home fa-lg"></i> Home</a></li>
+                        <li class="dropdown"> <a href="#" class="dropdown-toggle menu-item" id="features-drop" data-toggle="dropdown"><i class="fa fa-book fa-lg" ></i> Documentation +</a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="about-drop">
+                                <li role="presentation"><a role="menuitem" href="../documentation/getting-started.html" class="menu-item"><i class="fa fa-play fa-lg"></i> Getting started</a></li>
+                                <li role="presentation"><a role="menuitem" href="../documentation/architecture.html" tabindex="-1" class="menu-item"><i class="fa fa-flask fa-lg"></i> Architecture</a></li>
+                                <li role="presentation"><a role="menuitem" href="../documentation/user-guide.html" tabindex="-1" class="menu-item"><i class="fa fa-book fa-lg"></i> User guide</a></li>
+                                <li role="presentation"><a role="menuitem" href="../documentation/components-reference.html" tabindex="-1" class="menu-item"><i class="fa fa-code fa-lg"></i> Components reference</a></li>
+                                <li role="presentation"><a role="menuitem" href="../api" tabindex="-1" class="menu-item" target="_blank"><i class="fa fa-folder-open fa-lg"></i> API docs</a></li>
+                                <li role="presentation"><a role="menuitem" href="https://speakerdeck.com/benas/easy-batch" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-video-camera fa-lg"></i> Presentation</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="../tutorials/index.html" class="menu-item"><i class="fa fa-terminal fa-lg"></i> Tutorials</a></li>
+                        <li class="dropdown"> <a href="" class="dropdown-toggle" id="about-drop" data-toggle="dropdown"><i class="fa fa-thumbs-o-up fa-lg"></i> Get involved +</a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="about-drop">
+                                <li role="presentation"><a role="menuitem" href="../faq.html" tabindex="-1" class="menu-item"><i class="fa fa-question-circle fa-lg"></i> FAQs</a></li>
+                                <li role="presentation"><a role="menuitem" href="https://github.com/EasyBatch/easybatch-framework" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-github fa-lg"></i> Source repository</a></li>
+                                <li role="presentation"><a role="menuitem" href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank" tabindex="-1" class="menu-item"><i class="fa fa-bug fa-lg"></i> Issue tracker</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+                <!--/.navbar-collapse -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="content">
+    <div class="container">
+
+        <!-- breadcrumb -->
+<ul class="breadcrumb">
+    <li><a href="../index.html">Home</a></li>
+    
+    
+    
+    <li class="active">Components Reference</li>
+</ul>
+
+
+        <div class="row">
+            <div class="col-md-9">
+
+                <h1 class="title-divider"><span>Components Reference</span></h1>
+
+                <div class="tabbable">
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="#readers" data-toggle="tab">Readers</a></li>
+        <li role="presentation"><a href="#writers" data-toggle="tab">Writers</a></li>
+        <li role="presentation"><a href="#filters" data-toggle="tab">Filters</a></li>
+        <li role="presentation"><a href="#mappers" data-toggle="tab">Mappers</a></li>
+        <li role="presentation"><a href="#validators" data-toggle="tab">Validators</a></li>
+        <li role="presentation"><a href="#marshallers" data-toggle="tab">Marshallers</a></li>
+        <li role="presentation"><a href="#processors" data-toggle="tab">Processors</a></li>
+        <li role="presentation"><a href="#dispatchers" data-toggle="tab">Dispatchers</a></li>
+        <li role="presentation"><a href="#listeners" data-toggle="tab">Listeners</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade active in" id="readers">
+            <h2>Reading records</h2>
+
+<p>To read records from a data source, you should register an implementation of the <code><em>RecordReader</em></code> interface:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Job job = new JobBuilder()
+    <strong>.reader(new MyRecordReader(myDataSource))</strong>
+    .build();</code></pre>
+</div>
+
+<p>There are several built-in record readers to read data from a variety of sources:</p>
+
+<ul>
+    <li>flat files (delimited and fixed length)</li>
+    <li>xml and json files</li>
+    <li>in-memory strings</li>
+    <li>databases</li>
+    <li>JMS queues</li>
+    <li>Queues and Iterable objects</li>
+    <li>and standard input</li>
+</ul>
+
+<p>
+    Here is a table of built-in readers and how to use them:
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr class="ebi-info">
+            <th>Data source</th>
+            <th>Reader</th>
+            <th>Record type</th>
+            <th>Module</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>String</td>
+            <td>StringRecordReader</td>
+            <td>StringRecord</td>
+            <td>easybatch-core</td>
+        </tr>
+        <tr>
+            <td>Directory</td>
+            <td>FileRecordReader</td>
+            <td>FileRecord</td>
+            <td>easybatch-core</td>
+        </tr>
+        <tr>
+            <td>Iterable</td>
+            <td>IterableRecordReader</td>
+            <td>GenericRecord</td>
+            <td>easybatch-core</td>
+        </tr>
+        <tr>
+            <td>Standard input</td>
+            <td>StandardInputRecordReader</td>
+            <td>StringRecord</td>
+            <td>easybatch-core</td>
+        </tr>
+        <tr>
+            <td>Flat file</td>
+            <td>FlatFileRecordReader</td>
+            <td>FlatFileRecord</td>
+            <td>easybatch-flatfile</td>
+        </tr>
+        <tr>
+            <td>Flat file</td>
+            <td>ApacheCommonCsvRecordReader</td>
+            <td>ApacheCommonCsvRecord</td>
+            <td>easybatch-apache-commons-csv</td>
+        </tr>
+        <tr>
+            <td>Xml stream</td>
+            <td>XmlRecordReader</td>
+            <td>XmlRecord</td>
+            <td>easybatch-xml</td>
+        </tr>
+        <tr>
+            <td>Json stream</td>
+            <td>JsonRecordReader</td>
+            <td>JsonRecord</td>
+            <td>easybatch-json</td>
+        </tr>
+        <tr>
+            <td>Relational database</td>
+            <td>JdbcRecordReader</td>
+            <td>JdbcRecord</td>
+            <td>easybatch-jdbc</td>
+        </tr>
+        <tr>
+            <td>Relational database</td>
+            <td>JpaRecordReader</td>
+            <td>GenericRecord</td>
+            <td>easybatch-jpa</td>
+        </tr>
+        <tr>
+            <td>Relational database</td>
+            <td>HibernateRecordReader</td>
+            <td>GenericRecord</td>
+            <td>easybatch-hibernate</td>
+        </tr>
+        <tr>
+            <td>MongoDB</td>
+            <td>MongoDBRecordReader</td>
+            <td>MongoDBRecord</td>
+            <td>easybatch-mongodb</td>
+        </tr>
+        <tr>
+            <td>BlockingQueue</td>
+            <td>BlockingQueueRecordReader</td>
+            <td>GenericRecord</td>
+            <td>easybatch-core</td>
+        </tr>
+        <tr>
+            <td>JmsQueue</td>
+            <td>JmsQueueRecordReader</td>
+            <td>JmsRecord</td>
+            <td>easybatch-jms</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Reading batches</h2>
+
+<p>
+    To read records in batches, you need to use a <code><em>BatchReader</em></code>.
+    <code><em>Batch</em></code> readers must be configured with a data source and the batch size.
+    They delegate data reading to regular record readers and produce <code><em>Batch</em></code> instances with a list of records as payload.
+    Please refer to the JavaDoc of batch readers for more details about how to use them.
+</p>
+
+<h2>Considerations, hints and gotchas</h2>
+
+    <h5><span class="label label-warning">1. Hint:</span></h5>
+    <p>if your XML file in flattened (with no wrapping tag), let's say in this format:</p>
+    <div class="bs-callout bs-callout-code">
+&lt;tweet&gt;&lt;id&gt;1&lt;/id&gt;&lt;user&gt;foo&lt;/user&gt;&lt;message&gt;Hello&lt;/message&gt;&lt;/tweet&gt;<br>
+&lt;tweet&gt;&lt;id&gt;2&lt;/id&gt;&lt;user&gt;bar&lt;/user&gt;&lt;message&gt;Hi&lt;/message&gt;&lt;/tweet&gt;<br>
+...
+    </div>
+    <p>you can use the <code><em>FlatFileRecordReader</em></code> that will read XML records line by line.</p>
+
+    <h5><span class="label label-primary">2. Heads up!</span></h5>
+    <p>The <code><em>JsonRecordReader</em></code> expects an array of JSON objects in the input file: [ {object1}, {object2}, ..., {objectN} ] .</p>
+    <p>if your JSON file in flattened (no wrapping array), let's say in this format:</p>
+<div class="bs-callout bs-callout-code">
+{object1}<br>
+{object2}<br>
+...
+</div>
+
+    <p>you can use the <code><em>FlatFileRecordReader</em></code> that will read JSON records line by line.</p>
+
+    <h5><span class="label label-danger">3. Performance note:</span></h5>
+    <p>Depending on your JDBC driver configuration, The <code><em>JdbcRecordReader</em></code> can (and should) stream records in chunks.
+        You can set the <code><em>maxRows</em></code> and <code><em>fetchSize</em></code> parameters of the <code><em>JdbcRecordReader</em></code>
+        to make sure large data sets are not loaded entirely in memory:</p>
+    <ul>
+        <li><a href="http://docs.oracle.com/cd/E11882_01/java.112/e16548/resltset.htm#JJDBC28622" target="_blank">Oracle driver</a> streams data by default (with a fetch size of 10 by default)</li>
+        <li><a href="http://dev.mysql.com/doc/connector-j/en/connector-j-reference-implementation-notes.html" target="_blank">MySql driver</a> does not stream records by default, you need to set the fetch size to <code>Integer.MIN_VALUE</code> in order to make it stream records.</li>
+        <li><a href="https://jdbc.postgresql.org/documentation/83/query.html#query-with-cursor" target="_blank">Postgresql</a> driver does not stream records by default, you need to set auto commit to false and set the fetch size according to your needs.</li>
+        <li>For other databases, please refer to the documentation of the JDBC driver you use.</li>
+    </ul>
+
+    <h5><span class="label label-danger">4. Performance note:</span></h5>
+    <p>The <code><em>JpaRecordReader</em></code> loads all data fetched by the JPQL query into a <code><em>java.util.List</em></code> object.
+        You should pay attention to large data sets with the JPQL query you specify to the <code><em>JpaRecordReader</em></code>. You can specify the maximum number of rows
+        to fetch using the <code><em>maxResults</em></code> parameter of the <code><em>JpaRecordReader</em></code>.</p>
+
+    <h5><span class="label label-danger">5. Performance note:</span></h5>
+    <p>The <code><em>HibernateRecordReader</em></code> uses the <code><em>org.hibernate.ScrollableResults</em></code> behind the scene to stream records in chunks.
+        You can specify the fetch size and the maximum rows to fetch using the <code><em>fetchSize</em></code> and <code><em>maxResult</em></code> parameters.</p>
+
+        </div>
+        <div class="tab-pane fade" id="writers">
+            <h3>Record writers</h3>
+
+<p>A <code><em>RecordWriter</em></code> is a record processor that writes records to a data sink.
+    Easy Batch comes with common record writers to write data to a variety of data sinks:</p>
+
+<ul>
+    <li>Databases</li>
+    <li>Files</li>
+    <li>JMS queues</li>
+    <li>The standard output</li>
+    <li>etc</li>
+</ul>
+
+<div class="bs-callout bs-callout-warning">
+    <h5><i class="fa fa-info-circle"></i> Heads up!</h5>
+    <p>Record writers are regular processors and are part of the processing pipeline.
+        All record writers write the <strong>payload</strong> of the record to the data sink.
+        Easy Batch does not open/close the data sink, you need
+        to use a <code>JobListener</code> to open/close the data sink if any.</p>
+</div>
+
+<p>
+    Here is a table of built-in writers and how to use them:
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr class="ebi-info">
+            <th>Data sink</th>
+            <th>Writer</th>
+            <th>Module</th>
+            <th>Expected type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Output stream</td>
+            <td>OutputStreamRecordWriter</td>
+            <td>easybatch-core</td>
+            <td>Record or Object</td>
+        </tr>
+        <tr>
+            <td>Standard output</td>
+            <td>StandardOutputRecordWriter</td>
+            <td>easybatch-core</td>
+            <td>Record or Object</td>
+        </tr>
+        <tr>
+            <td>File</td>
+            <td>FileRecordWriter</td>
+            <td>easybatch-core</td>
+            <td>Record or Object</td>
+        </tr>
+        <tr>
+            <td>String</td>
+            <td>StringRecordWriter</td>
+            <td>easybatch-core</td>
+            <td>Record or Object</td>
+        </tr>
+        <tr>
+            <td>Collection</td>
+            <td>CollectionRecordWriter</td>
+            <td>easybatch-core</td>
+            <td>Record or Object</td>
+        </tr>
+        <tr>
+            <td>Relational database</td>
+            <td>JdbcRecordWriter</td>
+            <td>easybatch-jdbc</td>
+            <td>Object</td>
+        </tr>
+        <tr>
+            <td>Relational database</td>
+            <td>JpaRecordWriter</td>
+            <td>easybatch-jpa</td>
+            <td>Object</td>
+        </tr>
+        <tr>
+            <td>Relational database</td>
+            <td>HibernateRecordWriter</td>
+            <td>easybatch-hibernate</td>
+            <td>Object</td>
+        </tr>
+        <tr>
+            <td>NoSQL database</td>
+            <td>MongoDBRecordWriter</td>
+            <td>easybatch-mongodb</td>
+            <td>DBObject</td>
+        </tr>
+        <tr>
+            <td>Jms Queue</td>
+            <td>JmsQueueRecordWriter</td>
+            <td>easybatch-jms</td>
+            <td>javax.jms.Message</td>
+        </tr>
+        <tr>
+            <td>BlockingQueue</td>
+            <td>BlockingQueueRecordWriter</td>
+            <td>easybatch-core</td>
+            <td>Record or Object</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Batch writers</h2>
+
+<p>A <code><em>BatchWriter</em></code> is a record processor that writes batches to a data sink. <code><em>BatchWriters</em></code>
+    allow you to get better performance with batch inserts. Here is an example of how to write a records in batches in a <code><em>Collection</em></code>:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">List&lt;String&gt; dataSource = Arrays.asList("foo", "bar", "baz", "toto", "titi");
+List&lt;String&gt; dataSink = new ArrayList&lt;&gt;();
+
+JobBuilder.aNewJob()
+    .reader(new IterableBatchReader(dataSource, 2))
+    <strong>.writer(new CollectionBatchWriter(dataSink))</strong>
+    .call();</code></pre>
+</div>
+
+<p>In this example, the job will read records from the <code>dataSource</code> in batches of 2 and writes them back to the <code>dataSink</code> also in batches of 2.</p>
+
+<h2>Considerations, hints and gotchas</h2>
+
+    <h5><span class="label label-danger">1. Performance note:</span></h5>
+    <p>The <code><em>JdbcRecordWriter</em></code> does not deal with database transactions, it simply writes the record to the database.
+        By default, the sql connection is in <em>autocommit</em> mode. This results in a transaction being started and committed for each record which may lead to a performance issue for large data sets.
+        In order to commit a transaction per batch of records, you can disable the <em>autocommit</em> mode and register a <code><em>JdbcTransactionListener</em></code>.</p>
+        <p>You can find a complete tutorial on how to use the <code><em>JdbcRecordWriter</em></code> <a href="../tutorials/loading-data.html" target="_blank">here</a>.</p>
+
+    <h5><span class="label label-warning">2. Hint:</span></h5>
+    <p>The <code><em>JpaRecordWriter</em></code> expects a Java object as input and not a <code>Record</code>. Make sure to map records to your domain object type
+        before passing them to the <code><em>JpaRecordWriter</em></code>.</p>
+
+    <p>The <code><em>JpaRecordWriter</em></code> does not deal with database transactions, it simply persists the record without flushing the persistence context.
+        In order to commit a transaction and flush the persistence context, you need to register a <code><em>JpaTransactionListener</em></code>. This listener
+        will begin and commit or rollback a transaction for every record (or batch of records).</p>
+
+    <h5><span class="label label-warning">3. Hint:</span></h5>
+    <p>The <code><em>HibernateRecordWriter</em></code> expects a Java object as input and not a <code>Record</code>. Make sure to map records to your domain object type
+        before passing them to the <code><em>HibernateRecordWriter</em></code>.</p>
+    <p>This writer does not deal with database transactions and you need to use a <code><em>HibernateTransactionListener</em></code> in order to commit a transaction
+        after each batch of written records.</p>
+    <p>You can find a complete tutorial on how to use the <code><em>HibernateRecordWriter</em></code> <a href="https://github.com/EasyBatch/easybatch-tutorials/tree/master/src/main/java/org/easybatch/tutorials/intermediate/hibernate" target="_blank">here</a>.</p>
+
+        </div>
+        <div class="tab-pane fade" id="filters">
+            <h2>Filtering records</h2>
+
+<p>You can filter records using a <code><em>RecordFilter</em></code>.
+    This interface allows you to skip next stages of the pipeline if the record satisfies a given predicate. Typical examples are:</p>
+<ul>
+    <li>filter comment records (those beginning with # for example) in a flat file</li>
+    <li>filter log files (with extension <em>.log</em>) when processing a set of files in a directory</li>
+    <li>etc</li>
+</ul>
+
+<p>To register a record filter, you can use the <code><em>JobBuilder</em></code> API as follows:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Job job = new JobBuilder()
+    <strong>.filter(new myRecordFilter())</strong>
+    .build();</code></pre>
+</div>
+
+<p>You can register as many filters as you want anywhere in the pipeline.
+    The engine will skip next stages of the pipeline for each filtered record. There are several built-in implementations for commonly used filters:</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr class="ebi-info">
+        <th>Filter</th>
+        <th>Record type</th>
+        <th>Module</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>EmptyRecordFilter</td>
+        <td>StringRecord</td>
+        <td>easybatch-core</td>
+        <td>Filter String records with empty payload</td>
+    </tr>
+    <tr>
+        <td>StartWithStringRecordFilter</td>
+        <td>StringRecord</td>
+        <td>easybatch-core</td>
+        <td>Filter String records starting with a given suffix</td>
+    </tr>
+    <tr>
+        <td>EndWithStringRecordFilter</td>
+        <td>StringRecord</td>
+        <td>easybatch-core</td>
+        <td>Filter String records ending with a given suffix</td>
+    </tr>
+    <tr>
+        <td>GrepFilter</td>
+        <td>StringRecord</td>
+        <td>easybatch-core</td>
+        <td>Keep String records containing the given pattern</td>
+    </tr>
+    <tr>
+        <td>HeaderRecordFilter</td>
+        <td>Record</td>
+        <td>easybatch-core</td>
+        <td>Filter the header record (first record in the data source)</td>
+    </tr>
+    <tr>
+        <td>RecordNumberEqualToFilter</td>
+        <td>Record</td>
+        <td>easybatch-core</td>
+        <td>Filter records based on their number</td>
+    </tr>
+    <tr>
+        <td>RecordNumberBetweenFilter</td>
+        <td>Record</td>
+        <td>easybatch-core</td>
+        <td>Filter records if their number is inside a given range.</td>
+    </tr>
+    <tr>
+        <td>RecordNumberGreaterThanFilter</td>
+        <td>Record</td>
+        <td>easybatch-core</td>
+        <td>Filters records if their number is greater than a given number</td>
+    </tr>
+    <tr>
+        <td>RecordNumberLowerThanFilter</td>
+        <td>Record</td>
+        <td>easybatch-core</td>
+        <td>Filters records if their number is lower than a given number</td>
+    </tr>
+    <tr>
+        <td>FileExtensionFilter</td>
+        <td>FileRecord</td>
+        <td>easybatch-core</td>
+        <td>Filter File records having a file name ending with a given extension</td>
+    </tr>
+    <tr>
+        <td>JmsPoisonRecordFilter</td>
+        <td>JmsPoisonMessage</td>
+        <td>easybatch-jms</td>
+        <td>Filter JMS poison records</td>
+    </tr>
+    <tr>
+        <td>PoisonRecordFilter</td>
+        <td>PoisonRecord</td>
+        <td>easybatch-core</td>
+        <td>Filter poison records</td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Filtering batches</h2>
+
+<p>The <code><em>BatchFilter</em></code> API allows you to filter records from a batch of records using a <code><em>RecordFilter</em></code>.
+ Let's see an example. Here is a flat file containing some tweets:</p>
+
+<div class="bs-callout bs-callout-code">
+    <h5>tweets.csv</h5>
+<pre><code>id,user,message
+1,foo,easy batch rocks! #EasyBatch
+2,bar,@foo I do confirm :-)
+3,baz,@foo @bar really?
+</code></pre>
+</div>
+
+<p> You would like to process tweets in batches of 2 and filter the header record. Here is how to do that:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code>File tweets = new File("tweets.csv");
+
+Job job = JobBuilder.aNewJob()
+    .reader(new FlatFileBatchReader(tweets, 2))
+    .filter(new BatchFilter(new HeaderRecordFilter())
+    .build();</code></pre>
+</div>
+
+<p>With this setup, you will get a first batch containing only record N°1 (the header record will be filtered) and a second batch containing records N°2 and N°3.
+Without the <code><em>BatchFilter</em></code>, the first batch would contain 2 records: the header record and record N°1.</p>
+
+        </div>
+        <div class="tab-pane fade" id="mappers">
+            <h2>Mapping records to domain objects</h2>
+
+<p>Easy Batch development is POJO-centric and has been designed with the idea that input records
+    should be projected in the object oriented world and not used in their original raw format.</p>
+
+<p>It is the <code><em>RecordMapper</em></code> that lets you map input records to your domain objects.
+    You can register an implementation of the <code><em>RecordMapper</em></code> interface as follows:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Job job = new JobBuilder()
+    <strong>.mapper(new MyRecordMapper())</strong>
+    .build();</code></pre>
+</div>
+
+<p>There are several built-in record mappers to map records from a variety of data formats:</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr class="ebi-info">
+            <th>Record mapper</th>
+            <th>Expected record type</th>
+            <th>Module</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>DelimitedRecordMapper</td>
+            <td>StringRecord</td>
+            <td>easybatch-flatfile</td>
+            <td>Map delimited-values records to Java objects</td>
+        </tr>
+        <tr>
+            <td>FixedLengthRecordMapper</td>
+            <td>StringRecord</td>
+            <td>easybatch-flatfile</td>
+            <td>Map fixed-length field records to Java objects</td>
+        </tr>
+        <tr>
+            <td>ApacheCommonCsvRecordMapper</td>
+            <td>ApacheCommonCsvRecord</td>
+            <td>easybatch-apache-common-csv</td>
+            <td>Map delimited-values records to Java objects</td>
+        </tr>
+        <tr>
+            <td>OpenCsvRecordMapper</td>
+            <td>StringRecord</td>
+            <td>easybatch-opencsv</td>
+            <td>Map delimited-values records to Java objects</td>
+        </tr>
+        <tr>
+            <td>XmlRecordMapper</td>
+            <td>XmlRecord</td>
+            <td>easybatch-xml</td>
+            <td>Map xml records to Java objects annotated with JAXB annotations</td>
+        </tr>
+        <tr>
+            <td>XstreamRecordMapper</td>
+            <td>XmlRecord</td>
+            <td>easybatch-xstream</td>
+            <td>Map xml records to Java objects using <a href="http://x-stream.github.io/" target="_blank">XStream</a></td>
+        </tr>
+        <tr>
+            <td>JacksonRecordMapper</td>
+            <td>JsonRecord</td>
+            <td>easybatch-jackson</td>
+            <td>Map json records to Java objects using <a href="http://jackson.codehaus.org/" target="_blank">Jackson</a></td>
+        </tr>
+        <tr>
+            <td>GsonRecordMapper</td>
+            <td>JsonRecord</td>
+            <td>easybatch-gson</td>
+            <td>Map json records to Java objects using <a href="https://code.google.com/p/google-gson/" target="_blank">Gson</a></td>
+        </tr>
+        <tr>
+            <td>JdbcRecordMapper</td>
+            <td>JdbcRecord</td>
+            <td>easybatch-jdbc</td>
+            <td>Map JDBC records to Java objects</td>
+        </tr>
+        <tr>
+            <td>SpringJdbcRecordMapper</td>
+            <td>JdbcRecord</td>
+            <td>easybatch-spring</td>
+            <td>Map json records to Java objects using <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/jdbc.html" target="_blank">Spring JDBC</a></td>
+        </tr>
+        <tr>
+            <td>MongoDBRecordMapper</td>
+            <td>MongoDBRecord</td>
+            <td>easybatch-mongodb</td>
+            <td>Map mongodb records to Java objects using <a href="https://github.com/mongodb/morphia" target="_blank">Morphia</a></td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="bs-callout bs-callout-warning">
+    <h5><i class="fa fa-info-circle"></i> Heads up!</h5>
+    <p>Record mappers take a <code><em>Record</em></code>, map it's payload to a domain object
+        and return another <code><em>Record</em></code> with the same header but with the domain object as payload.</p>
+</div>
+
+<h3>Mapping batches</h3>
+
+<p>When you use a <code><em>BatchReader</em></code>, you get instances of the <code><em>Batch</em></code> class having a list of <code><em>Record</em></code> instances as payload.
+    If you want to map record in batches, you need to use a <code><em>BatchMapper</em></code>.
+    A <code><em>BatchMapper</em></code> maps a batch of records to domain objects using a delegate <code><em>RecordMapper</em></code>.</p>
+
+<h2>Considerations, hints and gotchas</h2>
+
+<h5><span class="label label-primary">1. Heads up!</span></h5>
+    <p>Some record mappers (<code><em>DelimitedRecordMapper</em></code>, <code><em>FixedLengthRecordMapper</em></code>, <code><em>ApacheCommonCsvRecordMapper</em></code> and <code><em>JdbcRecordMapper</em></code>) 
+        convert raw textual data to typed data in Java objects. Easy Batch supports all Java primitive and wrapper types.
+    If you want to provide a custom type converter, you can implement the <code><em>org.easybatch.core.api.TypeConverter</em></code> interface and register your implementation
+    within the record mapper in use.</p>
+
+    <h5><span class="label label-primary">2. Heads up!</span></h5>
+    <p>If a delimited record is not well formed, the <code><em>DelimitedRecordMapper</em></code> throws an exception that causes the record to be rejected by the engine in the following cases:</p>
+    <ul>
+        <li>Fields number is not equal to the expected fields number (missing field, extra field, etc) as specified in the
+            <a href="http://www.ietf.org/rfc/rfc4180.txt" target="_blank">CSV RFC (section 2.4).</a></li>
+        <li>A field is not qualified as expected with the data qualifier, which means that the <code><em>DelimitedRecordMapper</em></code> expects
+            all fields to be qualified when a qualifier is specified.</li>
+    </ul>
+
+    <p>The <code><em>DelimitedRecordMapper</em></code> is intended to cover <strong>basic</strong> requirements of delimited-values mapping.
+        It does <strong>not</strong> support detecting delimiters and line breaks in a qualified field.
+        If you need these features, you can use the <code><em>ApacheCommonCsvRecordMapper</em></code> or the <code><em>OpenCsvRecordMapper</em></code>.</p>
+
+<h5><span class="label label-warning">3. Hint</span></h5>
+    <p>If a fixed length record is not well formed, the <code><em>FixedLengthRecordMapper</em></code> throws an exception that causes the record to be rejected by the engine.
+        A fixed length record is not well formed if its length is not equal to expected record length.</p>
+
+<h5><span class="label label-warning">4. Hint</span></h5>
+    <p>When you create a <code><em>XmlRecordMapper</em></code>, you should specify your target domain object type.
+        If you need to validate Xml records against a Xsd schema, you can specify the schema at creation time as follows:</p>
+
+    <div class="bs-callout bs-callout-code">
+    <pre><code class="java">Job job = new JobBuilder()
+        <strong>.mapper(new XmlRecordMapper(MyPojoType.class, myXsdFile))</strong>
+        .build();</code></pre>
+    </div>
+
+    <h5><span class="label label-default">5. Note</span></h5>
+    <p>Easy Batch does not provide support for JSON mapping yet.
+        The goal is to use the reference implementation of <a href="https://jcp.org/en/jsr/detail?id=367" target="_blank">JSON-B</a>.
+        As of version 4.0.0, the reference implementation of JSON-B is not available yet.
+        Built-in support for JSON mapping will be provided as soon as the reference implementation of JSON-B will become available.
+    </p>
+
+        </div>
+        <div class="tab-pane fade" id="validators">
+            <h2>Validating records</h2>
+
+<p>Validating input data is an essential step in every batch application.
+    With Easy Batch, you can validate records by registering one or more <code><em>RecordValidator</em></code> implementation as follows:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Job job = new JobBuilder()
+    <strong>.validator(new MyFirstRecordValidator())</strong>
+    .processor(new MyRecordProcessor())
+    <strong>.validator(new MySecondRecordValidator())</strong>
+    .build();</code></pre>
+</div>
+
+<p>The engine will reject the record on first validation error.</p>
+
+<p>The <code><em>BeanValidationRecordValidator</em></code> is a built-in validator that uses the <a href="http://jcp.org/en/jsr/detail?id=303" target="_blank">Bean Validation API</a>
+    to validate your domain objects. In order to use this validator, you should proceed as follows:
+
+<h4>1. Add maven dependency</h4>
+
+<p>Add the <code><em>easybatch-validation</em></code> module to your dependencies:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
+    &lt;artifactId&gt;easybatch-validation&lt;/artifactId&gt;
+    &lt;version&gt;4.0.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+
+<h4>2. Declare validation constraints</h4>
+
+<p>In order to use the Bean Validation API with Easy Batch, you should add your constraints on your domain object with Bean Validation API annotations.</p>
+
+<h4>3. Register the validator</h4>
+
+<p>Finally, register the <code><em>BeanValidationRecordValidator</em></code> using the <code><em>JobBuilder</em></code> API:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Job job = new JobBuilder()
+    .validator(new BeanValidationRecordValidator&lt;YourPojoType&gt;())
+    .build();</code></pre>
+</div>
+
+<p>Easy Batch will then apply validation logic that you declared using annotations for each input record during the process.</p>
+
+<h2>Validating batches</h2>
+
+<p>The <code><em>BatchValidator</em></code> API allows you to validate a batch of records using a delegate <code><em>RecordValidator</em></code>.</p>
+<p>A batch of records is valid if all its records are valid. A batch of records is invalid if one of its records is invalid.</p>
+
+        </div>
+        <div class="tab-pane fade" id="marshallers">
+            <h3>Record marshallers</h3>
+
+<p>As you have seen in previous sections, Easy Batch development is POJO-based. It's highly recommended to use POJOs as a pivot model instead of manipulating raw data.
+    In many cases, we need to marshal a domain object to a target format (Xml, Json, Csv, etc). <code><em>RecordMarshaller</em></code>s are record processors that marshal Java objects to a specific format.</p>
+
+<p>
+    Here is a table of built-in marshallers and how to use them:
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr class="info">
+            <th>Marshaller</th>
+            <th>Module</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>DelimitedRecordMarshaller</td>
+            <td>easybatch-flatfile</td>
+            <td>marshals a POJO to CSV format</td>
+        </tr>
+        <tr>
+            <td>FixedLengthRecordMarshaller</td>
+            <td>easybatch-flatfile</td>
+            <td>marshals a POJO to fixed-length format</td>
+        </tr>
+        <tr>
+            <td>ApacheCommonCsvRecordMarshaller</td>
+            <td>easybatch-apache-common-csv</td>
+            <td>marshals a POJO to CSV format using <a href="https://commons.apache.org/proper/commons-csv/" target="_blank">Apache commons CSV</a></td>
+        </tr>
+        <tr>
+            <td>DelimitedRecordMarshaller</td>
+            <td>easybatch-flatfile</td>
+            <td>marshals a POJO to CSV format</td>
+        </tr>
+        <tr>
+            <td>XmlRecordMarshaller</td>
+            <td>easybatch-xml</td>
+            <td>marshals a POJO annotated with <code><em>javax.xml.bind.annotation.XmlRootElement</em></code> to Xml format using Jaxb</td>
+        </tr>
+        <tr>
+            <td>XstreamRecordMarshaller</td>
+            <td>easybatch-xstream</td>
+            <td>marshals a POJO to Xml format using <a href="http://x-stream.github.io/" target="_blank">Xstream</a></td>
+        </tr>
+        <tr>
+            <td>GsonRecordMarshaller</td>
+            <td>easybatch-gson</td>
+            <td>marshals a POJO to Json format using <a href="https://github.com/google/gson" target="_blank">Google's Gson</a></td>
+        </tr>
+        <tr>
+            <td>JacksonRecordMarshaller</td>
+            <td>easybatch-jackson</td>
+            <td>marshals a POJO to Json format using <a href="https://github.com/FasterXML/jackson" target="_blank">Jacskon</a></td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="bs-callout bs-callout-warning">
+    <h5><i class="fa fa-info-circle"></i> Heads up!</h5>
+    <p>Built-in marshallers expect a <code><em>GenericRecord</em></code> having a Java object as payload.
+    They produce <code><em>StringRecord</em></code> having String representation of the marshalled objects.</p>
+</div>
+
+<h3>Batch marshallers</h3>
+
+<p>The <code><em>BatchMarshaller</em></code> marshals a batch of records using a delegate <code><em>RecordMarshaller</em></code>.</p>
+
+<p>You can find an example of how to use the <code><em>BatchMarshaller</em></code> API in <a
+        href="https://github.com/EasyBatch/easybatch-tutorials/tree/master/src/main/java/org/easybatch/tutorials/intermediate/batches" target="_blank">batch processing tutorial</a>.</p>
+
+<h2>Considerations, hints and gotchas</h2>
+
+    <h5><span class="label label-primary">Heads up!</span></h5>
+    <p>By default, the <code><em>DelimitedRecordMarshaller</em></code>, <code><em>FixedLengthRecordMarshaller</em></code>
+        and <code><em>ApacheCommonCsvRecordMarshaller</em></code> do not support recursive (deep) marshalling of POJOs.
+        In order to have more control over how to extract and format your domain object's fields,
+        you can implement the <code><em>RecordFieldExtractor</em></code> interface and supply your implementation at marshaller's construction time.</p>
+
+        </div>
+        <div class="tab-pane fade" id="processors">
+            <h2>Record processing</h2>
+
+<p>Easy Batch lets you define processing logic through the <code><em>RecordProcessor</em></code> interface.
+    This is where you implement what to do for each record.</p>
+
+<p>Records are submitted to a processing pipeline where each record is piped out from one processor to the next one:</p>
+
+<div class="row">
+    <br/>
+    <p class="pull-center"><img class="ebi-small-90" src="../img/eb/record-processing.jpg"/></p>
+    <br/>
+</div>
+
+<p>Record type can change from one processor to another.</p>
+
+<p>You can define as much processors as you want in the pipeline:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Job job = new JobBuilder()
+    <strong>.processor(myRecordProcessor1)</strong>
+    <strong>.processor(myRecordProcessor2)</strong>
+    .build();</code></pre>
+</div>
+
+<p>Easy Batch will call these processors in the order in which they are registered.</p>
+
+        <p>You can also do some computation on input records that will be returned at the end of execution.
+        This is the role of the <code><em>ComputationalRecordProcessor</em></code> API, that is, do some computation on inputs records.</p>
+
+        <p>Unlike <code><em>RecordProcessor</em></code>s that are used for <strong>intermediate</strong> operations,
+            a <code><em>ComputationalRecordProcessor</em></code> is used for <strong>terminal</strong> operations, like aggregating results for instance.
+            Hence, it should be placed <strong>at the end</strong> of the pipeline. Easy Batch will call its <code><em>getComputationResult</em></code>
+        method to get the computation result at the end of execution so you can obtain this result from the job report as follows:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Job job = new JobBuilder()
+    <strong>.processor(myComputationalRecordProcessor)</strong>
+    .build();
+
+JobReport report = job.call();
+
+<strong>MyResultType myResult = (MyResultType) report.getResult();</strong></code></pre>
+</div>
+
+<h2>Batch processing</h2>
+
+<p>To read/process/write records in batches, you need to use <code><em>BatchReaders</em></code> / <code><em>BatchProcessors</em></code> / <code><em>BatchWriters</em></code>.
+    Those are regular <code><em>RecordReaders</em></code> / <code><em>RecordProcessors</em></code> / <code><em>RecordWriters</em></code> except they read/process/write <code><em>Batches</em></code> instead of <code><em>Records</em></code>:</p>
+
+<div class="row">
+    <p class="pull-center"><img class="ebi-small-90" src="../img/eb/batch-processing.jpg"/></p>
+</div>
+
+<p>
+    You can find a complete tutorial about batch processing <a href="../tutorials/batch-processing.html">here</a>.
+</p>
+
+        </div>
+        <div class="tab-pane fade" id="dispatchers">
+            <h2>The <code><em>RecordDispatcher</em></code> API</h2>
+
+<p>Easy Batch does not provide a feature to partition input data.
+    Instead of that, it comes with the <code><em>RecordDispatcher</em></code> abstraction that allows you to
+    dispatch records to multiple worker jobs.</p>
+
+<p>There are 8 implementations of the <code><em>RecordDispatcher</em></code> interface and you can
+    provide a custom record dispatching strategy as well:</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr class="info">
+        <th>Dispatcher</th>
+        <th>Module</th>
+        <th>Record</th>
+        <th>Queue</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>RoundRobinRecordDispatcher</td>
+        <td>easybatch-core</td>
+        <td>Object</td>
+        <td>BlockingQueue</td>
+        <td>Dispatch records in round robin fashion</td>
+    </tr>
+    <tr>
+        <td>ContentBasedRecordDispatcher</td>
+        <td>easybatch-core</td>
+        <td>Object</td>
+        <td>BlockingQueue</td>
+        <td>Dispatch records based on their content</td>
+    </tr>
+    <tr>
+        <td>BroadcastRecordDispatcher</td>
+        <td>easybatch-core</td>
+        <td>Object</td>
+        <td>BlockingQueue</td>
+        <td>Broadcast records to several queues</td>
+    </tr>
+    <tr>
+        <td>RandomRecordDispatcher</td>
+        <td>easybatch-core</td>
+        <td>Object</td>
+        <td>BlockingQueue</td>
+        <td>Dispatch records randomly to one of the given queues</td>
+    </tr>
+    <tr>
+        <td>RoundRobinJmsRecordDispatcher</td>
+        <td>easybatch-jms</td>
+        <td>Message</td>
+        <td>Jms Queue</td>
+        <td>Dispatch Jms messages in round robin fashion</td>
+    </tr>
+    <tr>
+        <td>ContentBasedJmsRecordDispatcher</td>
+        <td>easybatch-jms</td>
+        <td>Message</td>
+        <td>Jms Queue</td>
+        <td>Dispatch Jms messages based on their content</td>
+    </tr>
+    <tr>
+        <td>BroadcastJmsRecordDispatcher</td>
+        <td>easybatch-jms</td>
+        <td>Message</td>
+        <td>Jms Queue</td>
+        <td>Broadcast Jms messages to several queues</td>
+    </tr>
+    <tr>
+        <td>RandomJmsRecordDispatcher</td>
+        <td>easybatch-jms</td>
+        <td>Message</td>
+        <td>Jms Queue</td>
+        <td>Dispatch Jms messages randomly to one of the given queues</td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="bs-callout bs-callout-warning">
+    <h5><i class="fa fa-info-circle"></i> Heads up!</h5>
+    <p>A record dispatcher is a regular <code><em>RecordProcessor</em></code> and can be used like any other processor in the processing pipeline.</p>
+</div>
+
+<p>Once a record has been dispatched to a <code><em>java.util.concurrent.BlockingQueue</em></code> / <code><em>javax.jms.Queue</em></code>,
+    it can be read from the queue using a <code><em>BlockingQueueRecordReader</em></code> / <code><em>JmsQueueRecordReader</em></code>.</p>
+
+<p>You can find examples of how to use the <code><em>RecordDispatcher</em></code> API in these tutorials:</p>
+<ul>
+    <li><a href="../tutorials/parallel-jobs.html">Parallel processing tutorial</a></li>
+    <li><a href="https://github.com/EasyBatch/easybatch-tutorials/tree/master/src/main/java/org/easybatch/tutorials/advanced/cbrd/files" target="_blank">Content based record dispatcher tutorial 1</a></li>
+    <li><a href="https://github.com/EasyBatch/easybatch-tutorials/tree/master/src/main/java/org/easybatch/tutorials/advanced/cbrd/fruits" target="_blank">Content based record dispatcher tutorial 2</a></li>
+</ul>
+
+<h2>Considerations, hints and gotchas</h2>
+
+<h5><span class="label label-danger">1. Heads up!</span></h5>
+<p>You can dispatch almost every type of record with Easy Batch except JDBC records. A <code><em>JdbcRecord</em></code> has a <code><em>java.sql.ResultSet</em></code> as payload.
+    In a scenario where you have a master job that reads data from a relational database and dispatch them to workers,
+    the master job could have finished reading the data source and dispatched all records to worker queues, while workers are still processing
+    those records. Hence, the master job will close the database connection and the dispatched JDBC records are no more usable since their payload
+    depend on the connection that has been closed by the master job!</p>
+
+<p>A solution to this problem is to:</p>
+<ul>
+    <li>either use the <code><em>keepAlive</em></code> parameter to keep the JDBC reader alive which will not close the connection</li>
+    <li>or make the master job map JDBC records to domain objects  and dispatch those objects safely to workers</li>
+</ul>
+<p>You should definitely consider using the second approach which is more elegant and efficient!</p>
+
+        </div>
+        <div class="tab-pane fade" id="listeners">
+            <h2>Listen to job events</h2>
+
+<p>
+    Listeners allow you to plugin custom behavior in the workflow in a AOP style.
+    You can register listeners to do pre/post processing before/after the entire job or a specific step.
+</p>
+
+<p>There are two types of listeners:</p>
+<ul>
+    <li><strong>Job listener</strong>: This is a listener for global batch job events. Several use cases can be implemented using this listener:
+        <ul>
+            <li>Setup/teardown resources before/after the job</li>
+            <li>Lock/Unlock working directory at job start/stop</li>
+            <li>Archive log files at the end of Job</li>
+            <li>Send job report by email at the end of execution</li>
+            <li>etc</li>
+        </ul>
+    </li>
+    <li><strong>Step listeners</strong>: These are listeners bound to job steps. Here are some use cases:
+        <ul>
+            <li>Define transaction boundaries in a transactional batch application</li>
+            <li>Calculate the processing time for each record</li>
+            <li>etc</li>
+        </ul>
+    </li>
+</ul>
+<p>
+    Listeners are heavily used internally by Easy Batch to implement cross-cutting concerns (logging, auditing, transactions, monitoring, etc).
+</p>
+
+<h3>Job listener</h3>
+
+<p>To listen to job related events, you need to register an implementation of the <code><em>JobListener</em></code> interface:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">public interface JobListener {
+
+    void beforeJobStart(JobParameters parameters);
+
+    void afterJobEnd(JobReport report);
+
+}</code></pre>
+</div>
+
+<p>The next figure shows when each method of the <code><em>JobListener</em></code> is called in the processing workflow:</p>
+
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+<p class="pull-center"><img class="ebi" src="../img/eb/job-listener.jpg"/></p>
+</div>
+</div>
+
+<p>You can register a custom job listener using the <code><em>JobBuilder</em></code> API:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Job job = new JobBuilder()
+    <strong>.jobListener(new MyJobListener())</strong>
+    .build();</code></pre>
+</div>
+
+<h3>Record reader listener</h3>
+
+<p>
+    The <code><em>RecordReaderListener</em></code> allows you to get notified before/after reading each record:
+</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">public interface RecordReaderListener {
+
+    void beforeRecordReading();
+
+    void afterRecordReading(Record record);
+
+    void onRecordReadingException(final Throwable throwable);
+
+}</code></pre>
+</div>
+
+<p>Here is when each method is called in the processing workflow:</p>
+
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+<p class="pull-center"><img class="ebi" src="../img/eb/reader-listener.jpg"/></p>
+</div>
+</div>
+
+<p>You can register a custom record reader listener using the <code><em>JobBuilder</em></code> API:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Job job = new JobBuilder()
+    <strong>.readerListener(new MyReaderListener())</strong>
+    .build();</code></pre>
+</div>
+
+<h3>Processing pipeline listener</h3>
+
+<p>
+    The <code><em>PipelineListener</em></code> allows you to get notified before/after processing each record:
+</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">public interface PipelineListener {
+
+    Record beforeRecordProcessing(final Record record);
+
+    void afterRecordProcessing(final Record inputRecord, final Record outputRecord);
+
+    void onRecordProcessingException(final Record record, final Throwable throwable);
+
+}</code></pre>
+</div>
+
+<p>Here is when each method is called in the processing workflow:</p>
+
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+<p class="pull-center"><img class="ebi" src="../img/eb/pipeline-listener.jpg"/></p>
+</div>
+</div>
+
+<p>You can register a custom pipeline listener using the <code><em>JobBuilder</em></code> API:</p>
+
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Job job = new JobBuilder()
+    <strong>.pipelineListener(new MyPipelineListener())</strong>
+    .build();</code></pre>
+</div>
+
+<h2>Built-in listeners</h2>
+
+<p>
+    Here is a table of built-in listeners and how to use them:
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr class="info">
+        <th>Listener</th>
+        <th>Type</th>
+        <th>Module</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th>JdbcTransactionListener</th>
+        <th>Pipeline listener</th>
+        <th>easybatch-jdbc</th>
+        <th>Start, commit/rollback a transaction for each record</th>
+    </tr>
+    <tr>
+        <th>JpaTransactionListener</th>
+        <th>Pipeline listener</th>
+        <th>easybatch-jpa</th>
+        <th>Start, commit/rollback a transaction for each record</th>
+    </tr>
+    <tr>
+        <th>HibernateTransactionListener</th>
+        <th>Pipeline listener</th>
+        <th>easybatch-hibernate</th>
+        <th>Start, commit/rollback a transaction for each record</th>
+    </tr>
+    <tr>
+        <th>RecordProcessingTimeListener</th>
+        <th>Pipeline listener</th>
+        <th>easybatch-core</th>
+        <th>Calculate the processing time for each record</th>
+    </tr>
+    <tr>
+        <th>JdbcConnectionListener</th>
+        <th>Job listener</th>
+        <th>easybatch-jdbc</th>
+        <th>Close a JDBC connection at the end of the job</th>
+    </tr>
+    <tr>
+        <th>JpaEntityManagerListener</th>
+        <th>Job listener</th>
+        <th>easybatch-jpa</th>
+        <th>Close a JPA entity manager at the end of the job</th>
+    </tr>
+    <tr>
+        <th>HibernateSessionListener</th>
+        <th>Job listener</th>
+        <th>easybatch-hibernate</th>
+        <th>Close a Hibernate session at the end of the job</th>
+    </tr>
+    <tr>
+        <th>PoisonRecordBroadcaster</th>
+        <th>Job listener</th>
+        <th>easybatch-core</th>
+        <th>Broadcast a <code><em>PoisonRecord</em></code> to a set of workers at the end of the job</th>
+    </tr>
+    <tr>
+        <th>JmsPoisonMessageBroadcaster</th>
+        <th>Job listener</th>
+        <th>easybatch-jms</th>
+        <th>Broadcast a <code><em>JmsPoisonMessage</em></code> to a set of workers at the end of the job</th>
+    </tr>
+    <tr>
+        <th>XmlWrapperTagWriter</th>
+        <th>Job listener</th>
+        <th>easybatch-core</th>
+        <th>Write a XML wrapper tag in a file before/after a job</th>
+    </tr>
+    <tr>
+        <th>JmsQueueSessionListener</th>
+        <th>Job listener</th>
+        <th>easybatch-jms</th>
+        <th>Close a Jms session at the end of job</th>
+    </tr>
+    <tr>
+        <th>JmsQueueConnectionListener</th>
+        <th>Job listener</th>
+        <th>easybatch-jms</th>
+        <th>Close a Jms connection at the end of job</th>
+    </tr>
+    </tbody>
+</table>
+
+        </div>
+    </div>
+</div>
+
+
+            </div>
+
+            <div class="col-md-3 sidebar-right">
+                <!-- <div class="inner" data-spy="affix" data-offset-top="40" data-offset-bottom="300"> -->
+<div class="inner">
+<ul class="list-lg">
+    <li class="sidebar-separator">Introduction</li>
+    <li>
+        <a href="../index.html"><i class="fa fa-home"></i> Overview</a>
+    </li>
+    <li>
+        <a href="https://speakerdeck.com/benas/easy-batch" target="_blank"><i class="fa fa-video-camera"></i> Presentation</a>
+    </li>
+    <li>
+        <a href="https://github.com/EasyBatch/easybatch-framework/releases" target="_blank"><i class="fa fa-tags"></i> Release notes</a>
+    </li>
+    <li class="sidebar-separator">Documentation</li>
+    <li >
+        <a href="../documentation/getting-started.html"><i class="fa fa-play"></i> Getting started</a>
+    </li>
+    <li >
+        <a href="../documentation/architecture.html"><i class="fa fa-flask"></i> Architecture</a>
+    </li>
+    <li >
+        <a href="../documentation/user-guide.html"><i class="fa fa-book"></i> User guide</a>
+    </li>
+    <li  class="active" >
+    <a href="../documentation/components-reference.html"><i class="fa fa-code"></i> Components reference</a>
+    </li>
+    <li >
+        <a href="../tutorials"><i class="fa fa-terminal"></i> Tutorials</a>
+    </li>
+    <li>
+        <a href="../api" target="_blank"><i class="fa fa-folder-open"></i> API docs</a>
+    </li>
+    <li class="sidebar-separator">Get involved</li>
+    <li >
+        <a href="../faq.html"><i class="fa fa-question-circle"></i> FAQs</a>
+    </li>
+    <li>
+        <a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-github"></i> Source repository</a>
+    </li>
+    <li>
+        <a href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank"><i class="fa fa-bug"></i> Issue tracker</a>
+    </li>
+</ul>
+</div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<!-- FOOTER -->
+<footer id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col">
+                <div class="block contact-block">
+                    <h3>Introduction</h3>
+                    <ul class="fa-ul">
+                        <li><a href="../documentation/getting-started.html"><i class="fa fa-li fa-play"></i> Getting started</a></li>
+                        <li><a href="../documentation/architecture.html"><i class="fa fa-li fa-flask"></i> Architecture</a></li>
+                        <li><a href="https://speakerdeck.com/benas/easy-batch" target="_blank"><i class="fa fa-li fa-video-camera"></i> Presentation</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 col">
+                <div class="block contact-block">
+                    <h3>Documentation</h3>
+                    <ul class="fa-ul">
+                    <li><a href="../documentation/user-guide.html"><i class="fa fa-li fa-book"></i> User guide</a></li>
+                        <li><a href="../documentation/components-reference.html"><i class="fa fa-li fa-code"></i> Components reference</a></li>
+                        <li><a href="../tutorials/index.html"><i class="fa fa-li fa-terminal"></i> Tutorials</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 col">
+                <div class="block contact-block">
+                    <h3>Get involved</h3>
+                    <ul class="fa-ul">
+                        <li><a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-li fa-github"></i> Source repository</a></li>
+                        <li><a href="https://github.com/EasyBatch/easybatch-framework/issues" target="_blank"><i class="fa fa-li fa-bug"></i> Issue tracker</a></li>
+                        <li><a href="../faq.html"><i class="fa fa-li fa-question"></i> FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 col">
+                <div class="block contact-block">
+                    <h3>Become a friend</h3>
+                    <ul class="fa-ul">
+                        <li><a href="https://twitter.com/intent/tweet?url=http://www.easybatch.org/&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java&via=easy_batch" title="Share on Twitter" target="_blank"><i class="fa fa-li fa-twitter"></i> Share it on Twitter</a></li>
+                        <li><a href="https://plus.google.com/share?url=http://www.easybatch.org&text=Easy%20Batch:%20The%20simple,%20stupid%20batch%20processing%20framework%20for%20Java" title="Share on Google+" target="_blank"><i class="fa fa-li fa-google-plus"></i> Share it on Google+</a></li>
+                        <li><a href="https://github.com/EasyBatch/easybatch-framework" target="_blank"><i class="fa fa-li fa-heart"></i> Star it on GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <br>
+        <p class="back-top floatright" style="display: none;">
+            <a href="#top"><span></span></a>
+        </p>
+
+        <div class="row">
+            <div id="toplink"><a href="#top" class="top-link" title="Back to top">Back To Top <i class="fa fa-chevron-up"></i></a></div>
+
+            <div class="subfooter">
+                <br>
+                <div class="col-md-4">
+                    <p>&copy; Easy Batch is created by <a href="http://www.mahmoud-benhassine.fr" target="_blank">Mahmoud Ben Hassine</a> <br>
+                    and the <a href="https://github.com/EasyBatch/easybatch-framework#awesome-contributors" target="_blank">awesome contributors</a></p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <iframe src="http://ghbtns.com/github-btn.html?user=EasyBatch&repo=easybatch-framework&type=watch&count=true"
+                            allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+                    <iframe src="http://ghbtns.com/github-btn.html?user=EasyBatch&repo=easybatch-framework&type=fork&count=true"
+                            allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
+                </div>
+                <div class="col-md-4">
+                    <p class="footer-menu">Easy Batch is open source and is released <br> under the terms of the <a href="http://opensource.org/licenses/mit-license.php/" target="_blank">MIT license</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!--Scripts -->
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery-migrate-1.2.1.min.js"></script> <!--Legacy jQuery support for quicksand plugin-->
+
+<!-- Bootstrap JS -->
+<script src="../js/bootstrap.min.js"></script>
+
+<!--JS plugins-->
+<script src="../js/plugins/clingify/jquery.clingify.min.js"></script>
+<script src="../js/plugins/jRespond/jRespond.js"></script>
+
+<!--Custom scripts mainly used to trigger libraries -->
+<script src="../js/script.min.js"></script>
+<script src="../js/scrolltotop.js"></script>
+<script src="../js/homeScroll.js"></script>
+<script src="../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

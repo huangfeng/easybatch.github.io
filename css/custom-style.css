@@ -74,10 +74,31 @@ code {
     height: auto;
 }
 
-.ebi-small {
+.ebi-small-60 {
     max-width: 60%;
     height: auto;
 }
+
+.ebi-small-70 {
+    max-width: 70%;
+    height: auto;
+}
+
+.ebi-small-80 {
+    max-width: 80%;
+    height: auto;
+}
+
+.ebi-small-90 {
+    max-width: 90%;
+    height: auto;
+}
+
+.ebi-info{
+    background-color:#00adbb;
+    color: white;
+}
+
 
 .logo {
     background: none !important;
