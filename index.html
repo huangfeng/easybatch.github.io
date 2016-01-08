@@ -252,7 +252,7 @@
     .filter(new HeaderRecordFilter())
     .mapper(new DelimitedRecordMapper(Tweet.class))
     .marshaller(new XmlRecordMarshaller(Tweet.class))
-    .writer(new FileRecordWriter("tweets.xml")
+    .writer(new FileRecordWriter("tweets.xml"))
     .call();</code></pre>
         </div>
     </div>
@@ -264,7 +264,7 @@ JobBuilder.aNewJob()
     .reader(new JdbcRecordReader(c, "select * from tweet"))
     .mapper(new JdbcRecordMapper(Tweet.class))
     .marshaller(new DelimitedRecordMarshaller(Tweet.class))
-    .writer(new FileRecordWriter("tweets.csv")
+    .writer(new FileRecordWriter("tweets.csv"))
     .call();</code></pre>
         </div>
     </div>
