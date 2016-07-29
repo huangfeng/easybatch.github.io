@@ -92,7 +92,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 4.0.0</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 4.1.0</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -152,7 +152,7 @@
 
 <h2>2. Maven artifact</h2>
 
-<p>To use Easy Batch, you have to add <strong>easybatch-core-4.0.0.jar</strong> to your application's classpath.</p>
+<p>To use Easy Batch, you have to add <strong>easybatch-core-4.1.0.jar</strong> to your application's classpath.</p>
 
 <p>If you use maven, add  the following dependency to your project's <code>pom.xml</code>:</p>
 
@@ -160,7 +160,7 @@
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-core&lt;/artifactId&gt;
-    &lt;version&gt;4.0.0&lt;/version&gt;
+    &lt;version&gt;4.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -174,7 +174,7 @@
 <pre><code class="bash">$>mvn archetype:generate \
     -DarchetypeGroupId=org.easybatch \
     -DarchetypeArtifactId=easybatch-archetype \
-    -DarchetypeVersion=4.0.0</code></pre>
+    -DarchetypeVersion=4.1.0</code></pre>
 </div>
 <p>You will be asked for your project's groupId, artifactId, version and base package. Once finished, you will get a fully
     functional sample batch application that you can run with the following command:</p>
@@ -182,7 +182,7 @@
 <div class="bs-callout bs-callout-code">
     <pre><code class="bash">$>mvn compile exec:java -Dexec.mainClass=${your.base.package}.App</code></pre>
 </div>
-<p>where <code><em>${your.base.package}</em></code> is the value of the base package you were asked for when creating the project.
+<p>where <code><em>${your.base.package}</em></code> is the value of the base package you provided when creating the project.
 Here is an example of how you should proceed:</p>
 
 <div class="row">
@@ -325,7 +325,7 @@ $>mvn install</code></pre>
             <div class="subfooter">
                 <br>
                 <div class="col-md-4">
-                    <p>&copy; Easy Batch is created by <a href="http://www.mahmoud-benhassine.fr" target="_blank">Mahmoud Ben Hassine</a> <br>
+                    <p>&copy; Easy Batch is created by <a href="http://benas.github.io" target="_blank">Mahmoud Ben Hassine</a> <br>
                     and the <a href="https://github.com/EasyBatch/easybatch-framework#awesome-contributors" target="_blank">awesome contributors</a></p>
                 </div>
                 <div class="col-md-4 text-center">

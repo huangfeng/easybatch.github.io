@@ -2,14 +2,15 @@ org.easybatch.core.converter
 org.easybatch.core.dispatcher
 org.easybatch.core.field
 org.easybatch.core.filter
+org.easybatch.core.jmx
 org.easybatch.core.job
 org.easybatch.core.listener
 org.easybatch.core.mapper
 org.easybatch.core.marshaller
-org.easybatch.core.monitor
 org.easybatch.core.processor
 org.easybatch.core.reader
 org.easybatch.core.record
+org.easybatch.core.retry
 org.easybatch.core.util
 org.easybatch.core.validator
 org.easybatch.core.writer
@@ -18,6 +19,7 @@ org.easybatch.extensions.gson
 org.easybatch.extensions.hibernate
 org.easybatch.extensions.jackson
 org.easybatch.extensions.mongodb
+org.easybatch.extensions.msexcel
 org.easybatch.extensions.opencsv
 org.easybatch.extensions.quartz
 org.easybatch.extensions.spring
@@ -27,6 +29,7 @@ org.easybatch.jdbc
 org.easybatch.jms
 org.easybatch.jpa
 org.easybatch.json
+org.easybatch.tools.monitoring
 org.easybatch.tools.reporting
 org.easybatch.validation
 org.easybatch.xml

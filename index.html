@@ -92,7 +92,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 4.0.0</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 4.1.0</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -247,25 +247,31 @@
 <div class="row">
     <div class="col-md-6">
         <div class="bs-callout bs-callout-code">
-<pre><code class="java">JobBuilder.aNewJob()
+<pre><code class="java">Job job = JobBuilder.aNewJob()
     .reader(new FlatFileRecordReader("tweets.csv"))
     .filter(new HeaderRecordFilter())
     .mapper(new DelimitedRecordMapper(Tweet.class))
     .marshaller(new XmlRecordMarshaller(Tweet.class))
-    .writer(new FileRecordWriter("tweets.xml"))
-    .call();</code></pre>
+    .writer(new FileRecordWriter("tweets.xml")
+    .build();
+    
+JobReport report = JobExecutor.execute(job);
+</code></pre>
         </div>
     </div>
 
     <div class="col-md-6">
         <div class="bs-callout bs-callout-code">
 <pre><code class="java">Connection c = ..; // get a JDBC connection
-JobBuilder.aNewJob()
+Job job = JobBuilder.aNewJob()
     .reader(new JdbcRecordReader(c, "select * from tweet"))
     .mapper(new JdbcRecordMapper(Tweet.class))
     .marshaller(new DelimitedRecordMarshaller(Tweet.class))
-    .writer(new FileRecordWriter("tweets.csv"))
-    .call();</code></pre>
+    .writer(new FileRecordWriter("tweets.csv")
+    .build();
+    
+JobReport report = JobExecutor.execute(job);
+</code></pre>
         </div>
     </div>
 </div>
@@ -284,7 +290,10 @@ JobBuilder.aNewJob()
     <h2 class="title-divider"><span><i class="fa fa-rss"></i> Latest news</span></h2>
     <div class="row">
         <div class="col-md-8">
-            <h4>07/11/2015 - Release: Version 4.0.0 is finally here! <span class="new-tag">News</span> </h4>
+            <h4>31/07/2016 - Release: Version 4.1.0 is out <span class="new-tag">News</span> </h4>
+            <p class="text-justify">This new version is a frech update of the 4.0 release with new features and many bug fixes. See all changes <a href="https://github.com/EasyBatch/easybatch-framework/releases/tag/easybatch-4.1.0" target="_blank">here</a>.</p>
+
+            <h4>07/11/2015 - Release: Version 4.0.0 is finally here!</h4>
             <p class="text-justify">Easy Batch V4 is the best release ever! It brings a LOT of improvements to the framework. Many thanks to all contributors! See the complete change log <a href="https://github.com/EasyBatch/easybatch-framework/releases/tag/easybatch-4.0.0" target="_blank">here</a>.</p>
 
             <h4>09/08/2015 - Release: Version 3.1.0 is out!</h4>
@@ -399,7 +408,7 @@ JobBuilder.aNewJob()
             <div class="subfooter">
                 <br>
                 <div class="col-md-4">
-                    <p>&copy; Easy Batch is created by <a href="http://www.mahmoud-benhassine.fr" target="_blank">Mahmoud Ben Hassine</a> <br>
+                    <p>&copy; Easy Batch is created by <a href="http://benas.github.io" target="_blank">Mahmoud Ben Hassine</a> <br>
                     and the <a href="https://github.com/EasyBatch/easybatch-framework#awesome-contributors" target="_blank">awesome contributors</a></p>
                 </div>
                 <div class="col-md-4 text-center">
