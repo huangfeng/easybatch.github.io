@@ -92,7 +92,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 4.0.0</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 4.1.0</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -302,6 +302,16 @@ JobReport jobReport = executorService.submit(job).get();
 <p>JMX monitoring is disabled by default. You can find a complete tutorial about this feature in the
     <a href="https://github.com/EasyBatch/easybatch-tutorials/tree/master/src/main/java/org/easybatch/tutorials/advanced/jmx" target="_blank">JMX tutorial</a>.</p>
 
+<h3>Listening to JMX notifications</h3>
+
+<p>When you enable JMX mode, the job monitor will automatically send notifications about execution progress. In order to listen to these notifications, you need to:</p>
+
+<ul>
+    <li>Specify the JMX port on which the job monitor should send notifications. This can be done using the <code>com.sun.management.jmxremote.port</code> JVM parameter</li>
+    <li>Use a <code>JobMonitorProxy</code> with a <code>JobMonitoringListener</code> to handle notifications</li>
+</ul>
+
+<p>Easy Batch provides a simple command line listener called <code>CliJobMonitoringListener</code> in the <code>easybatch-tools</code> module. This listener will print execution progress to the standard output.</p>
         </div>
         <div class="tab-pane fade" id="job-scheduling">
             <h2>Schedule jobs</h2>
@@ -378,7 +388,7 @@ is that it allows you to schedule jobs without requiring any third party library
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-tools&lt;/artifactId&gt;
-    &lt;version&gt;4.0.0&lt;/version&gt;
+    &lt;version&gt;4.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -415,7 +425,7 @@ is that it allows you to schedule jobs without requiring any third party library
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-tools&lt;/artifactId&gt;
-    &lt;version&gt;4.0.0&lt;/version&gt;
+    &lt;version&gt;4.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -545,7 +555,7 @@ is that it allows you to schedule jobs without requiring any third party library
             <div class="subfooter">
                 <br>
                 <div class="col-md-4">
-                    <p>&copy; Easy Batch is created by <a href="http://www.mahmoud-benhassine.fr" target="_blank">Mahmoud Ben Hassine</a> <br>
+                    <p>&copy; Easy Batch is created by <a href="http://benas.github.io" target="_blank">Mahmoud Ben Hassine</a> <br>
                     and the <a href="https://github.com/EasyBatch/easybatch-framework#awesome-contributors" target="_blank">awesome contributors</a></p>
                 </div>
                 <div class="col-md-4 text-center">

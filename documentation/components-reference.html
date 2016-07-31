@@ -92,7 +92,7 @@
                 <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a>
 
                 <!--user menu-->
-                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 4.0.0</a> </div>
+                <div class="user-menu pull-right"> <a href="https://oss.sonatype.org/content/groups/public/org/easybatch/" title="Download Easy Batch from Maven central repository" class="btn btn-primary" target="_blank"><i class="fa fa-download"></i> version : 4.1.0</a> </div>
 
                 <!--everything within this div is collapsed on mobile-->
                 <div class="navbar-collapse collapse">
@@ -175,6 +175,7 @@
 <ul>
     <li>flat files (delimited and fixed length)</li>
     <li>xml and json files</li>
+    <li>MS Excel files</li>
     <li>in-memory strings</li>
     <li>databases</li>
     <li>JMS queues</li>
@@ -231,6 +232,12 @@
             <td>ApacheCommonCsvRecordReader</td>
             <td>ApacheCommonCsvRecord</td>
             <td>easybatch-apache-commons-csv</td>
+        </tr>
+        <tr>
+            <td>MS Excel file</td>
+            <td>MsExcelRecordReader</td>
+            <td>MsExcelRecord</td>
+            <td>easybatch-msexcel</td>
         </tr>
         <tr>
             <td>Xml stream</td>
@@ -294,7 +301,16 @@
 
 <h2>Considerations, hints and gotchas</h2>
 
-    <h5><span class="label label-warning">1. Hint:</span></h5>
+    <h5><span class="label label-warning">1. Hint:</span> How to handle data reading failure?</h5>
+    <p>Sometimes, the data source may be temporarily unavailable. In this case, the record reader will fail to read data and the job will be aborted. You can make the reader retry reading data using a <code>RetryPolicy</code>.</p>
+<div class="bs-callout bs-callout-code">
+<pre><code class="java">Job job = new JobBuilder()
+    <strong>.reader(new MyRecordReader(unreliableDataSource), new RetryPolicy(5, 1, SECONDS))</strong>
+    .build();</code></pre>
+</div>
+    <p>This will make the reader retries at most 5 times waiting one second between each attempt. If after 5 attempts the data source is still unreachable, the job will be aborted.</p>
+    
+    <h5><span class="label label-warning">2. Hint:</span></h5>
     <p>if your XML file in flattened (with no wrapping tag), let's say in this format:</p>
     <div class="bs-callout bs-callout-code">
 &lt;tweet&gt;&lt;id&gt;1&lt;/id&gt;&lt;user&gt;foo&lt;/user&gt;&lt;message&gt;Hello&lt;/message&gt;&lt;/tweet&gt;<br>
@@ -303,7 +319,7 @@
     </div>
     <p>you can use the <code><em>FlatFileRecordReader</em></code> that will read XML records line by line.</p>
 
-    <h5><span class="label label-primary">2. Heads up!</span></h5>
+    <h5><span class="label label-primary">3. Heads up!</span></h5>
     <p>The <code><em>JsonRecordReader</em></code> expects an array of JSON objects in the input file: [ {object1}, {object2}, ..., {objectN} ] .</p>
     <p>if your JSON file in flattened (no wrapping array), let's say in this format:</p>
 <div class="bs-callout bs-callout-code">
@@ -314,7 +330,7 @@
 
     <p>you can use the <code><em>FlatFileRecordReader</em></code> that will read JSON records line by line.</p>
 
-    <h5><span class="label label-danger">3. Performance note:</span></h5>
+    <h5><span class="label label-danger">4. Performance note:</span></h5>
     <p>Depending on your JDBC driver configuration, The <code><em>JdbcRecordReader</em></code> can (and should) stream records in chunks.
         You can set the <code><em>maxRows</em></code> and <code><em>fetchSize</em></code> parameters of the <code><em>JdbcRecordReader</em></code>
         to make sure large data sets are not loaded entirely in memory:</p>
@@ -325,12 +341,12 @@
         <li>For other databases, please refer to the documentation of the JDBC driver you use.</li>
     </ul>
 
-    <h5><span class="label label-danger">4. Performance note:</span></h5>
+    <h5><span class="label label-danger">5. Performance note:</span></h5>
     <p>The <code><em>JpaRecordReader</em></code> loads all data fetched by the JPQL query into a <code><em>java.util.List</em></code> object.
         You should pay attention to large data sets with the JPQL query you specify to the <code><em>JpaRecordReader</em></code>. You can specify the maximum number of rows
         to fetch using the <code><em>maxResults</em></code> parameter of the <code><em>JpaRecordReader</em></code>.</p>
 
-    <h5><span class="label label-danger">5. Performance note:</span></h5>
+    <h5><span class="label label-danger">6. Performance note:</span></h5>
     <p>The <code><em>HibernateRecordReader</em></code> uses the <code><em>org.hibernate.ScrollableResults</em></code> behind the scene to stream records in chunks.
         You can specify the fetch size and the maximum rows to fetch using the <code><em>fetchSize</em></code> and <code><em>maxResult</em></code> parameters.</p>
 
@@ -367,7 +383,6 @@
             <th>Data sink</th>
             <th>Writer</th>
             <th>Module</th>
-            <th>Expected type</th>
         </tr>
     </thead>
     <tbody>
@@ -375,67 +390,61 @@
             <td>Output stream</td>
             <td>OutputStreamRecordWriter</td>
             <td>easybatch-core</td>
-            <td>Record or Object</td>
         </tr>
         <tr>
             <td>Standard output</td>
             <td>StandardOutputRecordWriter</td>
             <td>easybatch-core</td>
-            <td>Record or Object</td>
         </tr>
         <tr>
             <td>File</td>
             <td>FileRecordWriter</td>
             <td>easybatch-core</td>
-            <td>Record or Object</td>
+        </tr>
+        <tr>
+            <td>MsExcel File</td>
+            <td>MsExcelRecordWriter</td>
+            <td>easybatch-msexcel</td>
         </tr>
         <tr>
             <td>String</td>
             <td>StringRecordWriter</td>
             <td>easybatch-core</td>
-            <td>Record or Object</td>
         </tr>
         <tr>
             <td>Collection</td>
             <td>CollectionRecordWriter</td>
             <td>easybatch-core</td>
-            <td>Record or Object</td>
         </tr>
         <tr>
             <td>Relational database</td>
             <td>JdbcRecordWriter</td>
             <td>easybatch-jdbc</td>
-            <td>Object</td>
         </tr>
         <tr>
             <td>Relational database</td>
             <td>JpaRecordWriter</td>
             <td>easybatch-jpa</td>
-            <td>Object</td>
         </tr>
         <tr>
             <td>Relational database</td>
             <td>HibernateRecordWriter</td>
             <td>easybatch-hibernate</td>
-            <td>Object</td>
         </tr>
         <tr>
             <td>NoSQL database</td>
             <td>MongoDBRecordWriter</td>
             <td>easybatch-mongodb</td>
-            <td>DBObject</td>
         </tr>
         <tr>
             <td>Jms Queue</td>
             <td>JmsQueueRecordWriter</td>
             <td>easybatch-jms</td>
-            <td>javax.jms.Message</td>
         </tr>
         <tr>
             <td>BlockingQueue</td>
             <td>BlockingQueueRecordWriter</td>
             <td>easybatch-core</td>
-            <td>Record or Object</td>
         </tr>
     </tbody>
 </table>
@@ -710,6 +719,12 @@ Without the <code><em>BatchFilter</em></code>, the first batch would contain 2 r
             <td>easybatch-mongodb</td>
             <td>Map mongodb records to Java objects using <a href="https://github.com/mongodb/morphia" target="_blank">Morphia</a></td>
         </tr>
+        <tr>
+            <td>MsExcelRecordMapper</td>
+            <td>MsExcelRecord</td>
+            <td>easybatch-msexcel</td>
+            <td>Map MsExcel records to Java objects using <a href="https://poi.apache.org/" target="_blank">Apache POI</a></td>
+        </tr>
     </tbody>
 </table>
 
@@ -763,7 +778,7 @@ Without the <code><em>BatchFilter</em></code>, the first batch would contain 2 r
     <h5><span class="label label-default">5. Note</span></h5>
     <p>Easy Batch does not provide support for JSON mapping yet.
         The goal is to use the reference implementation of <a href="https://jcp.org/en/jsr/detail?id=367" target="_blank">JSON-B</a>.
-        As of version 4.0.0, the reference implementation of JSON-B is not available yet.
+        As of version 4.1.0, the reference implementation of JSON-B is not available yet.
         Built-in support for JSON mapping will be provided as soon as the reference implementation of JSON-B will become available.
     </p>
 
@@ -795,7 +810,7 @@ Without the <code><em>BatchFilter</em></code>, the first batch would contain 2 r
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.easybatch&lt;/groupId&gt;
     &lt;artifactId&gt;easybatch-validation&lt;/artifactId&gt;
-    &lt;version&gt;4.0.0&lt;/version&gt;
+    &lt;version&gt;4.1.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 
@@ -879,6 +894,11 @@ Without the <code><em>BatchFilter</em></code>, the first batch would contain 2 r
             <td>JacksonRecordMarshaller</td>
             <td>easybatch-jackson</td>
             <td>marshals a POJO to Json format using <a href="https://github.com/FasterXML/jackson" target="_blank">Jacskon</a></td>
+        </tr>
+        <tr>
+            <td>MsExcelRecordMarshaller</td>
+            <td>easybatch-msexcel</td>
+            <td>marshals a POJO to MsExcel row using <a href="https://poi.apache.org/" target="_blank">Apache POI</a></td>
         </tr>
     </tbody>
 </table>
@@ -1413,7 +1433,7 @@ JobReport report = job.call();
             <div class="subfooter">
                 <br>
                 <div class="col-md-4">
-                    <p>&copy; Easy Batch is created by <a href="http://www.mahmoud-benhassine.fr" target="_blank">Mahmoud Ben Hassine</a> <br>
+                    <p>&copy; Easy Batch is created by <a href="http://benas.github.io" target="_blank">Mahmoud Ben Hassine</a> <br>
                     and the <a href="https://github.com/EasyBatch/easybatch-framework#awesome-contributors" target="_blank">awesome contributors</a></p>
                 </div>
                 <div class="col-md-4 text-center">
